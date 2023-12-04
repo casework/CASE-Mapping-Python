@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Dict
-from uuid import uuid4
 
+from cdo_local_uuid import local_uuid
 from pytz import timezone
 
 from ..base import FacetEntity, ObjectEntity, unpack_args_array
@@ -269,7 +269,7 @@ class FacetContentData(FacetEntity):
             }
 
         if hash_method is not None or hash_value is not None or hash_value != "-":
-            data = {"@id": str(uuid4()), "@type": "uco-types:Hash"}
+            data = {"@id": str(local_uuid()), "@type": "uco-types:Hash"}
             if hash_method is not None:
                 data["uco-types:hashMethod"] = {
                     "@type": "uco-vocabulary:HashNameVocab",
@@ -727,14 +727,14 @@ class FacetEXIF(FacetEntity):
         self["@type"] = "uco-observable:EXIFFacet"
 
         self["uco-observable:exifData"] = {
-            "@id": str(uuid4()),
+            "@id": str(local_uuid()),
             "@type": "uco-types:ControlledDictionary",
             "uco-types:entry": [],
         }
         for k, v in kwargs.items():
             if v not in ["", " "]:
                 item = {
-                    "@id": str(uuid4()),
+                    "@id": str(local_uuid()),
                     "@type": "uco-types:ControlledDictionaryEntry",
                     "uco-types:key": k,
                     "uco-types:value": v,
@@ -1216,7 +1216,7 @@ class FacetMessagethread(FacetEntity):
         self._node_reference_vars(**{"uco-observable:participant": participants})
 
         self["uco-observable:messageThread"] = {
-            "@id": str(uuid4()),
+            "@id": str(local_uuid()),
             "@type": "uco-types:Thread",
         }
 
