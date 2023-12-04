@@ -1,6 +1,7 @@
 import json
 from datetime import datetime
-from uuid import uuid4
+
+from cdo_local_uuid import local_uuid
 
 
 def unpack_args_array(func):
@@ -20,7 +21,7 @@ def unpack_args_array(func):
 
 class FacetEntity(dict):
     def __init__(self):
-        self["@id"] = str(uuid4())
+        self["@id"] = str(local_uuid())
 
     def __str__(self):
         return json.dumps(self, indent=4)

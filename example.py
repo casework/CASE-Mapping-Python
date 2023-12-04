@@ -1,6 +1,13 @@
 from datetime import datetime, timezone
 
+import cdo_local_uuid
+
 from case_mapping import case, uco
+
+# This is part of enabling non-random UUIDs for the demonstration
+# output.  The other part is handled at call time, and can be seen in
+# the documentation for cdo_local_uuid._demo_uuid().
+cdo_local_uuid.configure()
 
 # Generate a case bundle and list to hold investigation items
 bundle = uco.core.Bundle(description="An Example Case File")
