@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import cdo_local_uuid
 
@@ -8,6 +8,20 @@ from case_mapping import case, uco
 # output.  The other part is handled at call time, and can be seen in
 # the documentation for cdo_local_uuid._demo_uuid().
 cdo_local_uuid.configure()
+
+_current_timestamp_count = 0
+
+
+def _next_timestamp() -> datetime:
+    """
+    This example previously used datetime.now(timezone.utc) to generate timestamps.  This function instead creates a fixed-value timestamp sequence, to reduce diff noise from timestamps when re-running the example script.
+    """
+    global _current_timestamp_count
+    base_timestamp = datetime(2023, 1, 1, 1, 1, 1, 1, timezone.utc)
+    base_delta = timedelta(minutes=1, seconds=1, microseconds=1)
+    _current_timestamp_count += 1
+    return base_timestamp + _current_timestamp_count * base_delta
+
 
 # Generate a case bundle and list to hold investigation items
 bundle = uco.core.Bundle(description="An Example Case File")
@@ -58,8 +72,8 @@ bundle.append_to_uco_object(cyber_item2)
 #######################################
 inv_act = case.investigation.InvestigativeAction(
     name="annotated",
-    end_time=datetime.now(timezone.utc),
-    start_time=datetime.now(timezone.utc),
+    start_time=_next_timestamp(),
+    end_time=_next_timestamp(),
 )
 investigation_items.append(inv_act)  # NOTE: Appending whole object not just id
 manufacturer_apple = uco.identity.Organization(name="Apple")
@@ -76,8 +90,8 @@ bundle.append_to_uco_object(inv_act)
 #############################################################
 inv_act9 = case.investigation.InvestigativeAction(
     name="annotated",
-    end_time=datetime.now(timezone.utc),
-    start_time=datetime.now(timezone.utc),
+    start_time=_next_timestamp(),
+    end_time=_next_timestamp(),
 )
 dummy_observable = uco.observable.ObservableObject(
     state="this is a dummy observable created as an example"
@@ -137,8 +151,8 @@ email_msg = uco.observable.FacetEmailMessage(
     msg_from=email_address_object_1,
     subject="Thoughts on Our Next Book Club Pick?",
     body="Hello fellow bookworms! It's that time again.",
-    received_time=datetime.now(timezone.utc),
-    sent_time=datetime.now(timezone.utc),
+    sent_time=_next_timestamp(),
+    received_time=_next_timestamp(),
     message_id="<1234567890@example.com>",
 )
 cyber_item3.append_facets(email_msg)
@@ -169,7 +183,7 @@ sms_msg = uco.observable.FacetMessage(
     msg_to=[phone_account_object, phone_account_object2],
     msg_from=phone_account_object,
     message_text="Are you free this weekend?",
-    sent_time=datetime.now(timezone.utc),
+    sent_time=_next_timestamp(),
     application=application_cyber_item,
 )
 cyber_item4.append_facets(sms_msg)
@@ -180,8 +194,9 @@ bundle.append_to_uco_object(cyber_item4, application_cyber_item)
 ############################
 identity = uco.identity.Identity()
 identity_name = uco.identity.FacetSimpleName(given_name="Davey", family_name="Jones")
+# (Example birthday: Roughly 30 years ago.)
 identity_birth = uco.identity.FacetBirthInformation(
-    birthdate=datetime.now(timezone.utc)
+    birthdate=_next_timestamp() - timedelta(days=10950),
 )
 identity.append_facets(identity_birth, identity_name)
 bundle.append_to_uco_object(identity)
