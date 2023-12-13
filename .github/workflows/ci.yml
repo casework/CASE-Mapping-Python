@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip -q install poetry pytz pre-commit
+          pip -q install poetry pre-commit
           poetry install
 
       - name: Pre-commit Checks
