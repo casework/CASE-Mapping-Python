@@ -4,6 +4,8 @@
 .vscode/
 
 # Python Environments
+.venv-pre-commit/
+.venv.done.log
 .venv/
 venv/
 
