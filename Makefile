@@ -71,7 +71,7 @@ all: \
 case.jsonld: \
   .venv.done.log \
   $(example_source_files)
-	export CASE_DEMO_NONRANDOM_UUID_BASE="$(top_srcdir)" \
+	export CDO_DEMO_NONRANDOM_UUID_BASE="$(top_srcdir)" \
 	  && source venv/bin/activate \
 	    && poetry run python example.py \
 	      > _$@
