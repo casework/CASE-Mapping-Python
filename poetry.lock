@@ -2,13 +2,13 @@
 
 [[package]]
 name = "cdo-local-uuid"
-version = "0.4.0"
+version = "0.5.0"
 description = "Python utility for optionally controlling UUID generation"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "cdo-local-uuid-0.4.0.tar.gz", hash = "sha256:0fd7827f8468121a46182bc9e6c9d33efb1ddba2ad8fbd7eb5a5f9841f2f3608"},
-    {file = "cdo_local_uuid-0.4.0-py3-none-any.whl", hash = "sha256:4d8a94cf13d75b12e3dfe1db01c5448efe07da1b21f88c941801881bdcbed0ae"},
+    {file = "cdo-local-uuid-0.5.0.tar.gz", hash = "sha256:536c481c597bdb0fd508765f9cf77ce0e30a5e8746c722e9f69bfe88ddfcf6f1"},
+    {file = "cdo_local_uuid-0.5.0-py3-none-any.whl", hash = "sha256:2ae77d45ee92e7773444a6d2ad55ca2be9466034db4af4ab8ad1bdbd791c016d"},
 ]
 
 [package.extras]
@@ -123,4 +123,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "f62ac720e99c50dfd8e22fe4b3424c55008b72dbc75a82a8577705d49bec913e"
+content-hash = "dc62b2e3d1ad0c272d37418ca7628a76895271406de439ca0fa0f45db304cc3c"
