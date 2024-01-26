@@ -58,6 +58,7 @@ all: \
 	touch $@
 
 .venv.done.log: \
+  .github/workflows/ci.yml \
   pyproject.toml
 	rm -rf venv
 	$(PYTHON3) -m venv \
