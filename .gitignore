@@ -9,6 +9,8 @@
 .venv/
 venv/
 
+*wpr
+*wpu
 # Build Artifacts
 build/
 dist/

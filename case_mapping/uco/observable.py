@@ -485,9 +485,51 @@ class FacetUrl(FacetEntity):
                 "uco-observable:userName": url_username,
             }
         )
-        self._int_vars(**{"uco-observable:port": url_port})
-
-
+        self._int_vars(**{"uco-observable:port": url_port})        
+        
+class FacetBrowserBookmark(FacetEntity):
+    def __init__(
+        self,
+        accessedTime=None,
+        application_id=None,
+        bookmarkPath=None,
+        modifiedTime=None,
+        createdTime=None,
+        urlTargeted_id=None,
+        visitCount=None
+    ):
+        """
+        This CASEObject represents a grouping of characteristics unique to a saved shortcut that directs a
+        WWW (World Wide Web) browser software program to a particular WWW accessible resource.
+        :param accessedTime: The date and time at which the Object was accessed (dateTime).
+        :param application_id: The application associated with this object (ObservableObject).
+        :param bookmarkPath: The folder containing the bookmark (string).
+        :param modifiedTime: The date and time at which the Object was last modified (dateTime).
+        :param createdTime: The date and time at which the observable object being characterized was created (dateTime).
+        :param urlTargeted_id: The target of the bookmark. (anyURI).
+        :param visitCount: Specifies the number of times a URL has been visited by a particular web browser (integer).
+        """
+        super().__init__()
+        self["@type"] = "uco-observable:BrowserBookmarkFacet"
+        self._str_vars(
+            **{
+                "observable:bookmarkPath": bookmarkPath
+            }
+        )
+        self._int_vars(
+            **{
+                "uco-observable:visitCount": visitCount
+            }
+        )
+        self._node_reference_vars(**{"uco-observable:application": application_id,
+                                     "uco-observable:urlTargeted": urlTargeted_id} )
+        self._datetime_vars(
+            **{
+                "uco-observable:observableCreatedTime": accessedTime,
+                "uco-observable:modifiedTime": modifiedTime,
+                "uco-observable:accessedTime": accessedTime
+            })      
+        
 class FacetRasterPicture(FacetEntity):
     def __init__(
         self,
