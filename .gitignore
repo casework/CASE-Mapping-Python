@@ -9,8 +9,13 @@
 .venv/
 venv/
 
+# Wing IDE
 *wpr
 *wpu
+
+__pycache__/
+*.pyc
+
 # Build Artifacts
 build/
 dist/
