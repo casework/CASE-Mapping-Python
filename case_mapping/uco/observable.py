@@ -1057,6 +1057,8 @@ class FacetEvent(FacetEntity):
         cyber_action=None,
         computer_name=None,
         created_time=None,
+        start_time=None,
+        end_time=None
     ):
         """
          An event facet is a grouping of characteristics unique to something that happens in a digital context
@@ -1065,10 +1067,12 @@ class FacetEvent(FacetEntity):
         :param event_text: The textual representation of the event.
         :param event_id: The identifier of the event.
         :param cyber_action: The action taken in response to the event.
-        :param computer_name: A name of the computer on which the log entry was created.
+        :param created_time: The date and time at which the observable object being characterized was created.
+        :param start_time: The date and time at which the observable object being characterized started.
+        :param end_time: The date and time at which the observable object being characterized ended.
         """
         super().__init__()
-        self["@type"] = "uco-observable:EventFacet"
+        self["@type"] = "uco-observable:EventRecordFacet"
         self._str_vars(
             **{
                 "uco-observable:eventType": event_type,
@@ -1078,7 +1082,8 @@ class FacetEvent(FacetEntity):
             }
         )
         self._node_reference_vars(**{"uco-observable:cyberAction": cyber_action})
-        self._datetime_vars(**{"uco-observable:observableCreatedTime": created_time})
+        self._datetime_vars(**{"uco-observable:startTime": start_time,
+                               "uco-observable:endTime": end_time})
 
 
 class ObservableRelationship(ObjectEntity):
