@@ -18,10 +18,10 @@ class Tool(ObjectEntity):
             **{
                 "uco-core:name": tool_name,
                 "uco-tool:version": tool_version,
-                "uco-tool:toolType": tool_type
+                "uco-tool:toolType": tool_type,
             }
         )
-        self._node_reference_vars(**{"uco-tool:creator": tool_creator} )        
+        self._node_reference_vars(**{"uco-tool:creator": tool_creator})
 
 
 directory = {"uco-tool:Tool": Tool}

@@ -485,8 +485,9 @@ class FacetUrl(FacetEntity):
                 "uco-observable:userName": url_username,
             }
         )
-        self._int_vars(**{"uco-observable:port": url_port})        
-        
+        self._int_vars(**{"uco-observable:port": url_port})
+
+
 class FacetBrowserBookmark(FacetEntity):
     def __init__(
         self,
@@ -496,7 +497,7 @@ class FacetBrowserBookmark(FacetEntity):
         modifiedTime=None,
         createdTime=None,
         urlTargeted_id=None,
-        visitCount=None
+        visitCount=None,
     ):
         """
         This CASEObject represents a grouping of characteristics unique to a saved shortcut that directs a
@@ -511,25 +512,23 @@ class FacetBrowserBookmark(FacetEntity):
         """
         super().__init__()
         self["@type"] = "uco-observable:BrowserBookmarkFacet"
-        self._str_vars(
+        self._str_vars(**{"observable:bookmarkPath": bookmarkPath})
+        self._int_vars(**{"uco-observable:visitCount": visitCount})
+        self._node_reference_vars(
             **{
-                "observable:bookmarkPath": bookmarkPath
+                "uco-observable:application": application_id,
+                "uco-observable:urlTargeted": urlTargeted_id,
             }
         )
-        self._int_vars(
-            **{
-                "uco-observable:visitCount": visitCount
-            }
-        )
-        self._node_reference_vars(**{"uco-observable:application": application_id,
-                                     "uco-observable:urlTargeted": urlTargeted_id} )
         self._datetime_vars(
             **{
                 "uco-observable:observableCreatedTime": accessedTime,
                 "uco-observable:modifiedTime": modifiedTime,
-                "uco-observable:accessedTime": accessedTime
-            })      
-        
+                "uco-observable:accessedTime": accessedTime,
+            }
+        )
+
+
 class FacetRasterPicture(FacetEntity):
     def __init__(
         self,
@@ -1058,7 +1057,7 @@ class FacetEvent(FacetEntity):
         computer_name=None,
         created_time=None,
         start_time=None,
-        end_time=None
+        end_time=None,
     ):
         """
          An event facet is a grouping of characteristics unique to something that happens in a digital context
@@ -1082,8 +1081,12 @@ class FacetEvent(FacetEntity):
             }
         )
         self._node_reference_vars(**{"uco-observable:cyberAction": cyber_action})
-        self._datetime_vars(**{"uco-observable:startTime": start_time,
-                               "uco-observable:endTime": end_time})
+        self._datetime_vars(
+            **{
+                "uco-observable:startTime": start_time,
+                "uco-observable:endTime": end_time,
+            }
+        )
 
 
 class ObservableRelationship(ObjectEntity):
