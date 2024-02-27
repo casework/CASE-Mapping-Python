@@ -53,14 +53,14 @@ def test_app_name():
     app_names = list()
     app_objects = list()
     app_1 = "Safari"
-    uuid_1 = "kb:" + uuid.uuid4()
+    uuid_1 = "kb:" + str(uuid.uuid4())
     check_app_name(app_1, app_names, app_objects, uuid_1)
     assert app_names == [app_1]
     app_2 = "Chrome"
-    uuid_2 = "kb:" + uuid.uuid4()
+    uuid_2 = "kb:" + str(uuid.uuid4())
     check_app_name(app_2, app_names, app_objects, uuid_2)
     assert app_names == [app_1, app_2]
-    uuid_3 = "kb:" + uuid.uuid4()
+    uuid_3 = "kb:" + str(uuid.uuid4())
     object_app = check_app_name(app_1, app_names, app_objects, uuid_3)
     assert object_app == {
         "@type": "uco-observable:ApplicationFacet",

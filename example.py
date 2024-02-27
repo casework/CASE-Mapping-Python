@@ -159,6 +159,48 @@ cyber_item3.append_facets(email_msg)
 bundle.append_to_uco_object(cyber_item3)
 
 
+###################################################
+#  Adding an FacetUrlHistory and aUrlHistoryEntry #
+###################################################
+url_object = uco.observable.ObservableObject()
+url_facet = uco.observable.FacetUrl(url_address="www.docker.com/howto")
+url_object.append_facets(url_facet)
+bundle.append_to_uco_object(url_object)
+
+url_date_expiration = datetime.strptime("2024-12-27T14:55:01", "%Y-%m-%dT%H:%M:%S")
+url_date_first = datetime.strptime("2024-01-02T15:55:01", "%Y-%m-%dT%H:%M:%S")
+url_date_last = datetime.strptime("2024-02-10T10:55:01", "%Y-%m-%dT%H:%M:%S")
+
+url_history_entry_object = uco.observable.ObservableObject()
+url_history_entry = uco.observable.UrlHistoryEntry(
+    browser_user_profile="Jill",
+    expiration_time=url_date_expiration,
+    first_visit=url_date_first,
+    host_name="case_test",
+    keyword_search_term="docker",
+    last_visit=url_date_last,
+    manually_entered_count=10,
+    page_title="Docker tutorial",
+    referrer_url=url_object,
+    url=url_object,
+    visit_count=18,
+)
+url_history_entry_object.append_facets(url_history_entry)
+bundle.append_to_uco_object(url_history_entry_object)
+
+browser_object = uco.observable.ObservableObject()
+browser_facet = uco.observable.FacetApplication(app_name="Safari")
+browser_object.append_facets(browser_facet)
+bundle.append_to_uco_object(browser_object)
+
+url_history_object = uco.observable.ObservableObject()
+url_history_facet = uco.observable.FacetUrlHistory(
+    browser=browser_object, history_entries=[url_history_entry_object]
+)
+url_history_object.append_facets(url_history_facet)
+bundle.append_to_uco_object(url_history_object)
+
+
 ############################
 #  Adding an SMS Account   #
 ############################
