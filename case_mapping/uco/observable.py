@@ -427,12 +427,7 @@ class UrlHistoryEntry(FacetEntity):
                 "uco-observable:keywordSearchTerm": keyword_search_term,
             }
         )
-        self._int_vars(
-            **{
-                "uco-observable:visitCount": visit_count,
-                "uco-observable:manuallyEnteredCount": manually_entered_count,
-            }
-        )
+        self._int_vars(**{"uco-observable:visitCount": visit_count})
         self._datetime_vars(
             **{
                 "uco-observable:firstVisit": first_visit,
@@ -446,6 +441,14 @@ class UrlHistoryEntry(FacetEntity):
                 "uco-observable:url": url,
             }
         )
+        # TODO AJN: This is one instance of xsd:nonNegativeInteger.
+        # I'm uncertain at the moment if there are other instances in
+        # the ontology requiring nonNegativeIntegers; if so, the
+        # FacetEntity class needs to have a helper function added.
+        self["uco-observable:manuallyEnteredCount"] = {
+            "@type": "xsd:nonNegativeInteger",
+            "@value": "%d" % manually_entered_count,
+        }
 
 
 class FacetUrl(FacetEntity):
