@@ -382,15 +382,16 @@ class FacetUrlHistory(FacetEntity):
         self["@type"] = "uco-observable:URLHistoryFacet"
         self._node_reference_vars(
             **{
-                'uco-observable:browserInformation': browser,
-                'uco-observable:urlHistoryEntry': history_entries,
+                "uco-observable:browserInformation": browser,
+                "uco-observable:urlHistoryEntry": history_entries,
             }
         )
 
 
 class UrlHistoryEntry(FacetEntity):
-    def __init__(self,
-                 browser_user_profile=None,
+    def __init__(
+        self,
+        browser_user_profile=None,
         expiration_time=None,
         first_visit=None,
         host_name=None,
@@ -399,19 +400,18 @@ class UrlHistoryEntry(FacetEntity):
         manually_entered_count=None,
         page_title=None,
         referrer_url=None,
-        url=None,                
+        url=None,
         visit_count=None,
-        ):
-
+    ):
         """
         :param browser_user_profile: The web browser user profile for which the URL history entry was created.
         :param expiration_time: The date and time at which the validity of the object expires.
         :param first_visit: The date/time that the URL referred to by the URL field was first visited.
         :param host_name: The hostname of the system.
         :param keyword_search_term: The string representing a keyword search term contained within the URL field.
-        :param last_visit: The date/time that the URL referred to by the URL field was last visited.       
-        :param manually_entered_count: The number of times the URL referred to by the URL field was manually entered into the browser's address field by the user. 
-        :param page_title: The title of a web page        
+        :param last_visit: The date/time that the URL referred to by the URL field was last visited.
+        :param manually_entered_count: The number of times the URL referred to by the URL field was manually entered into the browser's address field by the user.
+        :param page_title: The title of a web page
         :param referrer_url: The origination point (i.e., URL) of a URL request.
         :param url: An observable object with a URLFacet.
         :param visit_count:  The number of times a URL has been visited by a particular web browser.
@@ -421,30 +421,30 @@ class UrlHistoryEntry(FacetEntity):
         self["@type"] = "uco-observable:URLHistoryEntry"
         self._str_vars(
             **{
-                    "uco-observable:browserUserProfile": browser_user_profile,
-                    "uco-observable:hostname": host_name,
-                    "uco-observable:pageTitle": page_title,
-                    "uco-observable:keywordSearchTerm": keyword_search_term,
-                }
+                "uco-observable:browserUserProfile": browser_user_profile,
+                "uco-observable:hostname": host_name,
+                "uco-observable:pageTitle": page_title,
+                "uco-observable:keywordSearchTerm": keyword_search_term,
+            }
         )
         self._int_vars(
             **{
-                    "uco-observable:visitCount": visit_count,
-                    "uco-observable:manuallyEnteredCount": manually_entered_count,
-                }
+                "uco-observable:visitCount": visit_count,
+                "uco-observable:manuallyEnteredCount": manually_entered_count,
+            }
         )
         self._datetime_vars(
             **{
-                    "uco-observable:firstVisit": first_visit,
-                    "uco-observable:lastVisit": last_visit,
-                    "uco-observable:expirationTime": expiration_time,
-                }
+                "uco-observable:firstVisit": first_visit,
+                "uco-observable:lastVisit": last_visit,
+                "uco-observable:expirationTime": expiration_time,
+            }
         )
         self._node_reference_vars(
             **{
-                    "uco-observable:ble:referrerUrl": referrer_url,
-                    "uco-observable:url": url,
-                }
+                "uco-observable:ble:referrerUrl": referrer_url,
+                "uco-observable:url": url,
+            }
         )
 
 
