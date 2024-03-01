@@ -21,7 +21,7 @@ def unpack_args_array(func):
 
 class FacetEntity(dict):
     def __init__(self):
-        self["@id"] = str(local_uuid())
+        self["@id"] = "kb:" + str(local_uuid())
 
     def __str__(self):
         return json.dumps(self, indent=4)
