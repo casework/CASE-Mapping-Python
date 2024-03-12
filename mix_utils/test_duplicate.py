@@ -4,7 +4,9 @@ from typing import Any, Union
 import utils
 
 
-def check_app_name(app_name, app_names, app_objects, uuid):
+def check_app_name(
+    app_name: str, app_names: list[str], app_objects: list[dict[str, Any]], uuid: str
+) -> dict[str, Any]:
     # c_check = utils.CheckDuplicate()
     observable_app = utils.check_value(
         app_name,
@@ -17,7 +19,13 @@ def check_app_name(app_name, app_names, app_objects, uuid):
     return observable_app
 
 
-def check_geo_coordinates(latitude, longitude, geo_coordinates, geo_objects, uuid):
+def check_geo_coordinates(
+    latitude: float,
+    longitude: float,
+    geo_coordinates: list[str],
+    geo_objects: list[dict[str, Any]],
+    uuid: str,
+) -> dict[str, Any]:
     # c_check = utils.CheckDuplicate()
     observable_app = utils.check_value(
         latitude,
@@ -31,7 +39,7 @@ def check_geo_coordinates(latitude, longitude, geo_coordinates, geo_objects, uui
     return observable_app
 
 
-def generateTraceAppName(app_name, uuid):
+def generateTraceAppName(app_name: str, uuid: str) -> dict[str, Any]:
     observable = {
         "@type": "uco-observable:ApplicationFacet",
         "@id": uuid,
@@ -52,9 +60,9 @@ def generateTraceLocationCoordinate(
     return observable
 
 
-def test_app_name():
-    app_names = list()
-    app_objects = list()
+def test_app_name() -> None:
+    app_names: list[str] = list()
+    app_objects: list[dict[str, Any]] = list()
     app_1 = "Safari"
     uuid_1 = "kb:" + str(uuid.uuid4())
     check_app_name(app_1, app_names, app_objects, uuid_1)
@@ -85,9 +93,9 @@ def test_app_name():
     ]
 
 
-def test_geo_coordinates():
-    geo_coordinates = list()
-    geo_objects = list()
+def test_geo_coordinates() -> None:
+    geo_coordinates: list[str] = list()
+    geo_objects: list[dict[str, Any]] = list()
     (lat_1, long_1, uuid_1) = (56.47267913, -71.17069244, "kb:" + str(uuid.uuid4()))
     check_geo_coordinates(lat_1, long_1, geo_coordinates, geo_objects, uuid_1)
     # print(f"\n 1) FT geo_coordinates={geo_coordinates}")
