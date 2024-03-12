@@ -31,7 +31,7 @@ jobs:
         run: pre-commit run --all-files
 
       - name: Unit Tests
-        run: poetry run pytest
+        run: poetry run pytest --doctest-modules
 
       - name: Run Example
         run: poetry run python example.py > case.jsonld
