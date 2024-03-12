@@ -1,4 +1,5 @@
 import uuid
+from typing import Any, Union
 
 import utils
 
@@ -39,12 +40,14 @@ def generateTraceAppName(app_name, uuid):
     return observable
 
 
-def generateTraceLocationCoordinate(latitude, longitude, uuid):
+def generateTraceLocationCoordinate(
+    latitude: Union[float, str], longitude: Union[float, str], uuid: str
+) -> dict[str, Any]:
     observable = {
         "@type": "uco-location:LatLongCoordinatesFacet",
         "@id": uuid,
-        "uco-location:latitude": {"@type": "xsd:decimal", "@value": latitude},
-        "uco-location:longitude": {"@type": "xsd:decimal", "@value": longitude},
+        "uco-location:latitude": {"@type": "xsd:decimal", "@value": str(latitude)},
+        "uco-location:longitude": {"@type": "xsd:decimal", "@value": str(longitude)},
     }
     return observable
 
@@ -104,8 +107,8 @@ def test_geo_coordinates():
     assert geo_object == {
         "@type": "uco-location:LatLongCoordinatesFacet",
         "@id": uuid_1,
-        "uco-location:latitude": {"@type": "xsd:decimal", "@value": lat_1},
-        "uco-location:longitude": {"@type": "xsd:decimal", "@value": long_1},
+        "uco-location:latitude": {"@type": "xsd:decimal", "@value": str(lat_1)},
+        "uco-location:longitude": {"@type": "xsd:decimal", "@value": str(long_1)},
     }
     # print(f"\n 3) FT geo_coordinates={geo_coordinates}")
     assert geo_coordinates == [
@@ -122,13 +125,13 @@ def test_geo_coordinates():
         {
             "@type": "uco-location:LatLongCoordinatesFacet",
             "@id": uuid_1,
-            "uco-location:latitude": {"@type": "xsd:decimal", "@value": lat_1},
-            "uco-location:longitude": {"@type": "xsd:decimal", "@value": long_1},
+            "uco-location:latitude": {"@type": "xsd:decimal", "@value": str(lat_1)},
+            "uco-location:longitude": {"@type": "xsd:decimal", "@value": str(long_1)},
         },
         {
             "@type": "uco-location:LatLongCoordinatesFacet",
             "@id": uuid_2,
-            "uco-location:latitude": {"@type": "xsd:decimal", "@value": lat_2},
-            "uco-location:longitude": {"@type": "xsd:decimal", "@value": long_2},
+            "uco-location:latitude": {"@type": "xsd:decimal", "@value": str(lat_2)},
+            "uco-location:longitude": {"@type": "xsd:decimal", "@value": str(long_2)},
         },
     ]
