@@ -1,11 +1,14 @@
 import uuid
+from typing import Any, Union
 
-import utils
+from case_mapping import mix_utils
 
 
-def check_app_name(app_name, app_names, app_objects, uuid):
-    # c_check = utils.CheckDuplicate()
-    observable_app = utils.check_value(
+def check_app_name(
+    app_name: str, app_names: list[str], app_objects: list[dict[str, Any]], uuid: str
+) -> dict[str, Any]:
+    # c_check = mix_utils.CheckDuplicate()
+    observable_app = mix_utils.check_value(
         app_name,
         uuid,
         value=app_name,
@@ -16,9 +19,15 @@ def check_app_name(app_name, app_names, app_objects, uuid):
     return observable_app
 
 
-def check_geo_coordinates(latitude, longitude, geo_coordinates, geo_objects, uuid):
-    # c_check = utils.CheckDuplicate()
-    observable_app = utils.check_value(
+def check_geo_coordinates(
+    latitude: float,
+    longitude: float,
+    geo_coordinates: list[str],
+    geo_objects: list[dict[str, Any]],
+    uuid: str,
+) -> dict[str, Any]:
+    # c_check = mix_utils.CheckDuplicate()
+    observable_app = mix_utils.check_value(
         latitude,
         longitude,
         uuid,
@@ -30,7 +39,7 @@ def check_geo_coordinates(latitude, longitude, geo_coordinates, geo_objects, uui
     return observable_app
 
 
-def generateTraceAppName(app_name, uuid):
+def generateTraceAppName(app_name: str, uuid: str) -> dict[str, Any]:
     observable = {
         "@type": "uco-observable:ApplicationFacet",
         "@id": uuid,
@@ -39,19 +48,21 @@ def generateTraceAppName(app_name, uuid):
     return observable
 
 
-def generateTraceLocationCoordinate(latitude, longitude, uuid):
+def generateTraceLocationCoordinate(
+    latitude: Union[float, str], longitude: Union[float, str], uuid: str
+) -> dict[str, Any]:
     observable = {
         "@type": "uco-location:LatLongCoordinatesFacet",
         "@id": uuid,
-        "uco-location:latitude": {"@type": "xsd:decimal", "@value": latitude},
-        "uco-location:longitude": {"@type": "xsd:decimal", "@value": longitude},
+        "uco-location:latitude": {"@type": "xsd:decimal", "@value": str(latitude)},
+        "uco-location:longitude": {"@type": "xsd:decimal", "@value": str(longitude)},
     }
     return observable
 
 
-def test_app_name():
-    app_names = list()
-    app_objects = list()
+def test_app_name() -> None:
+    app_names: list[str] = list()
+    app_objects: list[dict[str, Any]] = list()
     app_1 = "Safari"
     uuid_1 = "kb:" + str(uuid.uuid4())
     check_app_name(app_1, app_names, app_objects, uuid_1)
@@ -82,9 +93,9 @@ def test_app_name():
     ]
 
 
-def test_geo_coordinates():
-    geo_coordinates = list()
-    geo_objects = list()
+def test_geo_coordinates() -> None:
+    geo_coordinates: list[str] = list()
+    geo_objects: list[dict[str, Any]] = list()
     (lat_1, long_1, uuid_1) = (56.47267913, -71.17069244, "kb:" + str(uuid.uuid4()))
     check_geo_coordinates(lat_1, long_1, geo_coordinates, geo_objects, uuid_1)
     # print(f"\n 1) FT geo_coordinates={geo_coordinates}")
@@ -104,8 +115,8 @@ def test_geo_coordinates():
     assert geo_object == {
         "@type": "uco-location:LatLongCoordinatesFacet",
         "@id": uuid_1,
-        "uco-location:latitude": {"@type": "xsd:decimal", "@value": lat_1},
-        "uco-location:longitude": {"@type": "xsd:decimal", "@value": long_1},
+        "uco-location:latitude": {"@type": "xsd:decimal", "@value": str(lat_1)},
+        "uco-location:longitude": {"@type": "xsd:decimal", "@value": str(long_1)},
     }
     # print(f"\n 3) FT geo_coordinates={geo_coordinates}")
     assert geo_coordinates == [
@@ -122,13 +133,13 @@ def test_geo_coordinates():
         {
             "@type": "uco-location:LatLongCoordinatesFacet",
             "@id": uuid_1,
-            "uco-location:latitude": {"@type": "xsd:decimal", "@value": lat_1},
-            "uco-location:longitude": {"@type": "xsd:decimal", "@value": long_1},
+            "uco-location:latitude": {"@type": "xsd:decimal", "@value": str(lat_1)},
+            "uco-location:longitude": {"@type": "xsd:decimal", "@value": str(long_1)},
         },
         {
             "@type": "uco-location:LatLongCoordinatesFacet",
             "@id": uuid_2,
-            "uco-location:latitude": {"@type": "xsd:decimal", "@value": lat_2},
-            "uco-location:longitude": {"@type": "xsd:decimal", "@value": long_2},
+            "uco-location:latitude": {"@type": "xsd:decimal", "@value": str(lat_2)},
+            "uco-location:longitude": {"@type": "xsd:decimal", "@value": str(long_2)},
         },
     ]
