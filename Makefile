@@ -34,6 +34,9 @@ all: \
   .venv-pre-commit/var/.pre-commit-built.log \
   case.jsonld
 
+.PHONY: \
+  check-mypy
+
 # This virtual environment is meant to be built once and then persist, even through 'make clean'.
 # If a recipe is written to remove this flag file, it should first run `pre-commit uninstall`.
 .venv-pre-commit/var/.pre-commit-built.log:
@@ -82,6 +85,15 @@ case.jsonld: \
 	mv _$@ $@
 
 check: \
-  all
+  all \
+  check-mypy
 	source venv/bin/activate \
 	  && poetry run pytest
+
+check-mypy: \
+  .venv.done.log
+	source venv/bin/activate \
+	  && mypy \
+	    case_mapping \
+	    example.py \
+	    tests

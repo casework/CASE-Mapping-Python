@@ -23,7 +23,9 @@ python = "^3.9"
 pytz = "^2023.3.post1"
 
 [tool.poetry.dev-dependencies]
+mypy = "^1"
 pytest = "^7.4.2"
+types-pytz = "^2024"
 
 [build-system]
 requires = ["poetry-core"]

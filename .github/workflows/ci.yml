@@ -30,6 +30,9 @@ jobs:
       - name: Pre-commit Checks
         run: pre-commit run --all-files
 
+      - name: Type Checking
+        run: poetry run mypy case_mapping example.py tests
+
       - name: Unit Tests
         run: poetry run pytest
 
