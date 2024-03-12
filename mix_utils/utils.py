@@ -1,8 +1,8 @@
-from typing import Callable
+from typing import Any, Callable
 
 
 def check_value(
-    *args: tuple[str, ...],
+    *args: Any,
     value: str,
     list_values: list[str],
     list_objects: list[dict],
