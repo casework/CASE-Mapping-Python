@@ -19,3 +19,4 @@ __pycache__/
 # Build Artifacts
 build/
 dist/
+case.ttl
