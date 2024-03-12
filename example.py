@@ -5,7 +5,7 @@ import cdo_local_uuid
 from case_mapping import case, uco
 
 # This is part of enabling non-random UUIDs for the demonstration
-# output.  The other part is handled at call time, and can be seen in
+# output. The other part is handled at call time, and can be seen in
 # the documentation for cdo_local_uuid._demo_uuid().
 cdo_local_uuid.configure()
 
@@ -14,7 +14,10 @@ _current_timestamp_count = 0
 
 def _next_timestamp() -> datetime:
     """
-    This example previously used datetime.now(timezone.utc) to generate timestamps.  This function instead creates a fixed-value timestamp sequence, to reduce diff noise from timestamps when re-running the example script.
+    This example previously used datetime.now(timezone.utc) to generate
+    timestamps. This function instead creates a fixed-value timestamp
+    sequence, to reduce diff noise from timestamps when re-running the
+    example script.
     """
     global _current_timestamp_count
     base_timestamp = datetime(2023, 1, 1, 1, 1, 1, 1, timezone.utc)
@@ -118,7 +121,7 @@ cyber_rel1.append_facets(path_rel1)
 bundle.append_to_uco_object(cyber_rel1)
 
 ##############################
-#  Adding an Email Account   #  # NOTE: Changes here compared to previous version
+# Adding an Email Account    #
 ##############################
 email_address_object_1 = uco.observable.ObservableObject()
 email_address_1 = uco.observable.FacetEmailAddress(
@@ -157,6 +160,63 @@ email_msg = uco.observable.FacetEmailMessage(
 )
 cyber_item3.append_facets(email_msg)
 bundle.append_to_uco_object(cyber_item3)
+
+
+###################################################
+#  Adding an FacetUrlHistory and aUrlHistoryEntry #
+###################################################
+url_object = uco.observable.ObservableObject()
+url_facet = uco.observable.FacetUrl(url_address="www.docker.com/howto")
+url_object.append_facets(url_facet)
+bundle.append_to_uco_object(url_object)
+
+browser_object = uco.observable.ObservableObject()
+browser_facet = uco.observable.FacetApplication(app_name="Safari")
+browser_object.append_facets(browser_facet)
+bundle.append_to_uco_object(browser_object)
+
+url_date_expiration = datetime.strptime("2024-12-27T14:55:01", "%Y-%m-%dT%H:%M:%S")
+url_date_first = datetime.strptime("2024-01-02T15:55:01", "%Y-%m-%dT%H:%M:%S")
+url_date_last = datetime.strptime("2024-02-10T10:55:01", "%Y-%m-%dT%H:%M:%S")
+
+history_entries = []
+history_entry_1 = {
+    "uco-observable:browserUserProfile": "Jill",
+    "uco-observable:expirationTime": url_date_expiration,
+    "uco-observable:firstVisit": url_date_first,
+    "uco-observable:hostname": "case_test",
+    "uco-observable:keywordSearchTerm": "docker",
+    "uco-observable:lastVisit": url_date_last,
+    "uco-observable:manuallyEnteredCount": 10,
+    "uco-observable:pageTitle": "Docker tutorial",
+    "uco-observable:referrerUrl": url_object,
+    "uco-observable:url": url_object,
+    "uco-observable:visitCount": 18,
+}
+history_entry_2 = {
+    "uco-observable:browserUserProfile": "Tamasin",
+    "uco-observable:expirationTime": url_date_expiration,
+    "uco-observable:firstVisit": url_date_first,
+    "uco-observable:hostname": "case_test",
+    "uco-observable:keywordSearchTerm": "git actions",
+    "uco-observable:lastVisit": url_date_last,
+    "uco-observable:manuallyEnteredCount": 21,
+    "uco-observable:pageTitle": "GitHub actions tutorial",
+    "uco-observable:referrerUrl": url_object,
+    "uco-observable:url": url_object,
+    "uco-observable:visitCount": 38,
+}
+
+url_history_entry_object = uco.observable.ObservableObject()
+
+history_entries.append(history_entry_1)
+history_entries.append(history_entry_2)
+url_history_facet = uco.observable.FacetUrlHistory(
+    browser=browser_object, history_entries=history_entries
+)
+
+url_history_entry_object.append_facets(url_history_facet)
+bundle.append_to_uco_object(url_history_entry_object)
 
 
 ############################

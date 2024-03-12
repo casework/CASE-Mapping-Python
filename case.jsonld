@@ -295,8 +295,8 @@
             "uco-core:hasFacet": [
                 {
                     "@id": "0f0b71e7-39a8-5249-83a5-b52888d5c8b7",
-                    "@type": "uco-observable:PhoneAccountFacet",
-                    "uco-observable:phoneNumber": "123456"
+                    "@type": "uco-observable:URLFacet",
+                    "uco-observable:fullValue": "www.docker.com/howto"
                 }
             ]
         },
@@ -306,8 +306,8 @@
             "uco-core:hasFacet": [
                 {
                     "@id": "d5797860-8d73-5a53-a6fc-660a4e8c64e2",
-                    "@type": "uco-observable:PhoneAccountFacet",
-                    "uco-observable:phoneNumber": "987654"
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-core:name": "Safari"
                 }
             ]
         },
@@ -316,7 +316,106 @@
             "@type": "uco-observable:ObservableObject",
             "uco-core:hasFacet": [
                 {
-                    "@id": "5860f49a-8471-5984-9610-402672d63f56",
+                    "@id": "697d25c6-00bd-571e-aebd-5a96e34ea4b5",
+                    "@type": "uco-observable:URLHistoryFacet",
+                    "uco-observable:browserInformation": {
+                        "@id": "9af4324d-cb7b-54d7-aba4-95714396435e"
+                    },
+                    "uco-observable:urlHistoryEntry": [
+                        {
+                            "@id": "641fc5c4-49a3-573e-bdb2-d6d8dc000fee",
+                            "@type": "uco-observable:URLHistoryEntry",
+                            "uco-observable:browserUserProfile": "Jill",
+                            "uco-observable:expirationTime": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-12-27T14:55:01+00:00"
+                            },
+                            "uco-observable:firstVisit": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-01-02T15:55:01+00:00"
+                            },
+                            "uco-observable:hostname": "case_test",
+                            "uco-observable:keywordSearchTerm": "docker",
+                            "uco-observable:lastVisit": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-02-10T10:55:01+00:00"
+                            },
+                            "uco-observable:manuallyEnteredCount": {
+                                "@type": "xsd:nonNegativeInteger",
+                                "@value": "10"
+                            },
+                            "uco-observable:pageTitle": "Docker tutorial",
+                            "uco-observable:url": {
+                                "@id": "41bc2540-fdd8-5753-864c-00a5de7d0d2e"
+                            },
+                            "uco-observable:visitCount": {
+                                "@type": "xsd:integer",
+                                "@value": "18"
+                            }
+                        },
+                        {
+                            "@id": "5860f49a-8471-5984-9610-402672d63f56",
+                            "@type": "uco-observable:URLHistoryEntry",
+                            "uco-observable:browserUserProfile": "Tamasin",
+                            "uco-observable:expirationTime": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-12-27T14:55:01+00:00"
+                            },
+                            "uco-observable:firstVisit": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-01-02T15:55:01+00:00"
+                            },
+                            "uco-observable:hostname": "case_test",
+                            "uco-observable:keywordSearchTerm": "git actions",
+                            "uco-observable:lastVisit": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-02-10T10:55:01+00:00"
+                            },
+                            "uco-observable:manuallyEnteredCount": {
+                                "@type": "xsd:nonNegativeInteger",
+                                "@value": "21"
+                            },
+                            "uco-observable:pageTitle": "GitHub actions tutorial",
+                            "uco-observable:url": {
+                                "@id": "41bc2540-fdd8-5753-864c-00a5de7d0d2e"
+                            },
+                            "uco-observable:visitCount": {
+                                "@type": "xsd:integer",
+                                "@value": "38"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "@id": "6e0ac6ce-6afc-58c6-b4b6-501fa5de2699",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "00f08d34-2abd-53e3-b758-cd5ba00300c9",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "123456"
+                }
+            ]
+        },
+        {
+            "@id": "3d6f634e-7c5d-5ff8-b996-8d738bb2793a",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "17525359-a042-5503-ad5f-f8f9bcd53472",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "987654"
+                }
+            ]
+        },
+        {
+            "@id": "1c09087a-0577-5025-a23b-c3e0155a5bf7",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "0336f3a3-ff74-5e34-97bb-14534316f393",
                     "@type": "uco-observable:MessageFacet",
                     "uco-observable:messageText": "Are you free this weekend?",
                     "uco-observable:sentTime": {
@@ -324,39 +423,39 @@
                         "@value": "2023-01-01T01:08:08.000008+00:00"
                     },
                     "uco-observable:from": {
-                        "@id": "41bc2540-fdd8-5753-864c-00a5de7d0d2e"
+                        "@id": "6e0ac6ce-6afc-58c6-b4b6-501fa5de2699"
                     },
                     "uco-observable:to": [
                         {
-                            "@id": "41bc2540-fdd8-5753-864c-00a5de7d0d2e"
+                            "@id": "6e0ac6ce-6afc-58c6-b4b6-501fa5de2699"
                         },
                         {
-                            "@id": "9af4324d-cb7b-54d7-aba4-95714396435e"
+                            "@id": "3d6f634e-7c5d-5ff8-b996-8d738bb2793a"
                         }
                     ],
                     "uco-observable:application": {
-                        "@id": "697d25c6-00bd-571e-aebd-5a96e34ea4b5"
+                        "@id": "80c8f41b-e720-51db-b650-1df11b5f2acb"
                     }
                 }
             ]
         },
         {
-            "@id": "697d25c6-00bd-571e-aebd-5a96e34ea4b5",
+            "@id": "80c8f41b-e720-51db-b650-1df11b5f2acb",
             "@type": "uco-observable:ObservableObject",
             "uco-core:hasFacet": [
                 {
-                    "@id": "641fc5c4-49a3-573e-bdb2-d6d8dc000fee",
+                    "@id": "35fb4ae9-6e55-59b7-a797-6aff1494a314",
                     "@type": "uco-observable:ApplicationFacet",
                     "uco-core:name": "WhatsApp"
                 }
             ]
         },
         {
-            "@id": "6e0ac6ce-6afc-58c6-b4b6-501fa5de2699",
+            "@id": "6d5906a1-df3f-5aa3-8c0d-c76c570d8b96",
             "@type": "uco-identity:Identity",
             "uco-core:hasFacet": [
                 {
-                    "@id": "3d6f634e-7c5d-5ff8-b996-8d738bb2793a",
+                    "@id": "742d8932-3fe2-5c0f-afc4-9dd2e20533e3",
                     "@type": "uco-identity:BirthInformationFacet",
                     "uco-identity:birthdate": {
                         "@type": "xsd:dateTime",
@@ -364,7 +463,7 @@
                     }
                 },
                 {
-                    "@id": "00f08d34-2abd-53e3-b758-cd5ba00300c9",
+                    "@id": "24cd8876-1c97-5fce-9976-8733f6e901f6",
                     "@type": "uco-identity:SimpleNameFacet",
                     "uco-identity:givenName": "Davey",
                     "uco-identity:familyName": "Jones"
@@ -372,11 +471,11 @@
             ]
         },
         {
-            "@id": "17525359-a042-5503-ad5f-f8f9bcd53472",
+            "@id": "32599b39-84d2-5471-9452-c494171897fd",
             "@type": "uco-location:Location",
             "uco-core:hasFacet": [
                 {
-                    "@id": "1c09087a-0577-5025-a23b-c3e0155a5bf7",
+                    "@id": "6f716a17-3a29-513a-9e21-8bf6112c1d50",
                     "@type": "uco-location:LatLongCoordinatesFacet",
                     "uco-location:latitude": {
                         "@type": "xsd:decimal",
@@ -390,7 +489,7 @@
             ]
         },
         {
-            "@id": "80c8f41b-e720-51db-b650-1df11b5f2acb",
+            "@id": "3344007e-c9c4-5437-9766-4001fc9f3af5",
             "@type": "case-investigation:Investigation",
             "uco-core:name": "Crime A",
             "case-investigation:focus": "Transfer of Illicit Materials",
@@ -510,7 +609,7 @@
             ]
         },
         {
-            "@id": "0336f3a3-ff74-5e34-97bb-14534316f393",
+            "@id": "bb9cd337-eb51-50dd-9cee-00f9e9acbf94",
             "@type": "uco-observable:Message",
             "uco-observable:state": "some state",
             "uco-observable:hasChanged": {
@@ -521,45 +620,45 @@
             "olo:slot": null,
             "uco-core:hasFacet": [
                 {
-                    "@id": "6d5906a1-df3f-5aa3-8c0d-c76c570d8b96",
+                    "@id": "73af707b-f00e-5327-8fd4-83467b4441c4",
                     "@type": "uco-observable:MessageFacet"
                 }
             ]
         },
         {
-            "@id": "24cd8876-1c97-5fce-9976-8733f6e901f6",
+            "@id": "7c4d5cff-deb0-5031-b881-c572d6ef2fd7",
             "@type": "uco-observable:Message",
             "olo:length": null,
             "olo:slot": null,
             "uco-core:hasFacet": [
                 {
-                    "@id": "742d8932-3fe2-5c0f-afc4-9dd2e20533e3",
+                    "@id": "551338f3-0bb6-5325-a63a-f164f8750a17",
                     "@type": "uco-observable:MessageFacet"
                 }
             ]
         },
         {
-            "@id": "32599b39-84d2-5471-9452-c494171897fd",
+            "@id": "09b10c04-d04b-5808-a1b6-0392dd3a00e8",
             "@type": "uco-observable:Message",
             "olo:length": null,
             "olo:slot": null,
             "uco-core:hasFacet": [
                 {
-                    "@id": "6f716a17-3a29-513a-9e21-8bf6112c1d50",
+                    "@id": "a19e1e1f-3953-5fb9-92b6-2b46f85752b2",
                     "@type": "uco-observable:MessageFacet"
                 }
             ]
         },
         {
-            "@id": "35fb4ae9-6e55-59b7-a797-6aff1494a314",
+            "@id": "562c20c5-bef7-5919-a969-6c820a80e0d3",
             "@type": "uco-observable:MessageThread",
             "uco-core:hasFacet": [
                 {
-                    "@id": "3344007e-c9c4-5437-9766-4001fc9f3af5",
+                    "@id": "6f79d4ae-d92c-5cad-bbe5-a0afde6f475a",
                     "@type": "uco-observable:MessageThreadFacet",
                     "uco-observable:displayName": "some name",
                     "uco-observable:messageThread": {
-                        "@id": "562c20c5-bef7-5919-a969-6c820a80e0d3",
+                        "@id": "56f74818-1d3d-51f9-8cb1-d6bdc8ecee60",
                         "@type": "uco-types:Thread",
                         "co:size": {
                             "@type": "xsd:nonNegativeInteger",
@@ -567,13 +666,13 @@
                         },
                         "co:element": [
                             {
-                                "@id": "0336f3a3-ff74-5e34-97bb-14534316f393"
+                                "@id": "09b10c04-d04b-5808-a1b6-0392dd3a00e8"
                             },
                             {
-                                "@id": "24cd8876-1c97-5fce-9976-8733f6e901f6"
+                                "@id": "7c4d5cff-deb0-5031-b881-c572d6ef2fd7"
                             },
                             {
-                                "@id": "32599b39-84d2-5471-9452-c494171897fd"
+                                "@id": "bb9cd337-eb51-50dd-9cee-00f9e9acbf94"
                             }
                         ]
                     }

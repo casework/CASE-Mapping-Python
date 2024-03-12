@@ -373,78 +373,168 @@ class ObservableObject(ObjectEntity):
 
 
 class FacetUrlHistory(FacetEntity):
-    def __init__(self, browser_info, history_entries=None):
+    def __init__(self, browser=None, history_entries=None):
         """
         :param browser_info: An observable object containing a URLHistoryFacet
-        :param history_entries: A list of URLHistoryEntry types
+        :param history_entries: A list of dictionaries, each dict has the
+        following keys:
+            "uco-observable:browserUserProfile": str,
+            "uco-observable:expirationTime" : datetime,
+            "uco-observable:firstVisit": datetime,
+            "uco-observable:hostname": str,
+            "uco-observable:keywordSearchTerm": str,
+            "uco-observable:lastVisit" : datetime,
+            "uco-observable:manuallyEnteredCount": non negative int
+            "uco-observable:pageTitle": str,
+            "uco-observable:ble:referrerUrl": url_object,
+            "uco-observable:url": url_object,
+            "uco-observable:visitCount": int,
         """
-
         super().__init__()
         self["@type"] = "uco-observable:URLHistoryFacet"
-        self._node_reference_vars(**{"uco-observable:browserInformation": browser_info})
-        self.append_history_entries(history_entries)
-
-    @unpack_args_array
-    def append_history_entries(self, *args):
-        """
-        Used to add history entries to this URL History facet
-        :param args: A single/tuple of URLHistoryEntry class types
-        """
-        self._append_observable_objects("uco-observable:urlHistoryEntry", *args)
-
-
-class UrlHistoryEntry(FacetEntity):
-    def __init__(
-        self,
-        first_visit=None,
-        last_visit=None,
-        expiration_time=None,
-        manually_entered_count=None,
-        url=None,
-        user_profile=None,
-        page_title=None,
-        referrer_url=None,
-        visit_count=None,
-        keyword_search_term=None,
-        allocation_status=None,
-    ):
-        """
-        :param first_visit:
-        :param last_visit:
-        :param expiration_time:
-        :param manually_entered_count:
-        :param url: An observable object with a URLFacet
-        :param user_profile:
-        :param page_title:
-        :param referrer_url:
-        :param visit_count:
-        :param keyword_search_term:
-        :param allocation_status:
-        """
-
-        super().__init__()
-        self["@type"] = "uco-observable:URLHistoryEntry"
-        self._str_vars(
+        self._node_reference_vars(
             **{
-                "uco-observable:userProfile": user_profile,  # todo: referral?
-                "uco-observable:pageTitle": page_title,
-                "uco-observable:referrerUrl": referrer_url,
-                "uco-observable:keywordSearchTerm": keyword_search_term,
-                "uco-observable:allocationStatus": allocation_status,
+                "uco-observable:browserInformation": browser,
             }
         )
-        self._int_vars(**{"uco-observable:visitCount": visit_count})
-        self._datetime_vars(
-            **{
-                "uco-observable:firstVisit": first_visit,
-                "uco-observable:lastVisit": last_visit,
-                "uco-observable:expirationTime": expiration_time,
-            }
+
+        keys_str = (
+            "uco-observable:browserUserProfile",
+            "uco-observable:hostname",
+            "uco-observable:pageTitle",
+            "uco-observable:keywordSearchTerm",
+            "uco-observable:urlHistoryEntry",
         )
-        self._nonegative_int_vars(
-            **{"uco-observable:manuallyEnteredCount": manually_entered_count}
+        keys_datetime = (
+            "uco-observable:firstVisit",
+            "uco-observable:lastVisit",
+            "uco-observable:expirationTime",
         )
-        self._node_reference_vars(**{"uco-observable:url": url})
+        keys_int = "uco-observable:visitCount"
+        keys_ref = ("uco-observable:ble:referrerUrl", "uco-observable:url")
+
+        self["uco-observable:urlHistoryEntry"] = []
+        for entry in history_entries:
+            history_entry = {}
+            history_entry["@id"] = local_uuid()
+            history_entry["@type"] = "uco-observable:URLHistoryEntry"
+            for key, var in entry.items():
+                if key in keys_str:
+                    if isinstance(var, str):
+                        history_entry[key] = var
+                    else:
+                        self.__handle_var_type_errors(key, var, "str")
+                elif key in keys_datetime:
+                    if isinstance(var, datetime):
+                        tz_info = var.strftime("%z")
+                        iso_format = (
+                            var.isoformat() if tz_info else var.isoformat() + "+00:00"
+                        )
+                        history_entry[key] = {
+                            "@type": "xsd:dateTime",
+                            "@value": iso_format,
+                        }
+                    else:
+                        self.__handle_var_type_errors(key, var, "datetime")
+                elif key in keys_int:
+                    if isinstance(var, int):
+                        history_entry[key] = {
+                            "@type": "xsd:integer",
+                            "@value": str(var),
+                        }
+                    else:
+                        self.__handle_var_type_errors(key, var, "int")
+                elif key in keys_ref:
+                    if isinstance(var, list) or isinstance(var, tuple):
+                        is_object_entity = [
+                            isinstance(item, ObjectEntity) for item in var
+                        ]
+                        if all(is_object_entity):
+                            history_entry[key] = [
+                                {"@id": item.get_id()} for item in var
+                            ]
+                        else:
+                            self.__handle_list_type_errors(
+                                key, var, "ObjectEntity (no @id key)"
+                            )
+                    elif isinstance(var, ObjectEntity):
+                        history_entry[key] = {"@id": var.get_id()}
+                    else:
+                        self.__handle_var_type_errors(
+                            key, var, "ObjectEntity (no @id key)"
+                        )
+                elif key == "uco-observable:manuallyEnteredCount":
+                    history_entry[key] = {
+                        "@type": "xsd:nonNegativeInteger",
+                        "@value": "%d" % var,
+                    }
+
+            self["uco-observable:urlHistoryEntry"].append(history_entry)
+
+
+# class UrlHistoryEntry(FacetEntity):
+#     It's no longer necessary, all data are included in the above FacetUrlHistory class
+#     def __init__(
+#         self,
+#         browser_user_profile=None,
+#         expiration_time=None,
+#         first_visit=None,
+#         host_name=None,
+#         keyword_search_term=None,
+#         last_visit=None,
+#         manually_entered_count=None,
+#         page_title=None,
+#         referrer_url=None,
+#         url=None,
+#         visit_count=None,
+#     ):
+#         """
+#         :param browser_user_profile: The web browser user profile for which the URL history entry was created.
+#         :param expiration_time: The date and time at which the validity of the object expires.
+#         :param first_visit: The date/time that the URL referred to by the URL field was first visited.
+#         :param host_name: The hostname of the system.
+#         :param keyword_search_term: The string representing a keyword search term contained within the URL field.
+#         :param last_visit: The date/time that the URL referred to by the URL field was last visited.
+#         :param manually_entered_count: The number of times the URL referred to by the URL field was manually entered into the browser's address field by the user.
+#         :param page_title: The title of a web page
+#         :param referrer_url: The origination point (i.e., URL) of a URL request.
+#         :param url: An observable object with a URLFacet.
+#         :param visit_count:  The number of times a URL has been visited by a particular web browser.
+#         """
+
+#         super().__init__()
+#         self["@type"] = "uco-observable:URLHistoryEntry"
+#         self._str_vars(
+#             **{
+#                 "uco-observable:browserUserProfile": browser_user_profile,
+#                 "uco-observable:hostname": host_name,
+#                 "uco-observable:pageTitle": page_title,
+#                 "uco-observable:keywordSearchTerm": keyword_search_term,
+#             }
+#         )
+#         self._int_vars(**{"uco-observable:visitCount": visit_count})
+#         self._datetime_vars(
+#             **{
+#                 "uco-observable:firstVisit": first_visit,
+#                 "uco-observable:lastVisit": last_visit,
+#                 "uco-observable:expirationTime": expiration_time,
+#             }
+#         )
+#         self._node_reference_vars(
+#             **{
+#                 "uco-observable:ble:referrerUrl": referrer_url,
+#                 "uco-observable:url": url,
+#             }
+#         )
+#         # TODO AJN: This is one instance of xsd:nonNegativeInteger.
+#         # There are other instances in the ontology requiring
+#         # nonNegativeIntegers.  Hence, the FacetEntity class needs to
+#         # have a helper function added.
+#         # https://github.com/casework/CASE-Mapping-Python/issues/37
+#         self["uco-observable:manuallyEnteredCount"] = {
+#             "@type": "xsd:nonNegativeInteger",
+#             "@value": "%d" % manually_entered_count,
+#         }
 
 
 class FacetUrl(FacetEntity):
@@ -486,6 +576,47 @@ class FacetUrl(FacetEntity):
             }
         )
         self._int_vars(**{"uco-observable:port": url_port})
+
+
+class FacetBrowserBookmark(FacetEntity):
+    def __init__(
+        self,
+        accessedTime=None,
+        application_id=None,
+        bookmarkPath=None,
+        modifiedTime=None,
+        createdTime=None,
+        urlTargeted_id=None,
+        visitCount=None,
+    ):
+        """
+        This CASEObject represents a grouping of characteristics unique to a saved shortcut that directs a
+        WWW (World Wide Web) browser software program to a particular WWW accessible resource.
+        :param accessedTime: The date and time at which the Object was accessed (dateTime).
+        :param application_id: The application associated with this object (ObservableObject).
+        :param bookmarkPath: The folder containing the bookmark (string).
+        :param modifiedTime: The date and time at which the Object was last modified (dateTime).
+        :param createdTime: The date and time at which the observable object being characterized was created (dateTime).
+        :param urlTargeted_id: The target of the bookmark. (anyURI).
+        :param visitCount: Specifies the number of times a URL has been visited by a particular web browser (integer).
+        """
+        super().__init__()
+        self["@type"] = "uco-observable:BrowserBookmarkFacet"
+        self._str_vars(**{"observable:bookmarkPath": bookmarkPath})
+        self._int_vars(**{"uco-observable:visitCount": visitCount})
+        self._node_reference_vars(
+            **{
+                "uco-observable:application": application_id,
+                "uco-observable:urlTargeted": urlTargeted_id,
+            }
+        )
+        self._datetime_vars(
+            **{
+                "uco-observable:observableCreatedTime": accessedTime,
+                "uco-observable:modifiedTime": modifiedTime,
+                "uco-observable:accessedTime": accessedTime,
+            }
+        )
 
 
 class FacetRasterPicture(FacetEntity):
@@ -1015,6 +1146,8 @@ class FacetEvent(FacetEntity):
         cyber_action=None,
         computer_name=None,
         created_time=None,
+        start_time=None,
+        end_time=None,
     ):
         """
          An event facet is a grouping of characteristics unique to something that happens in a digital context
@@ -1023,10 +1156,12 @@ class FacetEvent(FacetEntity):
         :param event_text: The textual representation of the event.
         :param event_id: The identifier of the event.
         :param cyber_action: The action taken in response to the event.
-        :param computer_name: A name of the computer on which the log entry was created.
+        :param created_time: The date and time at which the observable object being characterized was created.
+        :param start_time: The date and time at which the observable object being characterized started.
+        :param end_time: The date and time at which the observable object being characterized ended.
         """
         super().__init__()
-        self["@type"] = "uco-observable:EventFacet"
+        self["@type"] = "uco-observable:EventRecordFacet"
         self._str_vars(
             **{
                 "uco-observable:eventType": event_type,
@@ -1036,7 +1171,12 @@ class FacetEvent(FacetEntity):
             }
         )
         self._node_reference_vars(**{"uco-observable:cyberAction": cyber_action})
-        self._datetime_vars(**{"uco-observable:observableCreatedTime": created_time})
+        self._datetime_vars(
+            **{
+                "uco-observable:startTime": start_time,
+                "uco-observable:endTime": end_time,
+            }
+        )
 
 
 class ObservableRelationship(ObjectEntity):
@@ -1349,7 +1489,7 @@ directory = {
     "uco-observable:BluetoothAddressFacet": BluetoothAddress,
     "uco-observable:ObservableObject": ObservableObject,
     "uco-observable:URLHistoryFacet": FacetUrlHistory,
-    "uco-observable:URLHistoryEntry": UrlHistoryEntry,
+    # "uco-observable:URLHistoryEntry": UrlHistoryEntry,
     "uco-observable:URLFacet": FacetUrl,
     "uco-observable:RasterPictureFacet": FacetRasterPicture,
     "uco-observable:CallFacet": FacetCall,
