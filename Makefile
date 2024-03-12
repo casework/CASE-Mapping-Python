@@ -96,7 +96,7 @@ case.ttl: \
 	  0 \
 	  -eq \
 	  $$(grep 'file:' _$@ | wc -l) \
-	  || ( echo "ERROR:Some graph IRIs do not supply a resolving prefix.  Look for the string 'file:///' in the file _$@ to see these instances." ; exit 1)
+	  || ( echo "ERROR:Makefile:Some graph IRIs do not supply a resolving prefix.  Look for the string 'file:///' in the file _$@ to see these instances." >&2 ; exit 1)
 	mv _$@ $@
 
 check: \
