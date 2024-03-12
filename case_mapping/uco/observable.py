@@ -527,9 +527,10 @@ class FacetUrlHistory(FacetEntity):
 #             }
 #         )
 #         # TODO AJN: This is one instance of xsd:nonNegativeInteger.
-#         # I'm uncertain at the moment if there are other instances in
-#         # the ontology requiring nonNegativeIntegers; if so, the
-#         # FacetEntity class needs to have a helper function added.
+#         # There are other instances in the ontology requiring
+#         # nonNegativeIntegers.  Hence, the FacetEntity class needs to
+#         # have a helper function added.
+#         # https://github.com/casework/CASE-Mapping-Python/issues/37
 #         self["uco-observable:manuallyEnteredCount"] = {
 #             "@type": "xsd:nonNegativeInteger",
 #             "@value": "%d" % manually_entered_count,
