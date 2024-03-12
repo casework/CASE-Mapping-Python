@@ -1,14 +1,14 @@
 import uuid
 from typing import Any, Union
 
-import utils
+from case_mapping import mix_utils
 
 
 def check_app_name(
     app_name: str, app_names: list[str], app_objects: list[dict[str, Any]], uuid: str
 ) -> dict[str, Any]:
-    # c_check = utils.CheckDuplicate()
-    observable_app = utils.check_value(
+    # c_check = mix_utils.CheckDuplicate()
+    observable_app = mix_utils.check_value(
         app_name,
         uuid,
         value=app_name,
@@ -26,8 +26,8 @@ def check_geo_coordinates(
     geo_objects: list[dict[str, Any]],
     uuid: str,
 ) -> dict[str, Any]:
-    # c_check = utils.CheckDuplicate()
-    observable_app = utils.check_value(
+    # c_check = mix_utils.CheckDuplicate()
+    observable_app = mix_utils.check_value(
         latitude,
         longitude,
         uuid,
