@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 
 import cdo_local_uuid
 
-from case_mapping import case, uco
+from case_mapping import base, case, uco
 
 # This is part of enabling non-random UUIDs for the demonstration
 # output. The other part is handled at call time, and can be seen in
@@ -28,7 +28,7 @@ def _next_timestamp() -> datetime:
 
 # Generate a case bundle and list to hold investigation items
 bundle = uco.core.Bundle(description="An Example Case File")
-investigation_items = []
+investigation_items: list[base.FacetEntity] = []
 
 ###################################
 # An item to be added to the case #
