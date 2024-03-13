@@ -81,7 +81,26 @@ case.jsonld: \
 	    _$@
 	mv _$@ $@
 
-check: \
-  all
+case.ttl: \
+  case.jsonld
 	source venv/bin/activate \
-	  && poetry run pytest
+	  && rdfpipe \
+	    --output-format turtle \
+	    $< \
+	    > _$@
+	source venv/bin/activate \
+	  && case_validate \
+	    _$@
+	@# In instances where graph nodes omit use of a prefix, a 'default' prefix-base is used that incorporates the local directory as a file URL.  This is likely to be an undesired behavior, so for the generated example JSON-LD in the top source directory, check that "file:///" doesn't start any of the graph individuals' IRIs.
+	test \
+	  0 \
+	  -eq \
+	  $$(grep 'file:' _$@ | wc -l) \
+	  || ( echo "ERROR:Makefile:Some graph IRIs do not supply a resolving prefix.  Look for the string 'file:///' in the file _$@ to see these instances." >&2 ; exit 1)
+	mv _$@ $@
+
+check: \
+  all \
+  case.ttl
+	source venv/bin/activate \
+	  && poetry run pytest --doctest-modules

@@ -1,5 +1,6 @@
 import json
 from datetime import datetime
+from typing import Any
 
 from cdo_local_uuid import local_uuid
 
@@ -20,8 +21,35 @@ def unpack_args_array(func):
 
 
 class FacetEntity(dict):
-    def __init__(self):
-        self["@id"] = str(local_uuid())
+    def __init__(
+        self,
+        *args: Any,
+        prefix_iri: str = "http://example.org/kb/",
+        prefix_label: str = "kb",
+        **kwargs: Any,
+    ) -> None:
+        """
+        :param prefix_iri: The IRI to be concatenated with the prefixed name's local part in order to form the node's absolute IRI.
+        :param prefix_label: The prefix separated from the compact IRI's local name by a colon.
+
+        References
+        ==========
+
+        .. [#turtle_prefixed_name] https://www.w3.org/TR/turtle/#prefixed-name
+
+        Examples
+        ========
+
+        When instantiating a ``FacetEntity``, the JSON dictionary's ``@id`` key will start with the object's ``prefix_label``.
+
+        >>> x = FacetEntity()
+        >>> assert x["@id"][0:3] == "kb:"
+        >>> y = FacetEntity(prefix_label="ex")
+        >>> assert y["@id"][0:3] == "ex:"
+        """
+        self.prefix_iri = prefix_iri
+        self.prefix_label = prefix_label
+        self["@id"] = prefix_label + ":" + str(local_uuid())
 
     def __str__(self):
         return json.dumps(self, indent=4)
@@ -159,6 +187,9 @@ class FacetEntity(dict):
 
 
 class ObjectEntity(FacetEntity):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+
     @unpack_args_array
     def append_facets(self, *args):
         """
