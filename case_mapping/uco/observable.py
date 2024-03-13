@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict
+from typing import Dict, Optional
 
 from cdo_local_uuid import local_uuid
 from pytz import timezone
@@ -1342,14 +1342,14 @@ class FacetSMSMessage(FacetEntity):
 class FacetMessagethread(FacetEntity):
     def __init__(
         self,
-        visibility=None,
+        visibility: Optional[bool] = None,
         participants=None,
         messages=None,
     ):
         """
         A message thread facet is a grouping of characteristics unique to a running
         commentary of electronic messages pertaining to one topic or question.
-        :param visibility: A boolean value to indicate if the theead is private (False) or
+        :param visibility: A boolean value to indicate if the thread is private (False) or
         public (True).
         :param participants: Array of Account ObservableObject,
         :param messages: Array of Message ObservableObjects.
