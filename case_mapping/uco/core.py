@@ -17,7 +17,7 @@ class Bundle(ObjectEntity):
         The main CASE Object for representing a case and its activities and objects.
         """
         super().__init__(*args, **kwargs)
-        self.build = []
+        self.build = []  # type: ignore
         self["@context"] = {
             "@vocab": "http://caseontology.org/core#",
             "case-investigation": "https://ontology.caseontology.org/case/investigation/",
