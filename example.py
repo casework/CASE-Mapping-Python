@@ -285,50 +285,68 @@ bundle.append_to_uco_object(investigation)
 # A message thread to be added to the case #
 ###########################################
 
-message_thread_object = uco.observable.MessageThread()
+# Application Object
+app_object = uco.observable.ObservableObject()
+app_facet = uco.observable.FacetApplication(app_name="Discord")
+app_object.append_facets(app_facet)
+bundle.append_to_uco_object(app_object)
+
+# Account 1
+id_account_object_1 = uco.observable.ObservableObject()
+id_account_facet_1 = uco.observable.FacetAccount(identifier="11111007")
+app_account_facet_1 = uco.observable.FacetApplicationAccount(application=app_object)
+id_account_object_1.append_facets(id_account_facet_1, app_account_facet_1)
+bundle.append_to_uco_object(id_account_object_1)
+
+# Account 2
+id_account_object_2 = uco.observable.ObservableObject()
+id_account_facet_2 = uco.observable.FacetAccount(identifier="22222007")
+app_account_facet_2 = uco.observable.FacetApplicationAccount(application=app_object)
+id_account_object_2.append_facets(id_account_facet_2, app_account_facet_2)
+bundle.append_to_uco_object(id_account_object_2)
+
 
 # 1st message
-message_1 = uco.observable.Message(
+message_object_1 = uco.observable.Message(
     has_changed=True,
-    state="some state",
 )
-facet_message_1 = uco.observable.FacetMessage()
-message_1.append_facets(facet_message_1)
-# 2nd message
-message_2 = uco.observable.Message()
-facet_message_2 = uco.observable.FacetMessage()
-message_2.append_facets(facet_message_2)
-# 3rd message
-message_3 = uco.observable.Message()
-facet_message_3 = uco.observable.FacetMessage()
-message_3.append_facets(facet_message_3)
+sent_datetime = datetime.strptime("2024-01-02T16:55:01", "%Y-%m-%dT%H:%M:%S")
+facet_message_1 = uco.observable.FacetMessage(
+    msg_to=id_account_object_1,
+    msg_from=id_account_object_2,
+    message_text="Send me the instructions!",
+    sent_time=sent_datetime,
+)
 
-# 1st message is followed by 2nd and 3rd message.
+message_object_1.append_facets(facet_message_1)
+bundle.append_to_uco_object(message_object_1)
+
+# 2nd message
+message_object_2 = uco.observable.Message(
+    has_changed=True,
+)
+
+sent_datetime = datetime.strptime("2024-01-02T17:28:42", "%Y-%m-%dT%H:%M:%S")
+facet_message_2 = uco.observable.FacetMessage(
+    msg_to=id_account_object_2,
+    msg_from=id_account_object_1,
+    message_text="Sure, in a couple of hours you'lll receive them",
+    sent_time=sent_datetime,
+)
+
+message_object_2.append_facets(facet_message_2)
+bundle.append_to_uco_object(message_object_2)
+
 # Create MessageThread
+message_thread_object = uco.observable.MessageThread(name="Jenny D.")
 message_thread_facet = uco.observable.FacetMessagethread(
-    display_name="some name",
-    messages={
-        message_1["@id"]: {
-            message_2["@id"],
-            message_3["@id"],
-        }
-    },
+    visibility=True,
+    participants=[id_account_object_1, id_account_object_2],
+    messages=[message_object_1, message_object_2],
 )
 
 message_thread_object.append_facets(message_thread_facet)
-
-# TODO Restore from list-style demo.
-# Append more messages to MessageThread
-# message_thread_facet.append_messages(messages=message_3)
-
-# Add all objects to bundle
-objs = (
-    message_1,
-    message_2,
-    message_3,
-    message_thread_object,
-)
-bundle.append_to_uco_object(objs)
+bundle.append_to_uco_object(message_thread_object)
 
 ##################
 # Print the case #

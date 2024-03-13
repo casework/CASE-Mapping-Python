@@ -610,9 +610,63 @@
             ]
         },
         {
-            "@id": "kb:bb9cd337-eb51-50dd-9cee-00f9e9acbf94",
+            "@id": "kb:562c20c5-bef7-5919-a969-6c820a80e0d3",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:bb9cd337-eb51-50dd-9cee-00f9e9acbf94",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-core:name": "Discord"
+                }
+            ]
+        },
+        {
+            "@id": "kb:73af707b-f00e-5327-8fd4-83467b4441c4",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:7c4d5cff-deb0-5031-b881-c572d6ef2fd7",
+                    "@type": "uco-observable:AccountFacet",
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    },
+                    "uco-observable:accountIdentifier": "11111007"
+                },
+                {
+                    "@id": "kb:551338f3-0bb6-5325-a63a-f164f8750a17",
+                    "@type": "uco-observable:ApplicationAccountFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:562c20c5-bef7-5919-a969-6c820a80e0d3"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:09b10c04-d04b-5808-a1b6-0392dd3a00e8",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:a19e1e1f-3953-5fb9-92b6-2b46f85752b2",
+                    "@type": "uco-observable:AccountFacet",
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    },
+                    "uco-observable:accountIdentifier": "22222007"
+                },
+                {
+                    "@id": "kb:6f79d4ae-d92c-5cad-bbe5-a0afde6f475a",
+                    "@type": "uco-observable:ApplicationAccountFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:562c20c5-bef7-5919-a969-6c820a80e0d3"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:56f74818-1d3d-51f9-8cb1-d6bdc8ecee60",
             "@type": "uco-observable:Message",
-            "uco-observable:state": "some state",
             "uco-observable:hasChanged": {
                 "@type": "xsd:boolean",
                 "@value": true
@@ -621,59 +675,82 @@
             "olo:slot": null,
             "uco-core:hasFacet": [
                 {
-                    "@id": "kb:73af707b-f00e-5327-8fd4-83467b4441c4",
-                    "@type": "uco-observable:MessageFacet"
+                    "@id": "kb:90068d94-5aa6-5f18-8227-c3df1afe5486",
+                    "@type": "uco-observable:MessageFacet",
+                    "uco-observable:messageText": "Send me the instructions!",
+                    "uco-observable:sentTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-01-02T16:55:01+00:00"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:09b10c04-d04b-5808-a1b6-0392dd3a00e8"
+                    },
+                    "uco-observable:to": {
+                        "@id": "kb:73af707b-f00e-5327-8fd4-83467b4441c4"
+                    }
                 }
             ]
         },
         {
-            "@id": "kb:7c4d5cff-deb0-5031-b881-c572d6ef2fd7",
+            "@id": "kb:f5cb2a76-a0b7-57b3-ae47-3c25c854326c",
             "@type": "uco-observable:Message",
+            "uco-observable:hasChanged": {
+                "@type": "xsd:boolean",
+                "@value": true
+            },
             "olo:length": null,
             "olo:slot": null,
             "uco-core:hasFacet": [
                 {
-                    "@id": "kb:551338f3-0bb6-5325-a63a-f164f8750a17",
-                    "@type": "uco-observable:MessageFacet"
+                    "@id": "kb:ce971304-c510-54e8-937a-29b7bb15bb88",
+                    "@type": "uco-observable:MessageFacet",
+                    "uco-observable:messageText": "Sure, in a couple of hours you'lll receive them",
+                    "uco-observable:sentTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-01-02T17:28:42+00:00"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:73af707b-f00e-5327-8fd4-83467b4441c4"
+                    },
+                    "uco-observable:to": {
+                        "@id": "kb:09b10c04-d04b-5808-a1b6-0392dd3a00e8"
+                    }
                 }
             ]
         },
         {
-            "@id": "kb:09b10c04-d04b-5808-a1b6-0392dd3a00e8",
-            "@type": "uco-observable:Message",
-            "olo:length": null,
-            "olo:slot": null,
-            "uco-core:hasFacet": [
-                {
-                    "@id": "kb:a19e1e1f-3953-5fb9-92b6-2b46f85752b2",
-                    "@type": "uco-observable:MessageFacet"
-                }
-            ]
-        },
-        {
-            "@id": "kb:562c20c5-bef7-5919-a969-6c820a80e0d3",
+            "@id": "kb:5c1c9e5f-e23c-5906-aa3e-d6257f984f77",
             "@type": "uco-observable:MessageThread",
+            "uco-core:name": "Jenny D.",
             "uco-core:hasFacet": [
                 {
-                    "@id": "kb:6f79d4ae-d92c-5cad-bbe5-a0afde6f475a",
+                    "@id": "kb:63032af7-e54e-5c72-af8f-7f078ad468fb",
                     "@type": "uco-observable:MessageThreadFacet",
-                    "uco-observable:displayName": "some name",
+                    "uco-observable:visibility": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    },
+                    "uco-observable:participant": [
+                        {
+                            "@id": "kb:73af707b-f00e-5327-8fd4-83467b4441c4"
+                        },
+                        {
+                            "@id": "kb:09b10c04-d04b-5808-a1b6-0392dd3a00e8"
+                        }
+                    ],
                     "uco-observable:messageThread": {
-                        "@id": "kb:56f74818-1d3d-51f9-8cb1-d6bdc8ecee60",
+                        "@id": "kb:935d87a1-0980-5cb7-8d99-b4001652ddbd",
                         "@type": "uco-types:Thread",
                         "co:size": {
                             "@type": "xsd:nonNegativeInteger",
-                            "@value": "3"
+                            "@value": "2"
                         },
                         "co:element": [
                             {
-                                "@id": "kb:09b10c04-d04b-5808-a1b6-0392dd3a00e8"
+                                "@id": "kb:56f74818-1d3d-51f9-8cb1-d6bdc8ecee60"
                             },
                             {
-                                "@id": "kb:7c4d5cff-deb0-5031-b881-c572d6ef2fd7"
-                            },
-                            {
-                                "@id": "kb:bb9cd337-eb51-50dd-9cee-00f9e9acbf94"
+                                "@id": "kb:f5cb2a76-a0b7-57b3-ae47-3c25c854326c"
                             }
                         ]
                     }

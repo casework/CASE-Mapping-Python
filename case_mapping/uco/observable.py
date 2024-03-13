@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict
+from typing import Dict, Optional
 
 from cdo_local_uuid import local_uuid
 from pytz import timezone
@@ -1342,19 +1342,20 @@ class FacetSMSMessage(FacetEntity):
 class FacetMessagethread(FacetEntity):
     def __init__(
         self,
-        display_name=None,
-        visibility=None,
+        visibility: Optional[bool] = None,
         participants=None,
         messages=None,
     ):
         """
-        A message thread facet is a grouping of characteristics unique to a running commentary of electronic messages
-        pertaining to one topic or question.
-        :param messages: Adjacency matrix, encoded as a dictionary.  Key: IRI of Message ObservableObject.  Value: Set of IRIs of Message ObservableObjects.
+        A message thread facet is a grouping of characteristics unique to a running
+        commentary of electronic messages pertaining to one topic or question.
+        :param visibility: A boolean value to indicate if the thread is private (False) or
+        public (True).
+        :param participants: Array of Account ObservableObject,
+        :param messages: Array of Message ObservableObjects.
         """
         super().__init__()
         self["@type"] = "uco-observable:MessageThreadFacet"
-        self._str_vars(**{"uco-observable:displayName": display_name})
         self._bool_vars(**{"uco-observable:visibility": visibility})
         self._node_reference_vars(**{"uco-observable:participant": participants})
 
@@ -1362,36 +1363,14 @@ class FacetMessagethread(FacetEntity):
             "@id": self.prefix_label + ":" + local_uuid(),
             "@type": "uco-types:Thread",
         }
-
-        # How many messages are there?
-        _message_ids = set()
-        if messages is not None:
-            for message_id in messages:
-                _message_ids.add(message_id)
-                for next_message_id in messages[message_id]:
-                    _message_ids.add(next_message_id)
         self["uco-observable:messageThread"]["co:size"] = {
             "@type": "xsd:nonNegativeInteger",
-            "@value": str(len(_message_ids)),
+            "@value": str(len(messages)),
         }
-        if len(_message_ids) > 0:
-            _element_list = []
-            # TODO - Need to implement checker for thread having only one terminus.
-            # _item_list = []
-            for message_id in sorted(_message_ids):
-                _element = {"@id": message_id}
-                _element_list.append(_element)
-                _item = {
-                    "@id": message_id,
-                    "@type": "uco-types:ThreadItem",
-                    "co:itemContent": {"@id": message_id},
-                }
-                if message_id in messages and len(messages[message_id]) > 0:
-                    _next_items = []
-                    for next_message_id in sorted(messages[message_id]):
-                        _next_items.append({"@id": next_message_id})
-                    _item["uco-types:threadNextItem"] = _next_items
-            self["uco-observable:messageThread"]["co:element"] = _element_list
+        list_id_messages = list()
+        for m in messages:
+            list_id_messages.append({"@id": m.get_id()})
+        self["uco-observable:messageThread"]["co:element"] = list_id_messages
 
     def append_messages(self, messages):
         raise NotImplementedError(
