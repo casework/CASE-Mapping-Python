@@ -1,9 +1,15 @@
+from typing import Optional
+
 from ..base import ObjectEntity
 
 
 class Tool(ObjectEntity):
     def __init__(
-        self, tool_name=None, tool_version=None, tool_type=None, tool_creator=None
+        self,
+        tool_name=None,
+        tool_version=None,
+        tool_type=None,
+        tool_creator: Optional[ObjectEntity] = None,
     ):
         """
         The Uco tool is a way to define the specifics of a tool used in an investigation

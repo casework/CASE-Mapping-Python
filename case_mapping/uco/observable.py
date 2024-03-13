@@ -269,7 +269,10 @@ class FacetContentData(FacetEntity):
             }
 
         if hash_method is not None or hash_value is not None or hash_value != "-":
-            data = {"@id": "kb:" + str(local_uuid()), "@type": "uco-types:Hash"}
+            data = {
+                "@id": self.prefix_label + ":" + str(local_uuid()),
+                "@type": "uco-types:Hash",
+            }
             if hash_method is not None:
                 data["uco-types:hashMethod"] = {
                     "@type": "uco-vocabulary:HashNameVocab",
@@ -416,7 +419,7 @@ class FacetUrlHistory(FacetEntity):
         self["uco-observable:urlHistoryEntry"] = []
         for entry in history_entries:
             history_entry = {}
-            history_entry["@id"] = "kb:" + str(local_uuid())
+            history_entry["@id"] = self.prefix_label + ":" + local_uuid()
             history_entry["@type"] = "uco-observable:URLHistoryEntry"
             for key, var in entry.items():
                 if key in keys_str:
@@ -858,14 +861,14 @@ class FacetEXIF(FacetEntity):
         self["@type"] = "uco-observable:EXIFFacet"
 
         self["uco-observable:exifData"] = {
-            "@id": "kb:" + str(local_uuid()),
+            "@id": self.prefix_label + ":" + str(local_uuid()),
             "@type": "uco-types:ControlledDictionary",
             "uco-types:entry": [],
         }
         for k, v in kwargs.items():
             if v not in ["", " "]:
                 item = {
-                    "@id": "kb:" + str(local_uuid()),
+                    "@id": self.prefix_label + ":" + str(local_uuid()),
                     "@type": "uco-types:ControlledDictionaryEntry",
                     "uco-types:key": k,
                     "uco-types:value": v,
@@ -1357,7 +1360,7 @@ class FacetMessagethread(FacetEntity):
         self._node_reference_vars(**{"uco-observable:participant": participants})
 
         self["uco-observable:messageThread"] = {
-            "@id": "kb:" + str(local_uuid()),
+            "@id": self.prefix_label + ":" + local_uuid(),
             "@type": "uco-types:Thread",
         }
         self["uco-observable:messageThread"]["co:size"] = {

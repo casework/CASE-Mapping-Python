@@ -24,14 +24,17 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip -q install poetry pre-commit
+          pip -q install poetry pre-commit rdflib
           poetry install
 
       - name: Pre-commit Checks
         run: pre-commit run --all-files
 
+      - name: Type Checking
+        run: poetry run mypy case_mapping example.py tests
+
       - name: Unit Tests
-        run: poetry run pytest
+        run: poetry run pytest --doctest-modules
 
       - name: Run Example
         run: poetry run python example.py > case.jsonld
@@ -43,6 +46,11 @@ jobs:
           case-path: ./
           case-version: "case-1.3.0"
           extension-filter: "jsonld"
+
+      - name: Convert example
+        run: |
+          rdfpipe --output-format turtle case.jsonld > case.ttl
+          test 0 -eq $(grep 'file:' case.ttl | wc -l) || (echo "ERROR:ci.yml:Some graph IRIs do not supply a resolving prefix.  Look for the string 'file:///' in the file case.ttl (created by running 'make check') to see these instances." >&2 ; exit 1)
 
       # Always build the package as a sanity check to ensure no issues with the build system
       # exist as part of the CI process

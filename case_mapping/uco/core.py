@@ -1,3 +1,5 @@
+from typing import Any
+
 from ..base import ObjectEntity, unpack_args_array
 
 
@@ -8,12 +10,14 @@ class Bundle(ObjectEntity):
         uco_core_name=None,
         spec_version=None,
         description=None,
-    ):
+        *args: Any,
+        **kwargs: Any,
+    ) -> None:
         """
         The main CASE Object for representing a case and its activities and objects.
         """
-        super().__init__()
-        self.build = []
+        super().__init__(*args, **kwargs)
+        self.build = []  # type: ignore
         self["@context"] = {
             "@vocab": "http://caseontology.org/core#",
             "case-investigation": "https://ontology.caseontology.org/case/investigation/",
@@ -31,6 +35,17 @@ class Bundle(ObjectEntity):
             "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
             "xsd": "http://www.w3.org/2001/XMLSchema#",
         }
+
+        # Assign caller-selectible prefix label and IRI, after checking
+        # for conflicts with hard-coded prefixes.
+        # https://www.w3.org/TR/turtle/#prefixed-name
+        if self.prefix_label in self["@context"]:
+            raise ValueError(
+                "Requested prefix label already in use in hard-coded dictionary: '%s'.  Please revise caller to use another label."
+                % self.prefix_label
+            )
+        self["@context"][self.prefix_label] = self.prefix_iri
+
         self["@type"] = "uco-core:Bundle"
         self._str_vars(
             **{

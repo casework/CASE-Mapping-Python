@@ -15,7 +15,8 @@
         "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
         "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
         "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
-        "xsd": "http://www.w3.org/2001/XMLSchema#"
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "kb": "http://example.org/kb/"
     },
     "@type": "uco-core:Bundle",
     "uco-core:description": "An Example Case File",
