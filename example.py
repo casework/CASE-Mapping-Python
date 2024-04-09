@@ -2,7 +2,7 @@ from datetime import datetime, timedelta, timezone
 
 import cdo_local_uuid
 
-from case_mapping import base, case, uco
+from case_mapping import base, case, drafting, uco
 
 # This is part of enabling non-random UUIDs for the demonstration
 # output. The other part is handled at call time, and can be seen in
@@ -347,6 +347,43 @@ message_thread_facet = uco.observable.FacetMessagethread(
 
 message_thread_object.append_facets(message_thread_facet)
 bundle.append_to_uco_object(message_thread_object)
+
+##################################
+# Adding a Social Media Activity #
+##################################
+social_activity_object = uco.observable.ObservableObject()
+
+social_media_app = uco.observable.ObservableObject()
+social_media_app_facet = uco.observable.FacetApplication(app_name="Facebook")
+social_media_app.append_facets(social_media_app_facet)
+bundle.append_to_uco_object(social_media_app)
+
+social_media_url = uco.observable.ObservableObject()
+social_media_url_facet = uco.observable.FacetUrl(
+    url_address="https://www.facebook.com/search/top?q=rome is more"
+)
+social_media_url.append_facets(social_media_url_facet)
+bundle.append_to_uco_object(social_media_url)
+
+post_datetime = datetime.strptime("2024-04-02T17:28:42", "%Y-%m-%dT%H:%M:%S")
+
+social_activity_facet = drafting.entities.FacetSocialMediaActivity(
+    body="Good people exist. We need people like Adrian.",
+    page_title="Positive thoughts",
+    author_identifier="100016939415901",
+    author_name="Rome is more",
+    activity_type="Post",
+    reactions_count=128,
+    shares_count=258,
+    comments_count=3180,
+    account_identifier="100016939417885",
+    created_time=post_datetime,
+    application=social_media_app,
+    url=social_media_url,
+)
+
+social_activity_object.append_facets(social_activity_facet)
+bundle.append_to_uco_object(social_activity_object)
 
 ##################
 # Print the case #
