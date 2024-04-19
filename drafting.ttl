@@ -34,7 +34,6 @@
 		types:1.3.0 ,
 		vocabulary:1.3.0
 		;
-	owl:versionIRI drafting:1.0.0 ;
 	.
 
 drafting:SocialMediaActivityFacet
