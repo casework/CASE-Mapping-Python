@@ -10,10 +10,10 @@
 @prefix co: <http://purl.org/co/> .
 @prefix configuration: <https://ontology.unifiedcyberontology.org/uco/configuration/> .
 @prefix core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix drafting: <http://example.org/ontology/drafting/> .
 @prefix identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
 @prefix location: <https://ontology.unifiedcyberontology.org/uco/location/> .
 @prefix observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
-@prefix drafting: <http://example.org/ontology/drafting/> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -48,16 +48,52 @@ drafting:SocialMediaActivityFacet
 	rdfs:comment "A social media activity item facet is a grouping of characteristics unique to the activity carried out on a social media platform."@en ;
 	sh:property
 		[
-			sh:datatype xsd:string ;
+			sh:class observable:ObservableObject ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:nodeKind sh:IRI ;
+			sh:path observable:application ;
+		] ,
+		[
+			sh:class observable:ObservableObject ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:nodeKind sh:IRI ;
+			sh:path observable:url ;
+		] ,
+		[
+			sh:datatype xsd:dateTime ;
 			sh:maxCount "1"^^xsd:integer ;
 			sh:nodeKind sh:Literal ;
-			sh:path observable:body ;
+			sh:path observable:observableCreatedTime ;
+		] ,
+		[
+			sh:datatype xsd:nonNegativeInteger ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:nodeKind sh:Literal ;
+			sh:path drafting:comments_count ;
+		] ,
+		[
+			sh:datatype xsd:nonNegativeInteger ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:nodeKind sh:Literal ;
+			sh:path drafting:reactionsCount ;
+		] ,
+		[
+			sh:datatype xsd:nonNegativeInteger ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:nodeKind sh:Literal ;
+			sh:path drafting:sharesCount ;
 		] ,
 		[
 			sh:datatype xsd:string ;
 			sh:maxCount "1"^^xsd:integer ;
 			sh:nodeKind sh:Literal ;
-			sh:path observable:pageTitle ;
+			sh:path drafting:accountIdentifier ;
+		] ,
+		[
+			sh:datatype xsd:string ;
+			sh:maxCount "1"^^xsd:integer ;
+			sh:nodeKind sh:Literal ;
+			sh:path drafting:activityType ;
 		] ,
 		[
 			sh:datatype xsd:string ;
@@ -75,51 +111,15 @@ drafting:SocialMediaActivityFacet
 			sh:datatype xsd:string ;
 			sh:maxCount "1"^^xsd:integer ;
 			sh:nodeKind sh:Literal ;
-			sh:path drafting:activityType ;
-		] ,
-		[
-			sh:datatype xsd:nonNegativeInteger ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:nodeKind sh:Literal ;
-			sh:path drafting:reactionsCount ;
-		] ,
-		[
-			sh:datatype xsd:nonNegativeInteger ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:nodeKind sh:Literal ;
-			sh:path drafting:sharesCount ;
-		] ,
-		[
-			sh:datatype xsd:nonNegativeInteger ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:nodeKind sh:Literal ;
-			sh:path drafting:comments_count ;
+			sh:path observable:body ;
 		] ,
 		[
 			sh:datatype xsd:string ;
 			sh:maxCount "1"^^xsd:integer ;
 			sh:nodeKind sh:Literal ;
-			sh:path drafting:accountIdentifier ;
-		] ,
-		[
-			sh:datatype xsd:dateTime ;
-			sh:maxCount "1"^^xsd:integer ;
-			sh:nodeKind sh:Literal ;
-			sh:path observable:observableCreatedTime ;
-		] ,
-		[ 
-			sh:class observable:ObservableObject ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:path observable:application 
-        ] ,
-        [ 
-			sh:class observable:ObservableObject ;
-            sh:maxCount 1 ;
-            sh:nodeKind sh:IRI ;
-            sh:path observable:url 
-        ] 
+			sh:path observable:pageTitle ;
+		]
 		;
 	sh:targetClass drafting:SocialMediaActivityFacet ;
-	.	
-	
+	.
+
