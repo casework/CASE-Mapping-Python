@@ -15,7 +15,7 @@ class FacetPassiveDNS(FacetEntity):
         """
         super().__init__()
         if ip:
-            self["@type"] = "drafting:PassiveDnsIPFacet"
+            self["@type"] = ["drafting:PassiveDnsIPFacet", "uco-core:Facet"]
 
             self._str_vars(
                 **{
@@ -30,7 +30,7 @@ class FacetPassiveDNS(FacetEntity):
                 }
             )
         else:
-            self["@type"] = "drafting:PassiveDnsDomainFacet"
+            self["@type"] = ["drafting:PassiveDnsDomainFacet", "uco-core:Facet"]
 
             self._str_vars(
                 **{
@@ -70,7 +70,7 @@ class FacetTornodeInfo(FacetEntity):
 
         # The facet type and content depend on the input (ip OR hostame/domain)
         if ip:
-            self["@type"] = "drafting:TornodeInfoIPFacet"
+            self["@type"] = ["drafting:TornodeInfoIPFacet", "uco-core:Facet"]
 
             self._str_vars(
                 **{
@@ -84,7 +84,7 @@ class FacetTornodeInfo(FacetEntity):
             )
 
         else:
-            self["@type"] = "drafting:TornodeInfoDomainFacet"
+            self["@type"] = ["drafting:TornodeInfoDomainFacet", "uco-core:Facet"]
 
             self._str_vars(
                 **{
@@ -105,7 +105,7 @@ class FacetLocalInternetRegistry(FacetEntity):
         :param isp_name: The ISP (like HEAnet)
         """
         super().__init__()
-        self["@type"] = "drafting:LocalInternetRegistryFacet"
+        self["@type"] = ["drafting:LocalInternetRegistryFacet", "uco-core:Facet"]
         self._str_vars(**{"drafting:ispName": isp_name})
 
 
@@ -118,7 +118,7 @@ class ObservablePort(ObjectEntity):
         :param hostname: The value for this object - a port (integer like 80 or 443)
         """
         super().__init__()
-        self["@type"] = "drafting:NetworkPort"
+        self["@type"] = ["drafting:NetworkPort", "uco-observable:ObservableObject"]
         self._str_vars(**{"uco-observable:state": state})
         self._int_vars(**{"uco-observable:port": port})
         self._bool_vars(**{"uco-observable:hasChanged": has_changed})
@@ -151,7 +151,7 @@ class FacetBlockHasherScan(FacetEntity):
         existing_or_invalid=None,
     ):
         super().__init__()
-        self["@type"] = "drafting:BlockHasherScanFacet"
+        self["@type"] = ["drafting:BlockHasherScanFacet", "uco-core:Facet"]
         self._str_vars(
             **{
                 "drafting:bhsTotalBlocks": total_blocks,
@@ -173,7 +173,7 @@ class FacetBlockHasherUpload(FacetEntity):
         self, source_file=None, bhash=None, fhash=None, category=None, rejected="False"
     ):
         super().__init__()
-        self["@type"] = "drafting:BlockHasherUploadFacet"
+        self["@type"] = ["drafting:BlockHasherUploadFacet", "uco-core:Facet"]
         self._str_vars(
             **{
                 "drafting:bhuBlockHash": bhash,
@@ -217,7 +217,7 @@ class FacetSocialMediaActivity(FacetEntity):
         """
         super().__init__()
 
-        self["@type"] = "drafting:SocialMediaActivityFacet"
+        self["@type"] = ["drafting:SocialMediaActivityFacet", "uco-core:Facet"]
 
         self._str_vars(
             **{
@@ -258,7 +258,7 @@ class FacetNIO(FacetEntity):
         :param kwargs: Any additional user-specified (perhaps non-CASE) entries. (e.g., state="corrupted", notable=True)
         """
         super().__init__()
-        self["@type"] = "drafting:dump"
+        self["@type"] = ["drafting:dump", "uco-core:Facet"]
 
         self["drafting:dumpResults"] = {
             "@type": "drafting:dumpResultsDictionary",
@@ -294,7 +294,7 @@ class FacetMachineLearningResults(FacetEntity):
         :param kwargs: The user provided key/value pairs of machine learning items (e.g., BBOX=[215, 412, 118, 294], etc.).
         """
         super().__init__()
-        self["@type"] = "drafting:machineLearningResultFacet"
+        self["@type"] = ["drafting:machineLearningResultFacet", "uco-core:Facet"]
         self._str_vars(
             **{
                 "drafting:machineLearningModel": toolname,
@@ -346,7 +346,7 @@ class FacetAnpr(FacetEntity):
         :param anprLocation: Location of vehicle OR Location of recording i.e. "Berlin bridge 1"
         """
         super().__init__()
-        self["@type"] = "drafting:anprLog"
+        self["@type"] = ["drafting:anprLog", "uco-core:Facet"]
         self._str_vars(
             **{
                 "drafting:anpr_registrationPlate": anprPlate,
@@ -419,7 +419,7 @@ class FacetAnpr(FacetEntity):
 class FacetCmsKeyValue(FacetEntity):
     def __init__(self, key=None, value=None):
         super().__init__()
-        self["@type"] = "drafting:CmsKeyValueFacet"
+        self["@type"] = ["drafting:CmsKeyValueFacet", "uco-core:Facet"]
         self._str_vars(**{"drafting:CmsKey": key, "drafting:CmsValue": value})
 
 
@@ -431,7 +431,7 @@ class FacetCmsKeyValue(FacetEntity):
 class FacetMachineLearningJob(FacetEntity):
     def __init__(self, inputs=None, model_name=None):
         super().__init__()
-        self["@type"] = "drafting:MachineLearningJobFacet"
+        self["@type"] = ["drafting:MachineLearningJobFacet", "uco-core:Facet"]
         self._str_vars(**{"drafting:modelName": model_name})
         self._node_reference_vars(**{"drafting:inputs": inputs})
 
@@ -445,7 +445,7 @@ class FacetNerEntity(FacetEntity):
         self, entity_value=None, entity_type=None, occurrences=None, ml_job=None
     ):
         super().__init__()
-        self["@type"] = "drafting:NerEntityFacet"
+        self["@type"] = ["drafting:NerEntityFacet", "uco-core:Facet"]
         self._str_vars(
             **{
                 "drafting:entityValue": entity_value,
@@ -465,7 +465,7 @@ class FacetNerEntity(FacetEntity):
 class FacetTextInterval(FacetEntity):
     def __init__(self, start_index, end_index, ml_job=None):
         super().__init__()
-        self["@type"] = "drafting:TextIntervalFacet"
+        self["@type"] = ["drafting:TextIntervalFacet", "uco-core:Facet"]
         self._int_vars(
             **{
                 "drafting:startIndex": start_index,
@@ -485,7 +485,7 @@ class TextIntervals(ObjectEntity):
 class FacetExtractedUrl(FacetEntity):
     def __init__(self, url=None, start_index=None, end_index=None, ml_job=None):
         super().__init__()
-        self["@type"] = "drafting:ExtractedUrlFacet"
+        self["@type"] = ["drafting:ExtractedUrlFacet", "uco-core:Facet"]
         self._node_reference_vars(
             **{
                 "uco-observable:url": url,
@@ -503,7 +503,7 @@ class FacetExtractedUrl(FacetEntity):
 class FacetExtractedTopic(FacetEntity):
     def __init__(self, topic=None, probability=None, ml_job=None):
         super().__init__()
-        self["@type"] = "drafting:ExtractedTopicFacet"
+        self["@type"] = ["drafting:ExtractedTopicFacet", "uco-core:Facet"]
         self._str_vars(**{"drafting:topic": topic})
         self._float_vars(**{"drafting:probability": probability})
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
@@ -512,7 +512,7 @@ class FacetExtractedTopic(FacetEntity):
 class FacetSentimentAnalysisResult(FacetEntity):
     def __init__(self, sentiment_value=None, ml_job=None):
         super().__init__()
-        self["@type"] = "drafting:SentimentAnalysisResultFacet"
+        self["@type"] = ["drafting:SentimentAnalysisResultFacet", "uco-core:Facet"]
         self._float_vars(**{"drafting:sentimentValue": sentiment_value})
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
@@ -520,7 +520,7 @@ class FacetSentimentAnalysisResult(FacetEntity):
 class FacetTextSummarizationResult(FacetEntity):
     def __init__(self, summarized_text=None, ml_job=None):
         super().__init__()
-        self["@type"] = "drafting:TextSummarizationResultFacet"
+        self["@type"] = ["drafting:TextSummarizationResultFacet", "uco-core:Facet"]
         self._str_vars(**{"drafting:summarizedText": summarized_text})
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
@@ -528,7 +528,7 @@ class FacetTextSummarizationResult(FacetEntity):
 class FacetTextAnnotationResult(FacetEntity):
     def __init__(self, annotated_text=None, ml_job=None):
         super().__init__()
-        self["@type"] = "drafting:TextAnnotationResultFacet"
+        self["@type"] = ["drafting:TextAnnotationResultFacet", "uco-core:Facet"]
         self._str_vars(**{"drafting:annotatedText": annotated_text})
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
@@ -543,7 +543,7 @@ class FacetTranslationResult(FacetEntity):
         ml_job=None,
     ):
         super().__init__()
-        self["@type"] = "drafting:TranslationResultFacet"
+        self["@type"] = ["drafting:TranslationResultFacet", "uco-core:Facet"]
         self._str_vars(
             **{
                 "drafting:sourceLanguage": source_language,
@@ -558,7 +558,7 @@ class FacetTranslationResult(FacetEntity):
 class FacetLanguageDetectionResult(FacetEntity):
     def __init__(self, source_language=None, ml_job=None):
         super().__init__()
-        self["@type"] = "drafting:LanguageDetectionResultFacet"
+        self["@type"] = ["drafting:LanguageDetectionResultFacet", "uco-core:Facet"]
         self._str_vars(**{"drafting:sourceLanguage": source_language})
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
@@ -591,7 +591,7 @@ class FacetStylometryResults(FacetEntity):
         model_type=None,
     ):
         super().__init__()
-        self["@type"] = "drafting:StylometryResultsFacet"
+        self["@type"] = ["drafting:StylometryResultsFacet", "uco-core:Facet"]
         self._str_vars(**{"drafting:modelType": model_type})
         self._int_vars(**{"drafting:numberOfSentences": number_of_sentences})
         self._float_vars(
@@ -634,7 +634,7 @@ class FacetStylometrySimilarity(FacetEntity):
         similarity=None,
     ):
         super().__init__()
-        self["@type"] = "drafting:StylometrySimilarityFacet"
+        self["@type"] = ["drafting:StylometrySimilarityFacet", "uco-core:Facet"]
         self._float_vars(
             **{
                 "drafting:lexicalFeaturesSimilarity": lexical,
@@ -661,7 +661,7 @@ class FacetStylometrySimilarity(FacetEntity):
 class FacetDocumentCollection(FacetEntity):
     def __init__(self, authors=None, documents=None, ml_job=None):
         super().__init__()
-        self["@type"] = "drafting:DocumentCollectionFacet"
+        self["@type"] = ["drafting:DocumentCollectionFacet", "uco-core:Facet"]
         self._node_reference_vars(
             **{
                 "drafting:authors": authors,
@@ -687,7 +687,7 @@ class FacetKddKeyInfo(FacetEntity):
         ml_job=None,
     ):
         super().__init__()
-        self["@type"] = "drafting:KddKeyInfoFacet"
+        self["@type"] = ["drafting:KddKeyInfoFacet", "uco-core:Facet"]
         self._int_vars(
             **{
                 "drafting:timesOccurred": times_occurred,
@@ -731,7 +731,7 @@ class FacetKddValueInfo(FacetEntity):
         ml_job=None,
     ):
         super().__init__()
-        self["@type"] = "drafting:KddValueInfoFacet"
+        self["@type"] = ["drafting:KddValueInfoFacet", "uco-core:Facet"]
         self._int_vars(
             **{
                 "drafting:timesOccurred": times_occurred,
@@ -769,7 +769,7 @@ class FacetKddKeyCombination(FacetEntity):
         ml_job=None,
     ):
         super().__init__()
-        self["@type"] = "drafting:KddKeyCombinationFacet"
+        self["@type"] = ["drafting:KddKeyCombinationFacet", "uco-core:Facet"]
         self._int_vars(
             **{
                 "drafting:timesOccurred": times_occurred,
@@ -822,7 +822,7 @@ class FacetKddKeyRule(FacetEntity):
         ml_job=None,
     ):
         super().__init__()
-        self["@type"] = "drafting:KddKeyRuleFacet"
+        self["@type"] = ["drafting:KddKeyRuleFacet", "uco-core:Facet"]
         self._str_vars(
             **{
                 "drafting:ruleKeyX": value_x,
