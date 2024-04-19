@@ -3,6 +3,7 @@
     "@context": {
         "@vocab": "http://caseontology.org/core#",
         "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "drafting": "http://example.org/ontology/drafting/",
         "co": "http://purl.org/co/",
         "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
@@ -753,6 +754,69 @@
                                 "@id": "kb:f5cb2a76-a0b7-57b3-ae47-3c25c854326c"
                             }
                         ]
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:cc127ee8-9166-51c3-a531-d3fe4e6ab024",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:9f96514a-31e1-55f9-858a-3239939af4fb",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-core:name": "Facebook"
+                }
+            ]
+        },
+        {
+            "@id": "kb:e5a13089-b18d-5a7d-9f02-6ceaa2dc616a",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:a7d55720-56d8-57dd-a832-2798a39259d6",
+                    "@type": "uco-observable:URLFacet",
+                    "uco-observable:fullValue": "https://www.facebook.com/search/top?q=rome is more"
+                }
+            ]
+        },
+        {
+            "@id": "kb:36cb2c63-29e9-5f4e-a13d-3edde983c83a",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:07d8b4b1-fe4d-5213-a940-b49d2e89b8c0",
+                    "@type": [
+                        "drafting:SocialMediaActivityFacet",
+                        "uco-core:Facet"
+                    ],
+                    "uco-observable:body": "Good people exist. We need people like Adrian.",
+                    "uco-observable:pageTitle": "Positive thoughts",
+                    "drafting:authorIdentifier": "100016939415901",
+                    "drafting:authorName": "Rome is more",
+                    "drafting:activityType": "Post",
+                    "uco-observable:accountIdentifier": "100016939417885",
+                    "drafting:reactionsCount": {
+                        "@type": "xsd:nonNegativeInteger",
+                        "@value": "128"
+                    },
+                    "drafting:sharesCount": {
+                        "@type": "xsd:nonNegativeInteger",
+                        "@value": "258"
+                    },
+                    "drafting:commentsCount": {
+                        "@type": "xsd:nonNegativeInteger",
+                        "@value": "3180"
+                    },
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-02T17:28:42+00:00"
+                    },
+                    "uco-observable:application": {
+                        "@id": "kb:cc127ee8-9166-51c3-a531-d3fe4e6ab024"
+                    },
+                    "uco-observable:url": {
+                        "@id": "kb:e5a13089-b18d-5a7d-9f02-6ceaa2dc616a"
                     }
                 }
             ]
