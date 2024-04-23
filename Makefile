@@ -74,6 +74,7 @@ all: \
 	
 case.jsonld: \
   .venv.done.log \
+  drafting.ttl \
   $(example_source_files)
 	export CDO_DEMO_NONRANDOM_UUID_BASE="$(top_srcdir)" \
 	  && source venv/bin/activate \
@@ -81,6 +82,7 @@ case.jsonld: \
 	      > _$@
 	source venv/bin/activate \
 	  && case_validate \
+	    --ontology-graph drafting.ttl \
 	    _$@
 	mv _$@ $@
 

@@ -20,3 +20,7 @@ __pycache__/
 build/
 dist/
 case.ttl
+
+# Mac files/folders
+.DS_Store
+_*.json
