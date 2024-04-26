@@ -820,6 +820,117 @@
                     }
                 }
             ]
+        },
+        {
+            "@id": "kb:900182e5-6098-575c-baec-12c9db246c0d",
+            "@type": "uco-identity:Organization",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:dc1b4415-1284-57ea-b7b9-b75675e7c57c",
+                    "@type": "uco-identity:SimpleNameFacet",
+                    "uco-identity:givenName": "Orange"
+                }
+            ]
+        },
+        {
+            "@id": "kb:73c1b444-4b3a-59b3-820d-76a46ddf0b87",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:508507f8-21aa-51a6-b7bc-0c0545cd6afe",
+                    "@type": "uco-observable:AccountFacet",
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    },
+                    "uco-observable:accountIdentifier": "Jesse iPhone 8",
+                    "uco-observable:accountIssuer": {
+                        "@id": "kb:900182e5-6098-575c-baec-12c9db246c0d"
+                    }
+                },
+                {
+                    "@id": "kb:750214a2-9feb-54f3-b6d5-ee0f8f1702ef",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+19821764400"
+                }
+            ]
+        },
+        {
+            "@id": "kb:fe5a9500-ad81-5d13-85c7-17765ed7d20f",
+            "@type": "uco-identity:Organization",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:1efa0b9c-b315-5030-80ec-dcf6307b3b46",
+                    "@type": "uco-identity:SimpleNameFacet",
+                    "uco-identity:givenName": "Telenor"
+                }
+            ]
+        },
+        {
+            "@id": "kb:edaa0df3-b8b8-5fe4-88f8-a5b831e7c59e",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:20a9bd8b-492e-5b9f-bf8a-1f4087b95fb0",
+                    "@type": "uco-observable:AccountFacet",
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    },
+                    "uco-observable:accountIdentifier": "Walter iPhone 6",
+                    "uco-observable:accountIssuer": {
+                        "@id": "kb:fe5a9500-ad81-5d13-85c7-17765ed7d20f"
+                    }
+                },
+                {
+                    "@id": "kb:037fe389-9899-55c5-b987-6956eca19c68",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+19732941683"
+                }
+            ]
+        },
+        {
+            "@id": "kb:977f4c07-40f2-52b0-8caa-a666b09dd288",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:b8c4023f-3906-53fc-9709-d84b7752a7fa",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-core:name": "Native"
+                }
+            ]
+        },
+        {
+            "@id": "kb:986ae934-bb6e-57de-bda1-6b777b50371b",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:27563ba2-9e0f-5974-bfbc-1fecea6e112f",
+                    "@type": "uco-observable:CallFacet",
+                    "uco-observable:callType": "incoming",
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-19T21:38:19+00:00"
+                    },
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-19T21:40:37+00:00"
+                    },
+                    "uco-observable:duration": {
+                        "@type": "xsd:integer",
+                        "@value": "138"
+                    },
+                    "uco-observable:application": {
+                        "@id": "kb:977f4c07-40f2-52b0-8caa-a666b09dd288"
+                    },
+                    "uco-observable:from": {
+                        "@id": "kb:73c1b444-4b3a-59b3-820d-76a46ddf0b87"
+                    },
+                    "uco-observable:to": {
+                        "@id": "kb:edaa0df3-b8b8-5fe4-88f8-a5b831e7c59e"
+                    }
+                }
+            ]
         }
     ]
 }
