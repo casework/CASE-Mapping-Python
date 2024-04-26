@@ -219,6 +219,10 @@ class FacetAccount(FacetEntity):
         self._str_vars(
             **{
                 "uco-observable:accountIdentifier": identifier,
+            }
+        )
+        self._node_reference_vars(
+            **{
                 "uco-observable:accountIssuer": issuer_id,
             }
         )
@@ -662,16 +666,18 @@ class FacetRasterPicture(FacetEntity):
 class FacetCall(FacetEntity):
     def __init__(
         self,
+        application=None,
         call_type=None,
+        call_duration=None,
         start_time=None,
         end_time=None,
-        application=None,
+        call_participant=None,
         call_from=None,
         call_to=None,
-        call_duration=None,
-        allocation_status=None,
     ):
         """
+        This CASEObject represents a call facet, a grouping of characteristics unique to a
+        connection as part of a realtime cyber communication between one or more parties.
         :param call_type: incoming outgoing etc
         :param start_time: the time at which the device registered the call as starting
         :param end_time: the time at which the device registered the call as ending
@@ -679,6 +685,7 @@ class FacetCall(FacetEntity):
         :param call_from: ObservableObject with person/caller facet-info
         :param call_to: ObservableObject with person/caller facet-info
         :param call_duration: how long the call was registedred on the device as lasting in minutes (E.G. 60)
+        :param call_participant: ObservableObject with the person who joined the cal through their application account
         :param allocation_status: The allocation status of the record of the call i.e intact for records that are
         present on the device
         """
@@ -687,7 +694,6 @@ class FacetCall(FacetEntity):
         self._str_vars(
             **{
                 "uco-observable:callType": call_type,
-                "uco-observable:allocationStatus": allocation_status,
             }
         )
         self._datetime_vars(
@@ -702,23 +708,21 @@ class FacetCall(FacetEntity):
                 "uco-observable:application": application,
                 "uco-observable:from": call_from,
                 "uco-observable:to": call_to,
+                "uco-observable:participant": call_participant,
             }
         )
 
 
 class FacetPhoneAccount(FacetEntity):
-    def __init__(self, phone_number=None, display_name=None):
+    def __init__(self, phone_number=None):
         """
-
         :param phone_number: The number for this account (e.g., "+16503889249")
-        :param display_name: The name of this account/user (e.g., "Bill Bryson")
         """
         super().__init__()
         self["@type"] = "uco-observable:PhoneAccountFacet"
         self._str_vars(
             **{
                 "uco-observable:phoneNumber": phone_number,
-                "uco-observable:displayName": display_name,
             }
         )
 
