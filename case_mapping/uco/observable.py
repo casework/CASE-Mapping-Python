@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Dict, Optional
+from typing import Any, Dict, List, Optional, Union
 
 from cdo_local_uuid import local_uuid
 from pytz import timezone
@@ -671,9 +671,9 @@ class FacetCall(FacetEntity):
         call_duration=None,
         start_time=None,
         end_time=None,
-        call_participant=None,
-        call_from=None,
-        call_to=None,
+        call_participant: Union[None, ObservableObject, List[ObservableObject]] = None,
+        call_from: Union[None, ObservableObject] = None,
+        call_to: Union[None, ObservableObject, List[ObservableObject]] = None,
     ):
         """
         This CASEObject represents a call facet, a grouping of characteristics unique to a
