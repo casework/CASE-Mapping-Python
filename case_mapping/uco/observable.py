@@ -685,7 +685,7 @@ class FacetCall(FacetEntity):
         :param call_from: ObservableObject with person/caller facet-info
         :param call_to: ObservableObject with person/caller facet-info
         :param call_duration: how long the call was registedred on the device as lasting in minutes (E.G. 60)
-        :param call_participant: ObservableObject with the person who joined the cal through their application account
+        :param call_participant: ObservableObject(s) with the account(s) that joined the call
         :param allocation_status: The allocation status of the record of the call i.e intact for records that are
         present on the device
         """
