@@ -415,6 +415,28 @@ phone_account_facet_2 = uco.observable.FacetPhoneAccount(phone_number="+19732941
 account_object_2.append_facets(account_facet_2, phone_account_facet_2)
 bundle.append_to_uco_object(account_object_2)
 
+identity_organisation_3 = uco.identity.Organization()
+simple_name_facet_3 = uco.identity.FacetSimpleName(given_name="Vodafone")
+identity_organisation_3.append_facets(simple_name_facet_3)
+bundle.append_to_uco_object(identity_organisation_3)
+
+account_object_3 = uco.observable.ObservableObject()
+account_facet_3 = uco.observable.FacetAccount(
+    identifier="Magdalena Android 16", issuer_id=identity_organisation_3
+)
+
+phone_account_facet_3 = uco.observable.FacetPhoneAccount(phone_number="+393283633741")
+account_object_3.append_facets(account_facet_3, phone_account_facet_3)
+bundle.append_to_uco_object(account_object_3)
+
+account_object_4 = uco.observable.ObservableObject()
+account_facet_4 = uco.observable.FacetAccount(
+    identifier="Polly iPhone 12", issuer_id=identity_organisation_3
+)
+phone_account_facet_4 = uco.observable.FacetPhoneAccount(phone_number="+393389408011")
+account_object_4.append_facets(account_facet_4, phone_account_facet_4)
+bundle.append_to_uco_object(account_object_4)
+
 app_call_object = uco.observable.ObservableObject()
 app_call_facet = uco.observable.FacetApplication(app_name="Native")
 app_call_object.append_facets(app_call_facet)
@@ -432,6 +454,7 @@ call_facet = uco.observable.FacetCall(
     end_time=call_end_time,
     call_from=account_object_1,
     call_to=account_object_2,
+    call_participant=[account_object_3, account_object_4],
 )
 call_object.append_facets(call_facet)
 bundle.append_to_uco_object(call_object)
