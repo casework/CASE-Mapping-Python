@@ -891,12 +891,12 @@
         },
         {
             "@id": "kb:977f4c07-40f2-52b0-8caa-a666b09dd288",
-            "@type": "uco-observable:ObservableObject",
+            "@type": "uco-identity:Organization",
             "uco-core:hasFacet": [
                 {
                     "@id": "kb:b8c4023f-3906-53fc-9709-d84b7752a7fa",
-                    "@type": "uco-observable:ApplicationFacet",
-                    "uco-core:name": "Native"
+                    "@type": "uco-identity:SimpleNameFacet",
+                    "uco-identity:givenName": "Vodafone"
                 }
             ]
         },
@@ -906,6 +906,63 @@
             "uco-core:hasFacet": [
                 {
                     "@id": "kb:27563ba2-9e0f-5974-bfbc-1fecea6e112f",
+                    "@type": "uco-observable:AccountFacet",
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    },
+                    "uco-observable:accountIdentifier": "Magdalena Android 16",
+                    "uco-observable:accountIssuer": {
+                        "@id": "kb:977f4c07-40f2-52b0-8caa-a666b09dd288"
+                    }
+                },
+                {
+                    "@id": "kb:0508913f-0d16-5243-aafd-cd449c96b7b3",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+393283633741"
+                }
+            ]
+        },
+        {
+            "@id": "kb:ed9883e5-abec-5c51-a6c4-981b3be9d1a5",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:0ecef3a5-be49-5682-b690-c68f01fad85c",
+                    "@type": "uco-observable:AccountFacet",
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    },
+                    "uco-observable:accountIdentifier": "Polly iPhone 12",
+                    "uco-observable:accountIssuer": {
+                        "@id": "kb:977f4c07-40f2-52b0-8caa-a666b09dd288"
+                    }
+                },
+                {
+                    "@id": "kb:f4f66fbb-dfdd-5a98-8371-14a79e2b629c",
+                    "@type": "uco-observable:PhoneAccountFacet",
+                    "uco-observable:phoneNumber": "+393389408011"
+                }
+            ]
+        },
+        {
+            "@id": "kb:eb315866-b333-5702-91bd-7faf00c94e13",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:1793789b-f076-5a3a-b826-a3e29507dadd",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-core:name": "Native"
+                }
+            ]
+        },
+        {
+            "@id": "kb:6dcb74d4-3c61-5c00-8451-c652f3be0be0",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:16f544c7-2319-5319-bf9e-16b061592e0d",
                     "@type": "uco-observable:CallFacet",
                     "uco-observable:callType": "incoming",
                     "uco-observable:startTime": {
@@ -921,14 +978,22 @@
                         "@value": "138"
                     },
                     "uco-observable:application": {
-                        "@id": "kb:977f4c07-40f2-52b0-8caa-a666b09dd288"
+                        "@id": "kb:eb315866-b333-5702-91bd-7faf00c94e13"
                     },
                     "uco-observable:from": {
                         "@id": "kb:73c1b444-4b3a-59b3-820d-76a46ddf0b87"
                     },
                     "uco-observable:to": {
                         "@id": "kb:edaa0df3-b8b8-5fe4-88f8-a5b831e7c59e"
-                    }
+                    },
+                    "uco-observable:participant": [
+                        {
+                            "@id": "kb:986ae934-bb6e-57de-bda1-6b777b50371b"
+                        },
+                        {
+                            "@id": "kb:ed9883e5-abec-5c51-a6c4-981b3be9d1a5"
+                        }
+                    ]
                 }
             ]
         }
