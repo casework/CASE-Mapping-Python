@@ -5,6 +5,7 @@ from cdo_local_uuid import local_uuid
 from pytz import timezone
 
 from ..base import FacetEntity, ObjectEntity, unpack_args_array
+from .identity import Identity
 
 
 class ObservableDomainName(ObjectEntity):
@@ -1120,12 +1121,12 @@ class FacetMobileDevice(FacetEntity):
 class FacetOperatingSystem(FacetEntity):
     def __init__(
         self,
-        os_advertisingID: str = None,
-        os_bitness: str = None,
-        os_install_date: date = None,
-        os_isLimitAdTrackingEnabled: bool = None,
-        os_manufacturer: Union[None, ObservableObject] = None,
-        os_version: str = None,
+        os_advertisingID: Optional[str] = None,
+        os_bitness: Optional[str] = None,
+        os_install_date: Optional[date] = None,
+        os_isLimitAdTrackingEnabled: Optional[bool] = None,
+        os_manufacturer: Union[None, Identity] = None,
+        os_version: Optional[str] = None,
         os_environment_variables: Union[None, Dict] = None,
     ):
         super().__init__()
