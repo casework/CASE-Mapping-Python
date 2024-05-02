@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Any, Dict, List, Optional, Union
 
 from pytz import timezone
 
@@ -65,10 +66,14 @@ class CaseInvestigation(ObjectEntity):
 
 
 class ProvenanceRecord(ObjectEntity):
-    def __init__(self, exhibit_number=None, uco_core_objects=None):
+    def __init__(
+        self,
+        exhibit_number: Optional[str] = None,
+        uco_core_objects: Union[None, Dict, List[Dict]] = None,
+    ):
         super().__init__()
         self["@type"] = "case-investigation:ProvenanceRecord"
-        self._int_vars(**{"case-investigation:exhibitNumber": exhibit_number})
+        self._str_vars(**{"case-investigation:exhibitNumber": exhibit_number})
         self._node_reference_vars(**{"uco-core:object": uco_core_objects})
 
 
