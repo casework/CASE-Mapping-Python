@@ -33,7 +33,7 @@ investigation_items: list[base.FacetEntity] = []
 ############################################
 # A DeviceFacet and a OperatingSystemFacet #
 ############################################
-cyber_item1 = uco.observable.ObservableObject()
+device_camera = uco.observable.ObservableObject()
 manufacturer_nikon = uco.identity.Organization(name="Nikon")
 bundle.append_to_uco_object(manufacturer_nikon)
 device1 = uco.observable.FacetDevice(manufacturer=manufacturer_nikon, model="D750")
@@ -55,14 +55,14 @@ os_facet = uco.observable.FacetOperatingSystem(
     os_environment_variables=os_env_vars,
 )
 
-cyber_item1.append_facets(device1, os_facet)
-bundle.append_to_uco_object(cyber_item1)
+device_camera.append_facets(device1, os_facet)
+bundle.append_to_uco_object(device_camera)
 
 ##################################
 # A file to be added to the case #
 ##################################
-cyber_item2 = uco.observable.ObservableObject()
-investigation_items.append(cyber_item2)
+sd_card = uco.observable.ObservableObject()
+investigation_items.append(sd_card)
 file1 = uco.observable.FacetFile(
     file_system_type="EXT4",
     file_name="IMG_0123.jpg",
@@ -85,8 +85,8 @@ file_raster1 = uco.observable.FacetRasterPicture(
 
 exif = {"Make": "Canon", "Model": "Powershot"}
 file_exif1 = uco.observable.FacetEXIF(**exif)
-cyber_item2.append_facets(file1, file_content1, file_raster1, file_exif1)
-bundle.append_to_uco_object(cyber_item2)
+sd_card.append_facets(file1, file_content1, file_raster1, file_exif1)
+bundle.append_to_uco_object(sd_card)
 
 #######################################
 # An investigative action on a device #
@@ -128,8 +128,8 @@ bundle.append_to_uco_object(inv_act9)
 # Adding a CASE Relationship #
 ##############################
 cyber_rel1 = uco.observable.ObservableRelationship(
-    source=cyber_item1,
-    target=cyber_item2,
+    source=device_camera,
+    target=sd_card,
     kind_of_relationship="Contained_Within",
     directional=True,
 )
@@ -475,6 +475,16 @@ call_facet = uco.observable.FacetCall(
 )
 call_object.append_facets(call_facet)
 bundle.append_to_uco_object(call_object)
+
+###############################
+# Adding a Provenance Record  #
+###############################
+provenance_rec_object = case.investigation.ProvenanceRecord(
+    exhibit_number="CASE_X_camera_nikon_D750_and_sd_001",
+    uco_core_objects=[device_camera, sd_card],
+)
+bundle.append_to_uco_object(provenance_rec_object)
+
 
 ##################
 # Print the case #
