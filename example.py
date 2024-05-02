@@ -46,11 +46,11 @@ os_env_vars = {
 }
 
 os_facet = uco.observable.FacetOperatingSystem(
+    os_manufacturer=manufacturer_apple,
     os_advertisingID="DX4CDXKN",
     os_bitness="64-bit",
     os_install_date=os_date,
     os_isLimitAdTrackingEnabled=True,
-    os_manufacturer=manufacturer_apple,
     os_version="17.4.1",
     os_environment_variables=os_env_vars,
 )
