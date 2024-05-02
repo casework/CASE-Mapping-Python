@@ -1121,6 +1121,7 @@ class FacetMobileDevice(FacetEntity):
 class FacetOperatingSystem(FacetEntity):
     def __init__(
         self,
+        *args: Any,
         os_advertisingID: Optional[str] = None,
         os_bitness: Optional[str] = None,
         os_install_date: Optional[date] = None,
@@ -1128,6 +1129,7 @@ class FacetOperatingSystem(FacetEntity):
         os_manufacturer: Union[None, Identity] = None,
         os_version: Optional[str] = None,
         os_environment_variables: Union[None, Dict] = None,
+        **kwargs: Any,
     ):
         super().__init__()
 
