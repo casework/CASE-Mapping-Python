@@ -1,4 +1,4 @@
-from datetime import date, datetime
+from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 
 from cdo_local_uuid import local_uuid
@@ -1124,7 +1124,7 @@ class FacetOperatingSystem(FacetEntity):
         *args: Any,
         os_advertisingID: Optional[str] = None,
         os_bitness: Optional[str] = None,
-        os_install_date: Optional[date] = None,
+        os_install_date: Optional[datetime] = None,
         os_isLimitAdTrackingEnabled: Optional[bool] = None,
         os_manufacturer: Union[None, Identity] = None,
         os_version: Optional[str] = None,
