@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 from typing import Any, Dict, List, Optional, Union
 
 from cdo_local_uuid import local_uuid
@@ -1119,18 +1119,53 @@ class FacetMobileDevice(FacetEntity):
 
 class FacetOperatingSystem(FacetEntity):
     def __init__(
-        self, os_name=None, os_manufacturer=None, os_version=None, os_install_date=None
+        self,
+        os_advertisingID: str = None,
+        os_bitness: str = None,
+        os_install_date: date = None,
+        os_isLimitAdTrackingEnabled: bool = None,
+        os_manufacturer: Union[None, ObservableObject] = None,
+        os_version: str = None,
+        os_environment_variables: Union[None, Dict] = None,
     ):
         super().__init__()
+
         self["@type"] = "uco-observable:OperatingSystemFacet"
+
+        if os_environment_variables:
+            self["uco-observable:environmentVariables"] = {
+                "@id": self.prefix_label + ":" + str(local_uuid()),
+                "@type": "uco-types:Dictionary",
+                "uco-types:entry": [],
+            }
+            for k, v in os_environment_variables.items():
+                item = {
+                    "@id": self.prefix_label + ":" + str(local_uuid()),
+                    "@type": "uco-types:DictionaryEntry",
+                    "uco-types:key": k,
+                    "uco-types:value": v,
+                }
+                self["uco-observable:environmentVariables"]["uco-types:entry"].append(
+                    item
+                )
+
         self._str_vars(
             **{
-                "uco-core:name": os_name,
-                "uco-observable:manufacturer": os_manufacturer,
+                "uco-observable:advertisingID": os_advertisingID,
+                "uco-observable:bitness": os_bitness,
                 "uco-observable:version": os_version,
             }
         )
         self._datetime_vars(**{"uco-observable:installDate": os_install_date})
+
+        self._bool_vars(
+            **{"uco-observable:isLimitAdTrackingEnabled": os_isLimitAdTrackingEnabled}
+        )
+        self._node_reference_vars(
+            **{
+                "uco-observable:manufacturer": os_manufacturer,
+            }
+        )
 
 
 class FacetPathRelation(FacetEntity):
