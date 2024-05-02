@@ -1038,6 +1038,19 @@
                     ]
                 }
             ]
+        },
+        {
+            "@id": "kb:fd27eb1a-bd72-5ecc-b9eb-79a1001ec3a8",
+            "@type": "case-investigation:ProvenanceRecord",
+            "case-investigation:exhibitNumber": "CASE_X_camera_nikon_D750_and_sd_001",
+            "uco-core:object": [
+                {
+                    "@id": "kb:1ccd06e1-1a39-53c2-8e70-86ad7c48ec5c"
+                },
+                {
+                    "@id": "kb:ab4cd39a-dea8-558b-a49e-4aedd9aff7f1"
+                }
+            ]
         }
     ]
 }
