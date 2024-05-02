@@ -69,7 +69,7 @@ class ProvenanceRecord(ObjectEntity):
     def __init__(
         self,
         exhibit_number: Optional[str] = None,
-        uco_core_objects: Union[None, Dict, List[Dict]] = None,
+        uco_core_objects: Union[None, ObjectEntity, List[ObjectEntity]] = None,
     ):
         super().__init__()
         self["@type"] = "case-investigation:ProvenanceRecord"
