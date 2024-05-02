@@ -30,14 +30,32 @@ def _next_timestamp() -> datetime:
 bundle = uco.core.Bundle(description="An Example Case File")
 investigation_items: list[base.FacetEntity] = []
 
-###################################
-# An item to be added to the case #
-###################################
+############################################
+# A DeviceFacet and a OperatingSystemFacet #
+############################################
 cyber_item1 = uco.observable.ObservableObject()
 manufacturer_nikon = uco.identity.Organization(name="Nikon")
 bundle.append_to_uco_object(manufacturer_nikon)
 device1 = uco.observable.FacetDevice(manufacturer=manufacturer_nikon, model="D750")
-cyber_item1.append_facets(device1)
+os_date = datetime.strptime("2023-02-19T09:22:09", "%Y-%m-%dT%H:%M:%S")
+manufacturer_apple = uco.identity.Organization(name="Apple")
+os_env_vars = {
+    "path": "/opt/local/bin:/opt/local/sbin:/usr/bin:",
+    "temp": "/tmp:/usr/temp",
+    "systemroot": "/root",
+}
+
+os_facet = uco.observable.FacetOperatingSystem(
+    os_manufacturer=manufacturer_apple,
+    os_advertisingID="DX4CDXKN",
+    os_bitness="64-bit",
+    os_install_date=os_date,
+    os_isLimitAdTrackingEnabled=True,
+    os_version="17.4.1",
+    os_environment_variables=os_env_vars,
+)
+
+cyber_item1.append_facets(device1, os_facet)
 bundle.append_to_uco_object(cyber_item1)
 
 ##################################
@@ -79,7 +97,6 @@ inv_act = case.investigation.InvestigativeAction(
     end_time=_next_timestamp(),
 )
 investigation_items.append(inv_act)  # NOTE: Appending whole object not just id
-manufacturer_apple = uco.identity.Organization(name="Apple")
 bundle.append_to_uco_object(manufacturer_apple)
 device2 = uco.observable.FacetDevice(
     device_type="iPhone", manufacturer=manufacturer_apple, model="6XS", serial="77"
