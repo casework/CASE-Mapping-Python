@@ -991,52 +991,56 @@ class FacetBrowserCookie(FacetEntity):
 class FacetFile(FacetEntity):
     def __init__(
         self,
-        file_system_type=None,
-        file_name=None,
-        file_path=None,
-        file_local_path=None,
-        file_extension=None,
-        size_bytes=None,
-        accessed_time=None,
-        created_time=None,
-        modified_time=None,
-        metadata_changed_time=None,
-        tag=None,
+        file_accessed_time=None,
+        file_allocation_status: Optional[str] = None,
+        file_extension: Optional[str] = None,
+        file_name: Optional[str] = None,
+        file_path: Optional[str] = None,
+        file_is_directory: Optional[bool] = None,
+        file_metadata_changed_time=None,
+        file_modified_time=None,
+        file_created_time=None,
+        file_size_bytes: int = None,
+        file_local_path: Optional[str] = None,
+        file_mime_type: Optional[str] = None,
     ):
         """
         The basic properties associated with the storage of a file on a file system.
-        :param file_system_type: The specific type of a file system (e.g., "EXT4")
         :param file_name: Specifies the name associated with a file in a file system (e.g., "IMG_0123.jpg").
+        :param file_allocation_status: the allocation status of a file.
         :param file_path: Specifies the file path for the location of a file within a filesystem. (e.g., "/sdcard/IMG_0123.jpg")
         :param file_extension: The file name extension. Not present if the file has no dot in its account_name. (e.g., "jpg").
+        :param file_is_directory: Specifies whether a file entry represents a directory.
         :param size_bytes: The size of the data in bytes (e.g., integer like 35125)
-        :param accessed_time: The datetime the file was last accessed
-        :param created_time: The datetime the file was created
-        :param modified_time: The datetime the file was last modified
-        :param metadata_changed_time: The last change to metadata of a file but not necessarily the file contents
-        :param tag: A generic (string) tag/label, or a list/tuple of (strings) tags/labels.
+        :param file_accessed_time: The datetime the file was last accessed
+        :param file_created_time: The datetime the file was created
+        :param file_modified_time: The datetime the file was last modified
+        :param file_metadata_changed_time: The last change to metadata of a file but not necessarily the file contents
+        :param file_local_path: Represents the local path of the file
+        :param file_mime_type: A generic (string) tag/label of e file, or example 'text/html' or 'audio/mp3.
         """
         super().__init__()
         self["@type"] = "uco-observable:FileFacet"
         self._str_vars(
             **{
-                "uco-observable:fileSystemType": file_system_type,
                 "uco-observable:fileName": file_name,
                 "uco-observable:filePath": file_path,
-                "uco-observable:fileLocalPath": file_local_path,
+                "drafting:fileLocalPath": file_local_path,
                 "uco-observable:extension": file_extension,
+                "uco-observable:allocationStatus": file_allocation_status,
+                "uco-observable:mimeType": file_mime_type,
             }
         )
         self._datetime_vars(
             **{
-                "uco-core:objectAccessedTime": accessed_time,
-                "uco-core:objectCreatedTime": created_time,
-                "uco-core:objectModifiedTime": modified_time,
-                "uco-observable:metadataChangeTime": metadata_changed_time,
+                "uco-observable:accessedTime": file_accessed_time,
+                "uco-observable:observableCreatedTime": file_created_time,
+                "uco-observable:modifiedTime": file_modified_time,
+                "uco-observable:metadataChangeTime": file_metadata_changed_time,
             }
         )
-        self._str_list_vars(**{"uco-core:tag": tag})
-        self._int_vars(**{"uco-observable:sizeInBytes": size_bytes})
+        self._int_vars(**{"uco-observable:sizeInBytes": file_size_bytes})
+        self._bool_vars(**{"uco-observable:isDirectory": file_is_directory})
 
 
 class FacetMessage(FacetEntity):

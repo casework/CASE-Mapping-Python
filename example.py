@@ -63,13 +63,25 @@ bundle.append_to_uco_object(device_camera)
 ##################################
 sd_card = uco.observable.ObservableObject()
 investigation_items.append(sd_card)
+
+f_date_created = datetime.strptime("2024-04-18T12:06:33", "%Y-%m-%dT%H:%M:%S")
+f_date_modified = datetime.strptime("2024-04-21T12:06:33", "%Y-%m-%dT%H:%M:%S")
+f_date_metadata = datetime.strptime("2024-04-21T10:16:43", "%Y-%m-%dT%H:%M:%S")
+
 file1 = uco.observable.FacetFile(
-    file_system_type="EXT4",
+    file_allocation_status="Contiguous Allocation",
+    file_extension="jpg",
     file_name="IMG_0123.jpg",
     file_path="/sdcard/ImG_0123.jpg",
-    file_extension="jpg",
-    size_bytes=35002,
+    file_is_directory=False,
+    file_metadata_changed_time=f_date_metadata,
+    file_modified_time=f_date_modified,
+    file_created_time=f_date_created,
+    file_size_bytes=35002,
+    file_local_path="files/Image/ImG_0123.jpg",
+    file_mime_type="image/jpg",
 )
+
 file_content1 = uco.observable.FacetContentData(
     byte_order="Big-endian",
     magic_number="/9j/ww==",
