@@ -79,13 +79,13 @@ file1 = uco.observable.FacetFile(
     file_created_time=f_date_created,
     file_size_bytes=35002,
     file_local_path="files/Image/ImG_0123.jpg",
-    file_mime_type="image/jpg",
+    file_mime_type="image/jpeg",
 )
 
 file_content1 = uco.observable.FacetContentData(
     byte_order="Big-endian",
     magic_number="/9j/ww==",
-    mime_type="image/jpg",
+    mime_type="image/jpeg",
     size_bytes=35000,
     data_payload="<base 64 encoded data of the file>",
     hash_method="SHA256",

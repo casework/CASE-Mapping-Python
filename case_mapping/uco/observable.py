@@ -246,7 +246,7 @@ class FacetContentData(FacetEntity):
         The characteristics of a block of digital data.
         :param byte_order: Byte order of data. Example - "BigEndian"
         :param magic_number: The magic phone_number of a file
-        :param mime_type: The mime type of a file. Example - "image/jpg"
+        :param mime_type: The mime type of a file. Example - "image/jpeg"
         :param size_bytes: A phone_number representing the size of the content
         :param data_payload: A base64 representation of the data
         :param entropy: The entropy value for the data
