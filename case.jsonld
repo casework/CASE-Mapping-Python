@@ -1,5 +1,6 @@
 {
     "@id": "kb:aef8e4c4-db83-59fd-8f71-b65cd7676c0a",
+    "@type": "uco-core:Bundle",
     "@context": {
         "@vocab": "http://caseontology.org/core#",
         "case-investigation": "https://ontology.caseontology.org/case/investigation/",
@@ -19,7 +20,6 @@
         "xsd": "http://www.w3.org/2001/XMLSchema#",
         "kb": "http://example.org/kb/"
     },
-    "@type": "uco-core:Bundle",
     "uco-core:description": "An Example Case File",
     "uco-core:object": [
         {
@@ -90,20 +90,37 @@
                 {
                     "@id": "kb:7721bd93-fff7-5e1d-a14e-2d627c399ebe",
                     "@type": "uco-observable:FileFacet",
-                    "uco-observable:fileSystemType": "EXT4",
                     "uco-observable:fileName": "IMG_0123.jpg",
                     "uco-observable:filePath": "/sdcard/ImG_0123.jpg",
                     "uco-observable:extension": "jpg",
+                    "uco-observable:allocationStatus": "Contiguous Allocation",
+                    "uco-observable:mimeType": "image/jpeg",
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-18T12:06:33+00:00"
+                    },
+                    "uco-observable:modifiedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-21T12:06:33+00:00"
+                    },
+                    "uco-observable:metadataChangeTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-21T10:16:43+00:00"
+                    },
                     "uco-observable:sizeInBytes": {
                         "@type": "xsd:integer",
                         "@value": "35002"
+                    },
+                    "uco-observable:isDirectory": {
+                        "@type": "xsd:boolean",
+                        "@value": false
                     }
                 },
                 {
                     "@id": "kb:9ed3e5de-cde8-5cec-a71b-774e485da67d",
                     "@type": "uco-observable:ContentDataFacet",
                     "uco-observable:magicNumber": "/9j/ww==",
-                    "uco-observable:mimeType": "image/jpg",
+                    "uco-observable:mimeType": "image/jpeg",
                     "uco-observable:dataPayload": "<base 64 encoded data of the file>",
                     "uco-observable:sizeInBytes": {
                         "@type": "xsd:integer",
@@ -546,20 +563,37 @@
                         {
                             "@id": "kb:7721bd93-fff7-5e1d-a14e-2d627c399ebe",
                             "@type": "uco-observable:FileFacet",
-                            "uco-observable:fileSystemType": "EXT4",
                             "uco-observable:fileName": "IMG_0123.jpg",
                             "uco-observable:filePath": "/sdcard/ImG_0123.jpg",
                             "uco-observable:extension": "jpg",
+                            "uco-observable:allocationStatus": "Contiguous Allocation",
+                            "uco-observable:mimeType": "image/jpeg",
+                            "uco-observable:observableCreatedTime": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-04-18T12:06:33+00:00"
+                            },
+                            "uco-observable:modifiedTime": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-04-21T12:06:33+00:00"
+                            },
+                            "uco-observable:metadataChangeTime": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-04-21T10:16:43+00:00"
+                            },
                             "uco-observable:sizeInBytes": {
                                 "@type": "xsd:integer",
                                 "@value": "35002"
+                            },
+                            "uco-observable:isDirectory": {
+                                "@type": "xsd:boolean",
+                                "@value": false
                             }
                         },
                         {
                             "@id": "kb:9ed3e5de-cde8-5cec-a71b-774e485da67d",
                             "@type": "uco-observable:ContentDataFacet",
                             "uco-observable:magicNumber": "/9j/ww==",
-                            "uco-observable:mimeType": "image/jpg",
+                            "uco-observable:mimeType": "image/jpeg",
                             "uco-observable:dataPayload": "<base 64 encoded data of the file>",
                             "uco-observable:sizeInBytes": {
                                 "@type": "xsd:integer",
@@ -1051,6 +1085,59 @@
                     "@id": "kb:ab4cd39a-dea8-558b-a49e-4aedd9aff7f1"
                 }
             ]
+        },
+        {
+            "@id": "kb:d1c93537-992f-56fa-a9ec-5c0e687f6fa5",
+            "@type": "uco-observable:File",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:056c4664-bcf0-54e9-a24d-0cc97e7fd429",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:fileName": "IMG_0123.jpg",
+                    "uco-observable:extension": "jpg",
+                    "uco-observable:isDirectory": {
+                        "@type": "xsd:boolean",
+                        "@value": false
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:aeb27b86-806b-5d2e-bd7e-a3fc63c275b2",
+            "@type": "uco-observable:File",
+            "uco-core:description": "Root directory of file extractions for this case.",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:9748fa25-aa97-5bf0-bf20-7f3a8819e461",
+                    "@type": "uco-observable:FileFacet",
+                    "uco-observable:isDirectory": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:8322956f-792c-5b89-a678-a91146d8ab9b",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:1dd22829-26f1-5305-88d9-2d9e5f9b411d",
+                    "@type": "uco-observable:PathRelationFacet",
+                    "uco-observable:path": "files/Image/ImG_0123.jpg"
+                }
+            ],
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": true
+            },
+            "uco-core:kindOfRelationship": "Contained_Within",
+            "uco-core:source": {
+                "@id": "kb:d1c93537-992f-56fa-a9ec-5c0e687f6fa5"
+            },
+            "uco-core:target": {
+                "@id": "kb:aeb27b86-806b-5d2e-bd7e-a3fc63c275b2"
+            }
         }
     ]
 }
