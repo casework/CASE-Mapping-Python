@@ -2,9 +2,9 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
 
 from cdo_local_uuid import local_uuid
-from pytz import timezone
 
 from ..base import FacetEntity, ObjectEntity, unpack_args_array
+from .core import Relationship
 from .identity import Identity
 
 
@@ -246,7 +246,7 @@ class FacetContentData(FacetEntity):
         The characteristics of a block of digital data.
         :param byte_order: Byte order of data. Example - "BigEndian"
         :param magic_number: The magic phone_number of a file
-        :param mime_type: The mime type of a file. Example - "image/jpg"
+        :param mime_type: The mime type of a file. Example - "image/jpeg"
         :param size_bytes: A phone_number representing the size of the content
         :param data_payload: A base64 representation of the data
         :param entropy: The entropy value for the data
@@ -365,19 +365,26 @@ class BluetoothAddress(FacetEntity):
         )
 
 
-class ObservableObject(ObjectEntity):
-    def __init__(self, has_changed=None, state=None, facets=None):
+class Observable(ObjectEntity):
+    def __init__(
+        self,
+        *args: Any,
+        **kwargs: Any,
+    ) -> None:
+        super().__init__(*args, **kwargs)
+
+
+class ObservableObject(Observable):
+    def __init__(self, *args: Any, has_changed=None, state=None, **kwargs: Any) -> None:
         """
         An observable object is a grouping of characteristics unique to a distinct article or unit within the digital domain.
         :param has_changed:
         :param state:
-        :param facets: This will contain specific properties for this object
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:ObservableObject"
         self._str_vars(**{"uco-observable:state": state})
         self._bool_vars(**{"uco-observable:hasChanged": has_changed})
-        self.append_facets(facets)
 
 
 class FacetUrlHistory(FacetEntity):
@@ -988,55 +995,62 @@ class FacetBrowserCookie(FacetEntity):
         self._bool_vars(**{"uco-observable:isSecure": secure})
 
 
+class File(ObservableObject):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self["@type"] = "uco-observable:File"
+
+
 class FacetFile(FacetEntity):
     def __init__(
         self,
-        file_system_type=None,
-        file_name=None,
-        file_path=None,
-        file_local_path=None,
-        file_extension=None,
-        size_bytes=None,
-        accessed_time=None,
-        created_time=None,
-        modified_time=None,
-        metadata_changed_time=None,
-        tag=None,
+        file_accessed_time=None,
+        file_allocation_status: Optional[str] = None,
+        file_extension: Optional[str] = None,
+        file_name: Optional[str] = None,
+        file_path: Optional[str] = None,
+        file_is_directory: Optional[bool] = None,
+        file_metadata_changed_time: Optional[datetime] = None,
+        file_modified_time: Optional[datetime] = None,
+        file_created_time: Optional[datetime] = None,
+        file_size_bytes: Union[int, None] = None,
+        file_mime_type: Optional[str] = None,
     ):
         """
         The basic properties associated with the storage of a file on a file system.
-        :param file_system_type: The specific type of a file system (e.g., "EXT4")
         :param file_name: Specifies the name associated with a file in a file system (e.g., "IMG_0123.jpg").
+        :param file_allocation_status: the allocation status of a file.
         :param file_path: Specifies the file path for the location of a file within a filesystem. (e.g., "/sdcard/IMG_0123.jpg")
         :param file_extension: The file name extension. Not present if the file has no dot in its account_name. (e.g., "jpg").
+        :param file_is_directory: Specifies whether a file entry represents a directory.
         :param size_bytes: The size of the data in bytes (e.g., integer like 35125)
-        :param accessed_time: The datetime the file was last accessed
-        :param created_time: The datetime the file was created
-        :param modified_time: The datetime the file was last modified
-        :param metadata_changed_time: The last change to metadata of a file but not necessarily the file contents
-        :param tag: A generic (string) tag/label, or a list/tuple of (strings) tags/labels.
+        :param file_accessed_time: The datetime the file was last accessed
+        :param file_created_time: The datetime the file was created
+        :param file_modified_time: The datetime the file was last modified
+        :param file_metadata_changed_time: The last change to metadata of a file but not necessarily the file contents
+        :param file_mime_type: A generic (string) tag/label of e file, or example 'text/html' or 'audio/mp3.
         """
         super().__init__()
         self["@type"] = "uco-observable:FileFacet"
         self._str_vars(
             **{
-                "uco-observable:fileSystemType": file_system_type,
                 "uco-observable:fileName": file_name,
                 "uco-observable:filePath": file_path,
-                "uco-observable:fileLocalPath": file_local_path,
                 "uco-observable:extension": file_extension,
+                "uco-observable:allocationStatus": file_allocation_status,
+                "uco-observable:mimeType": file_mime_type,
             }
         )
         self._datetime_vars(
             **{
-                "uco-core:objectAccessedTime": accessed_time,
-                "uco-core:objectCreatedTime": created_time,
-                "uco-core:objectModifiedTime": modified_time,
-                "uco-observable:metadataChangeTime": metadata_changed_time,
+                "uco-observable:accessedTime": file_accessed_time,
+                "uco-observable:observableCreatedTime": file_created_time,
+                "uco-observable:modifiedTime": file_modified_time,
+                "uco-observable:metadataChangeTime": file_metadata_changed_time,
             }
         )
-        self._str_list_vars(**{"uco-core:tag": tag})
-        self._int_vars(**{"uco-observable:sizeInBytes": size_bytes})
+        self._int_vars(**{"uco-observable:sizeInBytes": file_size_bytes})
+        self._bool_vars(**{"uco-observable:isDirectory": file_is_directory})
 
 
 class FacetMessage(FacetEntity):
@@ -1172,7 +1186,7 @@ class FacetOperatingSystem(FacetEntity):
 
 
 class FacetPathRelation(FacetEntity):
-    def __init__(self, path):
+    def __init__(self, path: str) -> None:
         """
         This CASE object specifies the location of one object within another containing object.
         :param path: The full path to the object (e.g, "/sdcard/IMG_0123.jpg")
@@ -1224,53 +1238,42 @@ class FacetEvent(FacetEntity):
         )
 
 
-class ObservableRelationship(ObjectEntity):
+class ObservableRelationship(Observable, Relationship):
     def __init__(
         self,
-        source,
-        target,
-        start_time=None,
-        end_time=None,
-        kind_of_relationship=None,
-        directional=False,
-    ):
+        *args: Any,
+        source: ObjectEntity,
+        target: ObjectEntity,
+        start_time: Optional[datetime] = None,
+        end_time: Optional[datetime] = None,
+        kind_of_relationship: str,
+        directional: bool = False,
+        **kwargs: Any,
+    ) -> None:
         """
-        This object represents an assertion that one or more objects are related to another object in some way
-        :param source: An observable object
-        :param target: An observable object
-        :param start_time: The time, in ISO8601 time format, the action was started (e.g., "2020-09-29T12:13:01Z")
-        :param end_time: The time, in ISO8601 time format, the action completed (e.g., "2020-09-29T12:13:43Z")
-        :param kind_of_relationship: How these items relate from source to target (e.g., "Contained_Within")
-        :param directional: A boolean whether a relationship assertion is limited to the context FROM a source object(s) TO a target object.
+        This object represents an assertion that one or more observable objects are related to another object in some way.  Other parameters are as in uco.core.Relationship.
+        :param source: An observable object (specialized over Relationship)
+        :param target: An observable object (specialized over Relationship)
         """
-        super().__init__()
+        if not isinstance(source, Observable):
+            raise TypeError(
+                "The source of an ObservableRelationship must be an Observable."
+            )
+        if not isinstance(target, Observable):
+            raise TypeError(
+                "The target of an ObservableRelationship must be an Observable."
+            )
+        super().__init__(
+            *args,
+            source=source,
+            target=target,
+            start_time=start_time,
+            end_time=end_time,
+            kind_of_relationship=kind_of_relationship,
+            directional=directional,
+            **kwargs,
+        )
         self["@type"] = "uco-observable:ObservableRelationship"
-        self._bool_vars(**{"uco-core:isDirectional": directional})
-        self._str_vars(**{"uco-core:kindOfRelationship": kind_of_relationship})
-        self._datetime_vars(
-            **{
-                "uco-observable:startTime": start_time,
-                "uco-observable:endTime": end_time,
-            }
-        )
-        self._node_reference_vars(
-            **{"uco-core:source": source, "uco-core:target": target}
-        )
-
-    def set_start_accessed_time(self):
-        """Set the time when this action initiated."""
-        self._addtime(_type="start")
-
-    def set_end_accessed_time(self):
-        """Set the time when this action completed."""
-        self._addtime(_type="end")
-
-    def _addtime(self, _type):
-        time = datetime.now(timezone("UTC"))
-        self[f"uco-observable:{_type}Time"] = {
-            "@type": "xsd:dateTime",
-            "@value": time.isoformat(),
-        }
 
 
 class FacetApplicationAccount(FacetEntity):
