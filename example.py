@@ -78,7 +78,6 @@ file1 = uco.observable.FacetFile(
     file_modified_time=f_date_modified,
     file_created_time=f_date_created,
     file_size_bytes=35002,
-    file_local_path="files/Image/ImG_0123.jpg",
     file_mime_type="image/jpeg",
 )
 
@@ -496,6 +495,39 @@ provenance_rec_object = case.investigation.ProvenanceRecord(
     uco_core_objects=[device_camera, sd_card],
 )
 bundle.append_to_uco_object(provenance_rec_object)
+
+
+###############################
+# Recording an extracted file #
+###############################
+
+# TODO - Record provenance of extracted file.
+
+# Record extracted file.
+extracted_file_file_facet1 = uco.observable.FacetFile(
+    file_extension="jpg",
+    file_name="IMG_0123.jpg",
+    file_is_directory=False,
+)
+extracted_file_1 = uco.observable.File(facets=[extracted_file_file_facet1])
+bundle.append_to_uco_object(extracted_file_1)
+
+extraction_root_directory_file_facet1 = uco.observable.FacetFile(file_is_directory=True)
+extraction_root_directory1 = uco.observable.File(
+    description="Root directory of file extractions for this case.",
+    facets=[extraction_root_directory_file_facet1],
+)
+bundle.append_to_uco_object(extraction_root_directory1)
+
+path_relation_facet1 = uco.observable.FacetPathRelation(path="files/Image/ImG_0123.jpg")
+path_relation = uco.observable.ObservableRelationship(
+    directional=True,
+    kind_of_relationship="Contained_Within",
+    source=extracted_file_1,
+    target=extraction_root_directory1,
+    facets=[path_relation_facet1],
+)
+bundle.append_to_uco_object(path_relation)
 
 
 ##################

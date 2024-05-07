@@ -1,4 +1,7 @@
-from typing import Any
+from datetime import datetime
+from typing import Any, Optional
+
+from pytz import timezone
 
 from ..base import ObjectEntity, unpack_args_array
 
@@ -78,6 +81,57 @@ class Bundle(ObjectEntity):
     @unpack_args_array
     def append_to_uco_core_description(self, *args):
         self._append_strings("uco-core:description", *args)
+
+
+class Relationship(ObjectEntity):
+    def __init__(
+        self,
+        *args: Any,
+        source: ObjectEntity,
+        target: ObjectEntity,
+        start_time: Optional[datetime] = None,
+        end_time: Optional[datetime] = None,
+        kind_of_relationship: str,
+        directional: bool = False,
+        **kwargs: Any,
+    ) -> None:
+        """
+        This object represents an assertion that one or more objects are related to another object in some way
+        :param source: A UcoObject
+        :param target: A UcoObject
+        :param start_time: The time, in ISO8601 time format, the action was started (e.g., "2020-09-29T12:13:01Z")
+        :param end_time: The time, in ISO8601 time format, the action completed (e.g., "2020-09-29T12:13:43Z")
+        :param kind_of_relationship: How these items relate from source to target (e.g., "Contained_Within")
+        :param directional: A boolean whether a relationship assertion is limited to the context FROM a source object(s) TO a target object.
+        """
+        super().__init__(*args, **kwargs)
+        self["@type"] = "uco-core:Relationship"
+        self._bool_vars(**{"uco-core:isDirectional": directional})
+        self._str_vars(**{"uco-core:kindOfRelationship": kind_of_relationship})
+        self._datetime_vars(
+            **{
+                "uco-core:startTime": start_time,
+                "uco-core:endTime": end_time,
+            }
+        )
+        self._node_reference_vars(
+            **{"uco-core:source": source, "uco-core:target": target}
+        )
+
+    def set_start_accessed_time(self) -> None:
+        """Set the time when this relationship initiated."""
+        self._addtime(_type="start")
+
+    def set_end_accessed_time(self) -> None:
+        """Set the time when this relationship completed."""
+        self._addtime(_type="end")
+
+    def _addtime(self, _type: str) -> None:
+        time = datetime.now(timezone("UTC"))
+        self[f"uco-core:{_type}Time"] = {
+            "@type": "xsd:dateTime",
+            "@value": time.isoformat(),
+        }
 
 
 directory = {"uco-core:Bundle": Bundle}

@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from typing import Any
+from typing import Any, List, Optional
 
 from cdo_local_uuid import local_uuid
 
@@ -187,8 +187,22 @@ class FacetEntity(dict):
 
 
 class ObjectEntity(FacetEntity):
-    def __init__(self, *args: Any, **kwargs: Any) -> None:
+    def __init__(
+        self,
+        *args: Any,
+        description: Optional[str] = None,
+        facets: Optional[List[FacetEntity]] = None,
+        **kwargs: Any,
+    ) -> None:
+        """
+        :param facets: This will contain specific properties for this object
+        """
         super().__init__(*args, **kwargs)
+        self["@type"] = "uco-core:UcoObject"
+        if description is not None:
+            self["uco-core:description"] = description
+        if isinstance(facets, list):
+            self.append_facets(*facets)
 
     @unpack_args_array
     def append_facets(self, *args):
