@@ -3,19 +3,34 @@ from typing import Any, Dict, List, Optional, Union
 
 from pytz import timezone
 
-from ..base import ObjectEntity
+from ..base import FacetEntity, ObjectEntity
 
 
 class InvestigativeAction(ObjectEntity):
     def __init__(
-        self, name=None, description=None, start_time=None, end_time=None, facets=None
+        self,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        start_time=None,
+        end_time=None,
+        facets: Union[None, FacetEntity, List[FacetEntity]] = None,
+        performer: Union[None, ObjectEntity] = None,
+        location: Union[None, ObjectEntity] = None,
+        instrument: Union[None, ObjectEntity] = None,
+        object: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        result: Union[None, ObjectEntity, List[ObjectEntity]] = None,
     ):
         """
-        An investigative action is a CASE object that represents the who, when, what outcome of an action
-        :param name: The name of the action (e.g., "annotated")
-        :param start_time: The time, in ISO8601 time format, the action was started (e.g., "2020-09-29T12:13:01Z")
-        :param end_time: The time, in ISO8601 time format, the action completed (e.g., "2020-09-29T12:13:43Z")
-        :param facets: A list of items to be added to this object (e.g., an ActionReference to the performer & tool)
+        An investigative action is a CASE object that represents the who, when, what outcome of an action.
+        :param name: The name of the action (e.g., "Forensic mobile device acquisition").
+        :param start_time: The time, in ISO8601 time format, the action was started (e.g., "2020-09-29T12:13:01Z").
+        :param end_time: The time, in ISO8601 time format, the action completed (e.g., "2020-09-29T12:13:43Z").
+        :param facets: A list of FacetEntity to be added to this object.
+        :param performer: The primary performer of an action.
+        :param location: The location where an action occurs.
+        :param instrument: The things used to perform an action.
+        :param object: The things that the action is performed on/against.
+        :param result: The things resulting from performing an action.
         """
         super().__init__()
         self["@type"] = "case-investigation:InvestigativeAction"
@@ -23,7 +38,17 @@ class InvestigativeAction(ObjectEntity):
         self._datetime_vars(
             **{"uco-action:startTime": start_time, "uco-action:endTime": end_time}
         )
-        self.append_facets(facets)
+        self._node_reference_vars(
+            **{
+                "uco-action:performer": performer,
+                "uco-action:location": location,
+                "uco-action:instrument": instrument,
+                "uco-action:object": object,
+                "uco-action:result": result,
+            }
+        )
+        if facets:
+            self.append_facets(facets)
 
     def set_end_time(self):
         """Set the time when this action completed."""

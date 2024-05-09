@@ -6,9 +6,9 @@ from ..base import ObjectEntity
 class Tool(ObjectEntity):
     def __init__(
         self,
-        tool_name=None,
-        tool_version=None,
-        tool_type=None,
+        tool_name: Optional[str] = None,
+        tool_version: Optional[str] = None,
+        tool_type: Optional[str] = None,
         tool_creator: Optional[ObjectEntity] = None,
     ):
         """

@@ -1099,12 +1099,14 @@ class FacetMessage(FacetEntity):
 class FacetMobileDevice(FacetEntity):
     def __init__(
         self,
-        IMSI=None,
-        ICCID=None,
-        IMEI=None,
-        storage_capacity=None,
-        keypad_pin=None,
-        MSISDN=None,
+        IMSI: Optional[str] = None,
+        ICCID: Optional[str] = None,
+        ESN: Optional[str] = None,
+        IMEI: Optional[str] = None,
+        bluetooth_device: Optional[str] = None,
+        keypad_pin: Optional[str] = None,
+        storage_capacity: Optional[int] = None,
+        activation_time=None,
     ):
         """
         The basic properties associated with a phone and phone account of a device or user.
@@ -1121,13 +1123,12 @@ class FacetMobileDevice(FacetEntity):
                 "uco-observable:IMSI": IMSI,
                 "uco-observable:ICCID": ICCID,
                 "uco-observable:IMEI": IMEI,
-                "uco-observable:MSISDN": MSISDN,
+                "uco-observable:keypadUnlockCode": keypad_pin,
             }
         )
         self._int_vars(
             **{
                 "uco-observable:storageCapacityInBytes": storage_capacity,
-                "uco-observable:keypadUnlockCode": keypad_pin,
             }
         )
 

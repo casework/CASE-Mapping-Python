@@ -507,6 +507,7 @@ bundle.append_to_uco_object(provenance_rec_object)
 extracted_file_file_facet1 = uco.observable.FacetFile(
     file_extension="jpg",
     file_name="IMG_0123.jpg",
+    file_path="file/Image/",
     file_is_directory=False,
 )
 extracted_file_1 = uco.observable.File(facets=[extracted_file_file_facet1])
@@ -519,7 +520,7 @@ extraction_root_directory1 = uco.observable.File(
 )
 bundle.append_to_uco_object(extraction_root_directory1)
 
-path_relation_facet1 = uco.observable.FacetPathRelation(path="files/Image/ImG_0123.jpg")
+path_relation_facet1 = uco.observable.FacetPathRelation(path="files/Image/")
 path_relation = uco.observable.ObservableRelationship(
     directional=True,
     kind_of_relationship="Contained_Within",
@@ -529,6 +530,113 @@ path_relation = uco.observable.ObservableRelationship(
 )
 bundle.append_to_uco_object(path_relation)
 
+##########################################################
+# A complete Investigative Action (Forensic Acquisition) #
+##########################################################
+
+# Device + Mobile phone
+device_object = uco.observable.ObservableObject()
+device_phone_facet = uco.observable.FacetDevice(
+    device_type="Mobile phone",
+    model="iPhone XR",
+    manufacturer=manufacturer_apple,
+    serial="DX4CDFDBOJE",
+)
+activation_time = datetime.strptime("2024-02-26T10:18:39", "%Y-%m-%dT%H:%M:%S")
+device_mobile_facet = uco.observable.FacetMobileDevice(
+    IMSI="310260249043715",
+    ICCID="8901260243790437158",
+    IMEI="359405082912450",
+    bluetooth_device="Beats solo",
+    keypad_pin="124589",
+    storage_capacity=64000,
+    activation_time=activation_time,
+)
+
+device_object.append_facets(device_phone_facet, device_mobile_facet)
+bundle.append_to_uco_object(device_object)
+
+file_extracted = uco.observable.ObservableObject()
+file_zip_facet = uco.observable.FacetFile(
+    file_allocation_status="Contiguous Allocation",
+    file_extension="zip",
+    file_name="Apple_iPhone XR (A1901).zip",
+    file_path="Apple_iPhone XR (A1901).zip",
+    file_is_directory=False,
+    file_size_bytes=16965760332,
+    file_mime_type="application/zip",
+)
+
+file_hash_facet = uco.observable.FacetContentData(
+    hash_method="SHA256",
+    hash_value="11122273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+)
+file_extracted.append_facets(file_zip_facet, file_hash_facet)
+bundle.append_to_uco_object(file_extracted)
+
+provenance_mobile_device = case.investigation.ProvenanceRecord(
+    exhibit_number="CASE_X iPhoneXR s/n DX4CDFDBOJE",
+    uco_core_objects=device_object,
+)
+bundle.append_to_uco_object(provenance_mobile_device)
+
+provenance_zip_file = case.investigation.ProvenanceRecord(
+    exhibit_number="CASE_X iPhoneXR s/n DX4CDFDBOJE extracted ZIP file",
+    uco_core_objects=file_extracted,
+)
+bundle.append_to_uco_object(provenance_zip_file)
+
+performer_object = uco.identity.Organization(name="Reality Net Srl")
+bundle.append_to_uco_object(performer_object)
+
+# role_object = uco.role.Role(
+#     name="Digital Forensic Expert"
+#     )
+# bundle.append_to_uco_object(role_object)
+
+# relation_object = uco.observable.ObservableRelationship(
+#     source=performer_object,
+#     target=role_object,
+#     kind_of_relationship="Has_Role",
+#     directional=True,
+# )
+# bundle.append_to_uco_object(relation_object)
+
+tool_creator_object = uco.identity.Organization(name="Cellebrite")
+bundle.append_to_uco_object(tool_creator_object)
+
+tool_acquisition = uco.tool.Tool(
+    tool_name="UFED PA",
+    tool_version="7.57.1.9",
+    tool_type="Acquisition",
+    tool_creator=tool_creator_object,
+)
+bundle.append_to_uco_object(tool_acquisition)
+
+action_start_time = datetime.strptime("2024-02-29T12:28:49", "%Y-%m-%dT%H:%M:%S")
+action_end_time = datetime.strptime("2024-02-29T12:43:44", "%Y-%m-%dT%H:%M:%S")
+action_location_object = uco.location.Location()
+action_location_facet = uco.location.FacetSimpleAdress(
+    country="Italy",
+    locality="Genoa",
+    street="via dei Ciclamini, 7",
+    postal_code="44100",
+)
+action_location_object.append_facets(action_location_facet)
+bundle.append_to_uco_object(action_location_object)
+
+action_acquisition = case.investigation.InvestigativeAction(
+    name="Forensic mobile device acquisition",
+    description="Acquisition iPhone XR",
+    start_time=action_start_time,
+    end_time=action_end_time,
+    performer=performer_object,
+    location=action_location_object,
+    instrument=tool_acquisition,
+    object=provenance_mobile_device,
+    result=provenance_zip_file,
+)
+bundle.append_to_uco_object(action_acquisition)
 
 ##################
 # Print the case #
