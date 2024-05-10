@@ -72,7 +72,7 @@ file1 = uco.observable.FacetFile(
     file_allocation_status="Contiguous Allocation",
     file_extension="jpg",
     file_name="IMG_0123.jpg",
-    file_path="/sdcard/ImG_0123.jpg",
+    file_path="/sdcard/IMG_0123.jpg",
     file_is_directory=False,
     file_metadata_changed_time=f_date_metadata,
     file_modified_time=f_date_modified,
@@ -507,7 +507,6 @@ bundle.append_to_uco_object(provenance_rec_object)
 extracted_file_file_facet1 = uco.observable.FacetFile(
     file_extension="jpg",
     file_name="IMG_0123.jpg",
-    file_path="file/Image/IMG_0123.jpg",
     file_is_directory=False,
 )
 extracted_file_1 = uco.observable.File(facets=[extracted_file_file_facet1])
@@ -520,7 +519,10 @@ extraction_root_directory1 = uco.observable.File(
 )
 bundle.append_to_uco_object(extraction_root_directory1)
 
-path_relation_facet1 = uco.observable.FacetPathRelation(path="files/Image/ImG_0123.jpg")
+path_relation_facet1 = uco.observable.FacetPathRelation(
+    path="files/Image/IIMG_0123.jpg"
+)
+
 path_relation = uco.observable.ObservableRelationship(
     directional=True,
     kind_of_relationship="Contained_Within",
