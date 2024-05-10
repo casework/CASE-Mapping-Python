@@ -633,8 +633,8 @@ action_acquisition = case.investigation.InvestigativeAction(
     performer=performer_object,
     location=action_location_object,
     instrument=tool_acquisition,
-    object=provenance_mobile_device,
-    result=provenance_zip_file,
+    objects=provenance_mobile_device,
+    results=provenance_zip_file,
 )
 bundle.append_to_uco_object(action_acquisition)
 

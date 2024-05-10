@@ -4,67 +4,46 @@ from typing import Any, Dict, List, Optional, Union
 from pytz import timezone
 
 from ..base import FacetEntity, ObjectEntity
+from ..uco.action import Action
+from ..uco.location import Location
 
 
-class InvestigativeAction(ObjectEntity):
+class InvestigativeAction(Action):
     def __init__(
         self,
-        name: Optional[str] = None,
+        *args: Any,
         description: Optional[str] = None,
-        start_time=None,
-        end_time=None,
-        facets: Union[None, FacetEntity, List[FacetEntity]] = None,
-        performer: Union[None, ObjectEntity] = None,
-        location: Union[None, ObjectEntity] = None,
-        instrument: Union[None, ObjectEntity] = None,
-        object: Union[None, ObjectEntity, List[ObjectEntity]] = None,
-        result: Union[None, ObjectEntity, List[ObjectEntity]] = None,
-    ):
+        facets: Optional[List[FacetEntity]] = None,
+        end_time: Optional[datetime] = None,
+        environment: Optional[ObjectEntity] = None,
+        instrument: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        location: Union[None, Location, List[Location]] = None,
+        name: Optional[str] = None,
+        objects: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        performer: Optional[ObjectEntity] = None,
+        results: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        start_time: Optional[datetime] = None,
+        **kwargs: Any,
+    ) -> None:
         """
         An investigative action is a CASE object that represents the who, when, what outcome of an action.
-        :param name: The name of the action (e.g., "Forensic mobile device acquisition").
-        :param start_time: The time, in ISO8601 time format, the action was started (e.g., "2020-09-29T12:13:01Z").
-        :param end_time: The time, in ISO8601 time format, the action completed (e.g., "2020-09-29T12:13:43Z").
-        :param facets: A list of FacetEntity to be added to this object.
-        :param performer: The primary performer of an action.
-        :param location: The location where an action occurs.
-        :param instrument: The things used to perform an action.
-        :param object: The things that the action is performed on/against.
-        :param result: The things resulting from performing an action.
         """
-        super().__init__()
+        super().__init__(
+            *args,
+            description=description,
+            facets=facets,
+            end_time=end_time,
+            environment=environment,
+            instrument=instrument,
+            location=location,
+            name=name,
+            objects=objects,
+            performer=performer,
+            results=results,
+            start_time=start_time,
+            **kwargs,
+        )
         self["@type"] = "case-investigation:InvestigativeAction"
-        self._str_vars(**{"uco-core:name": name, "uco-core:description": description})
-        self._datetime_vars(
-            **{"uco-action:startTime": start_time, "uco-action:endTime": end_time}
-        )
-        self._node_reference_vars(
-            **{
-                "uco-action:performer": performer,
-                "uco-action:location": location,
-                "uco-action:instrument": instrument,
-                "uco-action:object": object,
-                "uco-action:result": result,
-            }
-        )
-        if facets:
-            self.append_facets(facets)
-
-    def set_end_time(self):
-        """Set the time when this action completed."""
-        self._addtime(_type="end")
-
-    def set_start_time(self):
-        """Set the time when this action initiated."""
-        self._addtime(_type="start")
-
-    def _addtime(self, _type):
-        time = datetime.now(timezone("UTC"))
-        self[f"uco-action:{_type}Time"] = {
-            "@type": "xsd:dateTime",
-            "@value": time.isoformat(),
-        }
-        return time
 
 
 class CaseInvestigation(ObjectEntity):
