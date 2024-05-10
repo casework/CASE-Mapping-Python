@@ -544,16 +544,24 @@ device_phone_facet = uco.observable.FacetDevice(
 )
 activation_time = datetime.strptime("2024-02-26T10:18:39", "%Y-%m-%dT%H:%M:%S")
 device_mobile_facet = uco.observable.FacetMobileDevice(
-    IMSI="310260249043715",
-    ICCID="8901260243790437158",
     IMEI="359405082912450",
-    bluetooth_device="Beats solo",
-    keypad_pin="124589",
-    storage_capacity=64000,
-    activation_time=activation_time,
+    bluetooth_device_name="Beats solo",
+    keypad_unlock_code="124589",
+    storage_capacity_in_bytes=64000,
+    phone_activation_time=activation_time,
+)
+sim_card_facet = uco.observable.FacetSimCard(
+    ICCID="8901260243790437158",
+    IMSI="310260249043715",
+    PIN="041981",
+    PUK="12345678",
+    SIM_form="Micro SIM",
+    SIM_type="SIM",
+    carrier=identity_organisation_3,
+    storage_capacity_in_bytes=65536,
 )
 
-device_object.append_facets(device_phone_facet, device_mobile_facet)
+device_object.append_facets(device_phone_facet, device_mobile_facet, sim_card_facet)
 bundle.append_to_uco_object(device_object)
 
 file_extracted = uco.observable.ObservableObject()

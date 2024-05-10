@@ -1157,23 +1157,43 @@
                 {
                     "@id": "kb:cad54a2d-fb07-50a8-9f71-7d7ea46d0b68",
                     "@type": "uco-observable:MobileDeviceFacet",
-                    "uco-observable:IMSI": "310260249043715",
-                    "uco-observable:ICCID": "8901260243790437158",
                     "uco-observable:IMEI": "359405082912450",
                     "uco-observable:keypadUnlockCode": "124589",
+                    "uco-observable:bluetoothDeviceName": "Beats solo",
                     "uco-observable:storageCapacityInBytes": {
                         "@type": "xsd:integer",
                         "@value": "64000"
+                    },
+                    "observable:phoneActivationTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-02-26T10:18:39+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:ec578929-f38f-5783-a8dc-2931e89673d6",
+                    "@type": "uco-observable:SIMCardFacet",
+                    "uco-observable:ICCID": "8901260243790437158",
+                    "uco-observable:IMSI": "310260249043715",
+                    "uco-observable:PIN": "041981",
+                    "uco-observable:PUK": "12345678",
+                    "uco-observable:SIMForm": "Micro SIM",
+                    "uco-observable:SIMType": "SIM",
+                    "uco-observable:storageCapacityInBytes": {
+                        "@type": "xsd:integer",
+                        "@value": "65536"
+                    },
+                    "uco-observable:carrier": {
+                        "@id": "kb:ed9883e5-abec-5c51-a6c4-981b3be9d1a5"
                     }
                 }
             ]
         },
         {
-            "@id": "kb:ec578929-f38f-5783-a8dc-2931e89673d6",
+            "@id": "kb:2ef45dd1-1898-5e02-93fd-3cdcc42a6ccc",
             "@type": "uco-observable:ObservableObject",
             "uco-core:hasFacet": [
                 {
-                    "@id": "kb:2ef45dd1-1898-5e02-93fd-3cdcc42a6ccc",
+                    "@id": "kb:59168c9d-3352-52d5-b03e-9369e0fc2d77",
                     "@type": "uco-observable:FileFacet",
                     "uco-observable:fileName": "Apple_iPhone XR (A1901).zip",
                     "uco-observable:filePath": "Apple_iPhone XR (A1901).zip",
@@ -1190,11 +1210,11 @@
                     }
                 },
                 {
-                    "@id": "kb:59168c9d-3352-52d5-b03e-9369e0fc2d77",
+                    "@id": "kb:8521f10f-3c17-5720-a79e-d4b59928509d",
                     "@type": "uco-observable:ContentDataFacet",
                     "uco-observable:hash": [
                         {
-                            "@id": "kb:8521f10f-3c17-5720-a79e-d4b59928509d",
+                            "@id": "kb:7897f90a-4dc8-50b5-8783-675d8b008769",
                             "@type": "uco-types:Hash",
                             "uco-types:hashMethod": {
                                 "@type": "uco-vocabulary:HashNameVocab",
@@ -1210,7 +1230,7 @@
             ]
         },
         {
-            "@id": "kb:7897f90a-4dc8-50b5-8783-675d8b008769",
+            "@id": "kb:0fbadb2d-620a-5685-8971-09c3545c42d1",
             "@type": "case-investigation:ProvenanceRecord",
             "case-investigation:exhibitNumber": "CASE_X iPhoneXR s/n DX4CDFDBOJE",
             "uco-core:object": {
@@ -1218,39 +1238,39 @@
             }
         },
         {
-            "@id": "kb:0fbadb2d-620a-5685-8971-09c3545c42d1",
+            "@id": "kb:40a181a0-f324-531f-8d13-32753364240d",
             "@type": "case-investigation:ProvenanceRecord",
             "case-investigation:exhibitNumber": "CASE_X iPhoneXR s/n DX4CDFDBOJE extracted ZIP file",
             "uco-core:object": {
-                "@id": "kb:ec578929-f38f-5783-a8dc-2931e89673d6"
+                "@id": "kb:2ef45dd1-1898-5e02-93fd-3cdcc42a6ccc"
             }
-        },
-        {
-            "@id": "kb:40a181a0-f324-531f-8d13-32753364240d",
-            "@type": "uco-identity:Organization",
-            "uco-core:name": "Reality Net Srl"
         },
         {
             "@id": "kb:1506e4eb-8c84-5ffc-9329-3cf998ca145b",
             "@type": "uco-identity:Organization",
-            "uco-core:name": "Cellebrite"
+            "uco-core:name": "Reality Net Srl"
         },
         {
             "@id": "kb:1dec274d-705a-5c0e-8b03-226f2e227501",
+            "@type": "uco-identity:Organization",
+            "uco-core:name": "Cellebrite"
+        },
+        {
+            "@id": "kb:0db6f576-b92c-520d-9e1a-445eb103254b",
             "@type": "uco-tool:Tool",
             "uco-core:name": "UFED PA",
             "uco-tool:version": "7.57.1.9",
             "uco-tool:toolType": "Acquisition",
             "uco-tool:creator": {
-                "@id": "kb:1506e4eb-8c84-5ffc-9329-3cf998ca145b"
+                "@id": "kb:1dec274d-705a-5c0e-8b03-226f2e227501"
             }
         },
         {
-            "@id": "kb:0db6f576-b92c-520d-9e1a-445eb103254b",
+            "@id": "kb:05987007-70e9-5e31-ab92-670d28ae1a32",
             "@type": "uco-location:Location",
             "uco-core:hasFacet": [
                 {
-                    "@id": "kb:05987007-70e9-5e31-ab92-670d28ae1a32",
+                    "@id": "kb:dae7ab48-4877-5aeb-83be-51c67fa53493",
                     "@type": "uco-location:SimpleAddressFacet",
                     "uco-location:country": "Italy",
                     "uco-location:locality": "Genoa",
@@ -1260,7 +1280,7 @@
             ]
         },
         {
-            "@id": "kb:dae7ab48-4877-5aeb-83be-51c67fa53493",
+            "@id": "kb:f0e14e08-35aa-5381-b2f2-5822f93163b7",
             "@type": "case-investigation:InvestigativeAction",
             "uco-core:name": "Forensic mobile device acquisition",
             "uco-core:description": "Acquisition iPhone XR",
@@ -1273,19 +1293,19 @@
                 "@value": "2024-02-29T12:43:44+00:00"
             },
             "uco-action:performer": {
-                "@id": "kb:40a181a0-f324-531f-8d13-32753364240d"
+                "@id": "kb:1506e4eb-8c84-5ffc-9329-3cf998ca145b"
             },
             "uco-action:instrument": {
-                "@id": "kb:1dec274d-705a-5c0e-8b03-226f2e227501"
-            },
-            "uco-action:location": {
                 "@id": "kb:0db6f576-b92c-520d-9e1a-445eb103254b"
             },
+            "uco-action:location": {
+                "@id": "kb:05987007-70e9-5e31-ab92-670d28ae1a32"
+            },
             "uco-action:result": {
-                "@id": "kb:0fbadb2d-620a-5685-8971-09c3545c42d1"
+                "@id": "kb:40a181a0-f324-531f-8d13-32753364240d"
             },
             "uco-action:object": {
-                "@id": "kb:7897f90a-4dc8-50b5-8783-675d8b008769"
+                "@id": "kb:0fbadb2d-620a-5685-8971-09c3545c42d1"
             }
         }
     ]
