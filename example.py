@@ -520,7 +520,7 @@ extraction_root_directory1 = uco.observable.File(
 )
 bundle.append_to_uco_object(extraction_root_directory1)
 
-path_relation_facet1 = uco.observable.FacetPathRelation(path="files/Image/")
+path_relation_facet1 = uco.observable.FacetPathRelation(path="files/Image/ImG_0123.jpg")
 path_relation = uco.observable.ObservableRelationship(
     directional=True,
     kind_of_relationship="Contained_Within",

@@ -1125,7 +1125,7 @@
                 {
                     "@id": "kb:1dd22829-26f1-5305-88d9-2d9e5f9b411d",
                     "@type": "uco-observable:PathRelationFacet",
-                    "uco-observable:path": "files/Image/"
+                    "uco-observable:path": "files/Image/ImG_0123.jpg"
                 }
             ],
             "uco-core:isDirectional": {
