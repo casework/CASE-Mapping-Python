@@ -1275,17 +1275,17 @@
             "uco-action:performer": {
                 "@id": "kb:40a181a0-f324-531f-8d13-32753364240d"
             },
-            "uco-action:location": {
-                "@id": "kb:0db6f576-b92c-520d-9e1a-445eb103254b"
-            },
             "uco-action:instrument": {
                 "@id": "kb:1dec274d-705a-5c0e-8b03-226f2e227501"
             },
-            "uco-action:object": {
-                "@id": "kb:7897f90a-4dc8-50b5-8783-675d8b008769"
+            "uco-action:location": {
+                "@id": "kb:0db6f576-b92c-520d-9e1a-445eb103254b"
             },
             "uco-action:result": {
                 "@id": "kb:0fbadb2d-620a-5685-8971-09c3545c42d1"
+            },
+            "uco-action:object": {
+                "@id": "kb:7897f90a-4dc8-50b5-8783-675d8b008769"
             }
         }
     ]
