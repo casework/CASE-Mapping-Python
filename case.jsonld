@@ -1094,7 +1094,7 @@
                     "@id": "kb:056c4664-bcf0-54e9-a24d-0cc97e7fd429",
                     "@type": "uco-observable:FileFacet",
                     "uco-observable:fileName": "IMG_0123.jpg",
-                    "uco-observable:filePath": "file/Image/",
+                    "uco-observable:filePath": "file/Image/IMG_0123.jpg",
                     "uco-observable:extension": "jpg",
                     "uco-observable:isDirectory": {
                         "@type": "xsd:boolean",

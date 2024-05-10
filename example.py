@@ -507,7 +507,7 @@ bundle.append_to_uco_object(provenance_rec_object)
 extracted_file_file_facet1 = uco.observable.FacetFile(
     file_extension="jpg",
     file_name="IMG_0123.jpg",
-    file_path="file/Image/",
+    file_path="file/Image/IMG_0123.jpg",
     file_is_directory=False,
 )
 extracted_file_1 = uco.observable.File(facets=[extracted_file_file_facet1])
