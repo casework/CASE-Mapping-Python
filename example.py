@@ -616,7 +616,7 @@ tool_creator_object = uco.identity.Organization(name="Cellebrite")
 bundle.append_to_uco_object(tool_creator_object)
 
 tool_acquisition = uco.tool.Tool(
-    tool_name="UFED PA",
+    name="UFED PA",
     tool_version="7.57.1.9",
     tool_type="Acquisition",
     tool_creator=tool_creator_object,
