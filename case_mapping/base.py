@@ -191,6 +191,7 @@ class ObjectEntity(FacetEntity):
         self,
         *args: Any,
         description: Optional[str] = None,
+        name: Optional[str] = None,
         facets: Optional[List[FacetEntity]] = None,
         **kwargs: Any,
     ) -> None:
@@ -199,8 +200,7 @@ class ObjectEntity(FacetEntity):
         """
         super().__init__(*args, **kwargs)
         self["@type"] = "uco-core:UcoObject"
-        if description is not None:
-            self["uco-core:description"] = description
+        self._str_vars(**{"uco-core:name": name, "uco-core:description": description})
         if isinstance(facets, list):
             self.append_facets(*facets)
 

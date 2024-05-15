@@ -1099,12 +1099,12 @@ class FacetMessage(FacetEntity):
 class FacetMobileDevice(FacetEntity):
     def __init__(
         self,
-        IMSI=None,
-        ICCID=None,
-        IMEI=None,
-        storage_capacity=None,
-        keypad_pin=None,
-        MSISDN=None,
+        ESN: Optional[str] = None,
+        IMEI: Optional[str] = None,
+        bluetooth_device_name: Optional[str] = None,
+        keypad_unlock_code: Optional[str] = None,
+        storage_capacity_in_bytes: Optional[int] = None,
+        phone_activation_time: Optional[datetime] = None,
     ):
         """
         The basic properties associated with a phone and phone account of a device or user.
@@ -1118,16 +1118,67 @@ class FacetMobileDevice(FacetEntity):
         self["@type"] = "uco-observable:MobileDeviceFacet"
         self._str_vars(
             **{
-                "uco-observable:IMSI": IMSI,
-                "uco-observable:ICCID": ICCID,
                 "uco-observable:IMEI": IMEI,
-                "uco-observable:MSISDN": MSISDN,
+                "uco-observable:keypadUnlockCode": keypad_unlock_code,
+                "uco-observable:bluetoothDeviceName": bluetooth_device_name,
             }
         )
         self._int_vars(
             **{
-                "uco-observable:storageCapacityInBytes": storage_capacity,
-                "uco-observable:keypadUnlockCode": keypad_pin,
+                "uco-observable:storageCapacityInBytes": storage_capacity_in_bytes,
+            }
+        )
+        self._datetime_vars(
+            **{
+                "observable:phoneActivationTime": phone_activation_time,
+            }
+        )
+
+
+class FacetSimCard(FacetEntity):
+    def __init__(
+        self,
+        ICCID: Optional[str] = None,
+        IMSI: Optional[str] = None,
+        PIN: Optional[str] = None,
+        PUK: Optional[str] = None,
+        SIM_form: Optional[str] = None,
+        SIM_type: Optional[str] = None,
+        carrier: Union[None, Identity] = None,
+        storage_capacity_in_bytes: Optional[int] = None,
+    ):
+        """
+        A SIM card facet is a grouping of characteristics unique to
+        a subscriber identification module card.
+        :param ICCID Integrated Circuit Card Identification Number.
+        :param IMSI International mobile subscriber identity.
+        :param PIN Personal Identification Number (PIN).
+        :patam PUK Personal Unlocking Key (PUK) to unlock the SIM card.
+        :param SIM_form The form of SIM card such as SIM, Micro SIM, Nano SIM.
+        :param SIM_type The type of SIM card such as SIM, USIM, UICC.
+        :param carrier Telecommunications service provider that sold the SIM card.
+        :param storage_capacity_in_bytes The number of bytes that can be stored on a SIM card.
+        """
+        super().__init__()
+        self["@type"] = "uco-observable:SIMCardFacet"
+        self._str_vars(
+            **{
+                "uco-observable:ICCID": ICCID,
+                "uco-observable:IMSI": IMSI,
+                "uco-observable:PIN": PIN,
+                "uco-observable:PUK": PUK,
+                "uco-observable:SIMForm": SIM_form,
+                "uco-observable:SIMType": SIM_type,
+            }
+        )
+        self._int_vars(
+            **{
+                "uco-observable:storageCapacityInBytes": storage_capacity_in_bytes,
+            }
+        )
+        self._node_reference_vars(
+            **{
+                "uco-observable:carrier": carrier,
             }
         )
 
@@ -1532,6 +1583,7 @@ directory = {
     "uco-observable:MessageFacet": FacetMessage,
     "uco-observable:SMSMessageFacet": FacetSMSMessage,
     "uco-observable:MobileDeviceFacet": FacetMobileDevice,
+    "uco-observable:SIMCardFacet": FacetSimCard,
     "uco-observable:OperatingSystemFacet": FacetOperatingSystem,
     "uco-observable:PathRelationFacet": FacetPathRelation,
     "uco-observable:EventFacet": FacetEvent,

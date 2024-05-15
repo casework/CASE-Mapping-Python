@@ -1,31 +1,53 @@
-from ..base import FacetEntity, unpack_args_array
+from datetime import datetime
+from typing import Any, List, Optional, Union
+
+from pytz import timezone
+
+from ..base import FacetEntity, ObjectEntity, unpack_args_array
+from .location import Location
 
 
-class FacetActionReferences(FacetEntity):
+class Action(ObjectEntity):
     def __init__(
         self,
-        performer=None,
-        instrument=None,
-        location=None,
-        environment=None,
-        results=None,
-        objects=None,
+        *args: Any,
+        description: Optional[str] = None,
+        facets: Optional[List[FacetEntity]] = None,
+        end_time: Optional[datetime] = None,
+        environment: Optional[ObjectEntity] = None,
+        instrument: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        location: Union[None, Location, List[Location]] = None,
+        name: Optional[str] = None,
+        objects: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        performer: Optional[ObjectEntity] = None,
+        results: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        start_time: Optional[datetime] = None,
+        **kwargs: Any,
     ):
         """
-        An action reference contains the details of an InvestigativeAction.
-        It groups the properties characterizing the core elements (who, how, with what, where, etc.) for actions.
+        An action is something that may be done or performed.
+        Actions group the properties characterizing core action-elements (who, how, with what, where, etc.).
         The properties consist of identifier references to separate UCO objects detailing the particular property.
-        :param performer: The name or id of the person conducting the action
-        :param instrument: The tool used to conduct the action
+        :param start_time: The time, in ISO8601 time format, the action was started (e.g., "2020-09-29T12:13:01Z").
+        :param end_time: The time, in ISO8601 time format, the action completed (e.g., "2020-09-29T12:13:43Z").
+        :param name: The name of the action (e.g., "Forensic mobile device acquisition").
+        :param performer: The primary performer of an action.
+        :param instrument: The things used to perform an action.
         :param location: The general location where the action took place (Room, Building or Town)
         :param environment: The type of environment (lab, office)
-        :param results: A list of resulting output identifiers
+        :param object: The things that the action is performed on/against.
+        :param result: The things resulting from performing an action.
         """
-        super().__init__()
-        self["@type"] = "uco-action:ActionReferencesFacet"
-        self._str_vars(**{"uco-action:environment": environment})
+        super().__init__(
+            *args, description=description, facets=facets, name=name, **kwargs
+        )
+        self["@type"] = "uco-action:Action"
+        self._datetime_vars(
+            **{"uco-action:startTime": start_time, "uco-action:endTime": end_time}
+        )
         self._node_reference_vars(
             **{
+                "uco-action:environment": environment,
                 "uco-action:performer": performer,
                 "uco-action:instrument": instrument,
                 "uco-action:location": location,
@@ -50,5 +72,21 @@ class FacetActionReferences(FacetEntity):
         """
         self._append_refs("uco-action:object", *args)
 
+    def _addtime(self, _type):
+        time = datetime.now(timezone("UTC"))
+        self[f"uco-action:{_type}Time"] = {
+            "@type": "xsd:dateTime",
+            "@value": time.isoformat(),
+        }
+        return time
 
-directory = {"uco-action:ActionReferencesFacet": FacetActionReferences}
+    def set_end_time(self):
+        """Set the time when this action completed."""
+        self._addtime(_type="end")
+
+    def set_start_time(self):
+        """Set the time when this action initiated."""
+        self._addtime(_type="start")
+
+
+directory = {"uco-action:Action": Action}

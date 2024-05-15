@@ -3,43 +3,47 @@ from typing import Any, Dict, List, Optional, Union
 
 from pytz import timezone
 
-from ..base import ObjectEntity
+from ..base import FacetEntity, ObjectEntity
+from ..uco.action import Action
+from ..uco.location import Location
 
 
-class InvestigativeAction(ObjectEntity):
+class InvestigativeAction(Action):
     def __init__(
-        self, name=None, description=None, start_time=None, end_time=None, facets=None
-    ):
+        self,
+        *args: Any,
+        description: Optional[str] = None,
+        facets: Optional[List[FacetEntity]] = None,
+        end_time: Optional[datetime] = None,
+        environment: Optional[ObjectEntity] = None,
+        instrument: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        location: Union[None, Location, List[Location]] = None,
+        name: Optional[str] = None,
+        objects: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        performer: Optional[ObjectEntity] = None,
+        results: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        start_time: Optional[datetime] = None,
+        **kwargs: Any,
+    ) -> None:
         """
-        An investigative action is a CASE object that represents the who, when, what outcome of an action
-        :param name: The name of the action (e.g., "annotated")
-        :param start_time: The time, in ISO8601 time format, the action was started (e.g., "2020-09-29T12:13:01Z")
-        :param end_time: The time, in ISO8601 time format, the action completed (e.g., "2020-09-29T12:13:43Z")
-        :param facets: A list of items to be added to this object (e.g., an ActionReference to the performer & tool)
+        An investigative action is a CASE object that represents the who, when, what outcome of an action.
         """
-        super().__init__()
-        self["@type"] = "case-investigation:InvestigativeAction"
-        self._str_vars(**{"uco-core:name": name, "uco-core:description": description})
-        self._datetime_vars(
-            **{"uco-action:startTime": start_time, "uco-action:endTime": end_time}
+        super().__init__(
+            *args,
+            description=description,
+            facets=facets,
+            end_time=end_time,
+            environment=environment,
+            instrument=instrument,
+            location=location,
+            name=name,
+            objects=objects,
+            performer=performer,
+            results=results,
+            start_time=start_time,
+            **kwargs,
         )
-        self.append_facets(facets)
-
-    def set_end_time(self):
-        """Set the time when this action completed."""
-        self._addtime(_type="end")
-
-    def set_start_time(self):
-        """Set the time when this action initiated."""
-        self._addtime(_type="start")
-
-    def _addtime(self, _type):
-        time = datetime.now(timezone("UTC"))
-        self[f"uco-action:{_type}Time"] = {
-            "@type": "xsd:dateTime",
-            "@value": time.isoformat(),
-        }
-        return time
+        self["@type"] = "case-investigation:InvestigativeAction"
 
 
 class CaseInvestigation(ObjectEntity):
