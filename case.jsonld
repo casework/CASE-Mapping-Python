@@ -1306,6 +1306,57 @@
             "uco-action:object": {
                 "@id": "kb:0fbadb2d-620a-5685-8971-09c3545c42d1"
             }
+        },
+        {
+            "@id": "kb:fb144c41-b263-545e-bfc2-5dbfdca86c4f",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:4f3771cf-f587-5929-9b22-87831e3458c1",
+                    "@type": "uco-observable:WirelessNetworkConnectionFacet",
+                    "uco-observable:baseStation": "TMobileWingman",
+                    "uco-observable:password": "fioriBluspinegialle3",
+                    "uco-observable:ssid": "d8:38:fc:38:3f:8",
+                    "observable:wirelessNetworkSecurityMode": "WPA"
+                }
+            ]
+        },
+        {
+            "@id": "kb:1208b420-82c9-5a38-bbee-701dcaae2536",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:f79bf872-9c42-5601-8e37-28bb25ca4519",
+                    "@type": "uco-location:LatLongCoordinatesFacet",
+                    "uco-location:latitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "40.11259078"
+                    },
+                    "uco-location:longitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "-75.65714263"
+                    },
+                    "uco-location:altitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "0.0"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:b5df92d9-5e17-5c6b-b2f5-9a75b27a36af",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": true
+            },
+            "uco-core:kindOfRelationship": "Located_At",
+            "uco-core:source": {
+                "@id": "kb:fb144c41-b263-545e-bfc2-5dbfdca86c4f"
+            },
+            "uco-core:target": {
+                "@id": "kb:1208b420-82c9-5a38-bbee-701dcaae2536"
+            }
         }
     ]
 }

@@ -599,19 +599,6 @@ bundle.append_to_uco_object(provenance_zip_file)
 performer_object = uco.identity.Organization(name="Reality Net Srl")
 bundle.append_to_uco_object(performer_object)
 
-# role_object = uco.role.Role(
-#     name="Digital Forensic Expert"
-#     )
-# bundle.append_to_uco_object(role_object)
-
-# relation_object = uco.observable.ObservableRelationship(
-#     source=performer_object,
-#     target=role_object,
-#     kind_of_relationship="Has_Role",
-#     directional=True,
-# )
-# bundle.append_to_uco_object(relation_object)
-
 tool_creator_object = uco.identity.Organization(name="Cellebrite")
 bundle.append_to_uco_object(tool_creator_object)
 
@@ -647,6 +634,38 @@ action_acquisition = case.investigation.InvestigativeAction(
     results=provenance_zip_file,
 )
 bundle.append_to_uco_object(action_acquisition)
+
+######################################
+# Adding a WirelessNetworkConnection #
+######################################
+
+
+wn_object = uco.observable.ObservableObject()
+wn_facet = uco.observable.FacetWirelessNetworkConnection(
+    wn_base_station="TMobileWingman",
+    wn_password="fioriBluspinegialle3",
+    wn_ssid="d8:38:fc:38:3f:8",
+    wn_wireless_network_security_mode="WPA",
+)
+wn_object.append_facets(wn_facet)
+bundle.append_to_uco_object(wn_object)
+
+geo_location_object = uco.observable.ObservableObject()
+geo_location_facet = uco.location.FacetLocation(
+    latitude=40.11259078,
+    longitude=-75.65714263,
+    altitude=0.0,
+)
+geo_location_object.append_facets(geo_location_facet)
+bundle.append_to_uco_object(geo_location_object)
+
+geo_relation = uco.observable.ObservableRelationship(
+    source=wn_object,
+    target=geo_location_object,
+    kind_of_relationship="Located_At",
+    directional=True,
+)
+bundle.append_to_uco_object(geo_relation)
 
 ##################
 # Print the case #
