@@ -1,3 +1,5 @@
+from typing import Optional
+
 from ..base import FacetEntity, ObjectEntity
 
 
@@ -9,7 +11,20 @@ class Location(ObjectEntity):
 
 
 class FacetLocation(FacetEntity):
-    def __init__(self, latitude=None, longitude=None, altitude=None):
+    def __init__(
+        self,
+        latitude: Optional[float] = None,
+        longitude: Optional[float] = None,
+        altitude: Optional[float] = None,
+    ):
+        """
+        A lat long coordinates facet is a grouping of characteristics unique
+        to the expression of a geolocation as the intersection of specific
+        latitude, longitude, and altitude values.
+        :param latitude: The latitude coordinate of a geolocation.
+        :param longitude: The longitude coordinate of a geolocation.
+        :param altitude: The altitude coordinate of a geolocation.
+        """
         super().__init__()
         self["@type"] = "uco-location:LatLongCoordinatesFacet"
         self._float_vars(

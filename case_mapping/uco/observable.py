@@ -1372,9 +1372,10 @@ class FacetDigitalAccount(FacetEntity):
 class FacetWirelessNetworkConnection(FacetEntity):
     def __init__(
         self,
-        ssid=None,
-        base_station=None,
-        location=None,
+        wn_base_station: Optional[str] = None,
+        wn_password: Optional[str] = None,
+        wn_ssid: Optional[str] = None,
+        wn_wireless_network_security_mode: Optional[str] = None,
     ):
         """
         A wireless network connection facet is a grouping of characteristics unique to a connection (completed or
@@ -1385,11 +1386,12 @@ class FacetWirelessNetworkConnection(FacetEntity):
         self["@type"] = "uco-observable:WirelessNetworkConnectionFacet"
         self._str_vars(
             **{
-                "uco-observable:ssid": ssid,
-                "uco-observable:baseStation": base_station,
+                "uco-observable:baseStation": wn_base_station,
+                "uco-observable:password": wn_password,
+                "uco-observable:ssid": wn_ssid,
+                "observable:wirelessNetworkSecurityMode": wn_wireless_network_security_mode,
             }
         )
-        self._node_reference_vars(**{"uco-observable:location": location})
 
 
 class FacetSMSMessage(FacetEntity):
