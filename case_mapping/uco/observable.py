@@ -1369,6 +1369,41 @@ class FacetDigitalAccount(FacetEntity):
         self._bool_vars(**{"uco-observable:isDisabled": disabled})
 
 
+class FacetCellSite(FacetEntity):
+    def __init__(
+        self,
+        cell_site_country_code: Optional[str] = None,
+        cell_site_identifier: Optional[str] = None,
+        cell_site_location_area_code: Optional[str] = None,
+        cell_site_network_code: Optional[str] = None,
+        cell_site_type: Optional[str] = None,
+    ):
+        """
+        A cell site facet contains the metadata surrounding the cell site.
+        :param cell_site_country_code: he country code represents the country of the
+        cell site. For GSM, this is the Mobile Country Code (MCC).
+        :param cell_site_identifier: Specifies the unique number used to identify each
+        Cell Site within a location area code.
+        :param cell_site_location_area_code: The location area code is a unique number
+        of current location area of the cell site.
+        :param cell_site_network_code: This code identifies the mobile operator of
+        the cell site.
+        :param cell_site_type: Specifies the technology used by the Cell Site
+        (e.g., GSM, CDMA, or LTE).
+        """
+        super().__init__()
+        self["@type"] = "uco-observable:CellSiteFacet"
+        self._str_vars(
+            **{
+                "uco-observable:cellSiteCountryCode": cell_site_country_code,
+                "uco-observable:cellSiteIdentifier": cell_site_identifier,
+                "uco-observable:cellSiteLocationAreaCode": cell_site_location_area_code,
+                "uco-observable:cellSiteNetworkCode": cell_site_network_code,
+                "uco-observable:cellSiteType": cell_site_type,
+            }
+        )
+
+
 class FacetWirelessNetworkConnection(FacetEntity):
     def __init__(
         self,
