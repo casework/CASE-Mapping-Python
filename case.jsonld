@@ -1357,6 +1357,58 @@
             "uco-core:target": {
                 "@id": "kb:1208b420-82c9-5a38-bbee-701dcaae2536"
             }
+        },
+        {
+            "@id": "kb:bb4a4ffd-30b3-5b89-9a2d-4c1f14842dfd",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:47573040-97b8-5038-b7e3-5e2c84c4acba",
+                    "@type": "uco-observable:CellSiteFacet",
+                    "uco-observable:cellSiteCountryCode": "310",
+                    "uco-observable:cellSiteIdentifier": "187589293",
+                    "uco-observable:cellSiteLocationAreaCode": "2953",
+                    "uco-observable:cellSiteNetworkCode": "410",
+                    "uco-observable:cellSiteType": "GSM"
+                }
+            ]
+        },
+        {
+            "@id": "kb:54767cee-39df-5622-a260-d0ddaae87d30",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ed1c65f8-cbb7-55f8-b544-371f4717e6a0",
+                    "@type": "uco-location:LatLongCoordinatesFacet",
+                    "uco-location:latitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "36.16585393"
+                    },
+                    "uco-location:longitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "-86.77639682"
+                    },
+                    "uco-location:altitude": {
+                        "@type": "xsd:decimal",
+                        "@value": "0.0"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:77e011a5-5b27-52dc-a233-13b50c76a22f",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": true
+            },
+            "uco-core:kindOfRelationship": "Located_At",
+            "uco-core:source": {
+                "@id": "kb:bb4a4ffd-30b3-5b89-9a2d-4c1f14842dfd"
+            },
+            "uco-core:target": {
+                "@id": "kb:54767cee-39df-5622-a260-d0ddaae87d30"
+            }
         }
     ]
 }

@@ -667,6 +667,37 @@ geo_relation = uco.observable.ObservableRelationship(
 )
 bundle.append_to_uco_object(geo_relation)
 
+#####################
+# Adding a CellSite #
+#####################
+cell_site_object = uco.observable.ObservableObject()
+cell_site_facet = uco.observable.FacetCellSite(
+    cell_site_country_code="310",
+    cell_site_identifier="187589293",
+    cell_site_location_area_code="2953",
+    cell_site_network_code="410",
+    cell_site_type="GSM",
+)
+cell_site_object.append_facets(cell_site_facet)
+bundle.append_to_uco_object(cell_site_object)
+
+geo_location_object = uco.observable.ObservableObject()
+geo_location_facet = uco.location.FacetLocation(
+    latitude=36.16585393,
+    longitude=-86.77639682,
+    altitude=0.0,
+)
+geo_location_object.append_facets(geo_location_facet)
+bundle.append_to_uco_object(geo_location_object)
+
+geo_relation = uco.observable.ObservableRelationship(
+    source=cell_site_object,
+    target=geo_location_object,
+    kind_of_relationship="Located_At",
+    directional=True,
+)
+bundle.append_to_uco_object(geo_relation)
+
 ##################
 # Print the case #
 ##################
