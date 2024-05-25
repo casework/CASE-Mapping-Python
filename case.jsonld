@@ -1409,6 +1409,152 @@
             "uco-core:target": {
                 "@id": "kb:54767cee-39df-5622-a260-d0ddaae87d30"
             }
+        },
+        {
+            "@id": "kb:9cb0283e-60bd-575f-a91a-4f0a1f6d5148",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:2cab6225-86e8-5117-96d7-bad3351cf42d",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-core:name": "Google Calendar"
+                }
+            ]
+        },
+        {
+            "@id": "kb:b8981cf9-e891-5b70-8f0d-a6376dbc3190",
+            "@type": "uco-location:Location",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:ee272170-fd0a-57f8-9fc5-bcf9d57d7a18",
+                    "@type": "uco-location:SimpleAddressFacet",
+                    "uco-location:addressType": "work",
+                    "uco-location:country": "The Netherlands",
+                    "uco-location:locality": "Groningen",
+                    "uco-location:postalCode": "9712",
+                    "uco-location:region": "Binnestad",
+                    "uco-location:street": "Nieuwe Boteringestraat 38-20"
+                }
+            ]
+        },
+        {
+            "@id": "kb:edd75e8e-a056-5ac0-9f20-5b6ba6eb6f7e",
+            "@type": "uco-identity:Identity",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:29960b6f-5434-5162-aa2e-1a39fe53ef90",
+                    "@type": "uco-identity:BirthInformationFacet",
+                    "uco-identity:birthdate": {
+                        "@type": "xsd:dateTime",
+                        "@value": "1993-01-08T01:10:10.000010+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:70e978d1-1094-59f7-af44-f7b6eeadc6b5",
+                    "@type": "uco-identity:SimpleNameFacet",
+                    "uco-identity:givenName": "Maurice",
+                    "uco-identity:familyName": "Moss"
+                }
+            ]
+        },
+        {
+            "@id": "kb:aa0df6a0-876f-52d6-bbca-ded4f2213536",
+            "@type": "uco-identity:Identity",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:f2af45ea-334f-563a-835d-c47c7fa70791",
+                    "@type": "uco-identity:BirthInformationFacet",
+                    "uco-identity:birthdate": {
+                        "@type": "xsd:dateTime",
+                        "@value": "1993-01-08T01:11:11.000011+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:3a6199e9-252b-52cb-988a-7b32dbe4da41",
+                    "@type": "uco-identity:SimpleNameFacet",
+                    "uco-identity:givenName": "Roy",
+                    "uco-identity:familyName": "Trenneman"
+                }
+            ]
+        },
+        {
+            "@id": "kb:95950113-5702-50f3-b706-c31661e081a7",
+            "@type": "uco-identity:Identity",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:cbb59b5b-03bf-54d2-a936-4191c4911b59",
+                    "@type": "uco-identity:BirthInformationFacet",
+                    "uco-identity:birthdate": {
+                        "@type": "xsd:dateTime",
+                        "@value": "1993-01-08T01:12:12.000012+00:00"
+                    }
+                },
+                {
+                    "@id": "kb:33972885-16d9-53d9-8612-bea29e39cf49",
+                    "@type": "uco-identity:SimpleNameFacet",
+                    "uco-identity:givenName": "Jen",
+                    "uco-identity:familyName": "Barber"
+                }
+            ]
+        },
+        {
+            "@id": "kb:ac45f215-3a1f-50d4-b6f3-7220d552388c",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:4b76be41-e16d-5a79-9852-0f3841e5973b",
+                    "@type": "uco-observable:CalendarEntryFacet",
+                    "uco-observable:eventStatus": "accepted",
+                    "uco-observable:eventType": "information",
+                    "uco-observable:subject": "Yesterday's jam",
+                    "uco-observable:recurrence": "Every month",
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-05-24T10:07:00+00:00"
+                    },
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-05-24T10:17:00+00:00"
+                    },
+                    "uco-observable:remindTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-05-09T09:07:00+00:00"
+                    },
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-18T08:27:00+00:00"
+                    },
+                    "uco-observable:modifiedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-21T16:33:00+00:00"
+                    },
+                    "uco-observable:duration": {
+                        "@type": "xsd:integer",
+                        "@value": "600"
+                    },
+                    "uco-observable:isPrivate": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    },
+                    "uco-observable:application": {
+                        "@id": "kb:9cb0283e-60bd-575f-a91a-4f0a1f6d5148"
+                    },
+                    "uco-observable:attendant": [
+                        {
+                            "@id": "kb:edd75e8e-a056-5ac0-9f20-5b6ba6eb6f7e"
+                        },
+                        {
+                            "@id": "kb:aa0df6a0-876f-52d6-bbca-ded4f2213536"
+                        }
+                    ],
+                    "uco-observable:location": {
+                        "@id": "kb:b8981cf9-e891-5b70-8f0d-a6376dbc3190"
+                    },
+                    "uco-observable:owner": {
+                        "@id": "kb:95950113-5702-50f3-b706-c31661e081a7"
+                    }
+                }
+            ]
         }
     ]
 }
