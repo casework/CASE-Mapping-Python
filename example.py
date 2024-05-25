@@ -698,6 +698,83 @@ geo_relation = uco.observable.ObservableRelationship(
 )
 bundle.append_to_uco_object(geo_relation)
 
+##########################
+# Adding a CalendarEntry #
+##########################
+
+calendar_app_object = uco.observable.ObservableObject()
+calendar_app_facet = uco.observable.FacetApplication(app_name="Google Calendar")
+calendar_app_object.append_facets(calendar_app_facet)
+bundle.append_to_uco_object(calendar_app_object)
+
+location_object = uco.location.Location()
+location_facet = uco.location.FacetSimpleAdress(
+    country="The Netherlands",
+    locality="Groningen",
+    street="Nieuwe Boteringestraat 38-20",
+    postal_code="9712",
+    region="Binnestad",
+    address_type="work",
+)
+location_object.append_facets(location_facet)
+bundle.append_to_uco_object(location_object)
+
+attendant_1_object = uco.identity.Identity()
+attendand_1_facet = uco.identity.FacetSimpleName(
+    given_name="Maurice", family_name="Moss"
+)
+identity_birth = uco.identity.FacetBirthInformation(
+    birthdate=_next_timestamp() - timedelta(days=10950),
+)
+attendant_1_object.append_facets(identity_birth, attendand_1_facet)
+bundle.append_to_uco_object(attendant_1_object)
+
+attendant_2_object = uco.identity.Identity()
+attendand_2_facet = uco.identity.FacetSimpleName(
+    given_name="Roy", family_name="Trenneman"
+)
+identity_birth = uco.identity.FacetBirthInformation(
+    birthdate=_next_timestamp() - timedelta(days=10950),
+)
+attendant_2_object.append_facets(identity_birth, attendand_2_facet)
+bundle.append_to_uco_object(attendant_2_object)
+
+owner_object = uco.identity.Identity()
+owner_facet = uco.identity.FacetSimpleName(given_name="Jen", family_name="Barber")
+identity_birth = uco.identity.FacetBirthInformation(
+    birthdate=_next_timestamp() - timedelta(days=10950),
+)
+owner_object.append_facets(identity_birth, owner_facet)
+bundle.append_to_uco_object(owner_object)
+
+calendar_start_time = datetime.strptime("2024-05-24T10:07:00", "%Y-%m-%dT%H:%M:%S")
+calendar_end_time = datetime.strptime("2024-05-24T10:17:00", "%Y-%m-%dT%H:%M:%S")
+calendar_reminded_time = datetime.strptime("2024-05-09T09:07:00", "%Y-%m-%dT%H:%M:%S")
+calendar_created_time = datetime.strptime("2024-04-18T08:27:00", "%Y-%m-%dT%H:%M:%S")
+calendar_modified_time = datetime.strptime("2024-04-21T16:33:00", "%Y-%m-%dT%H:%M:%S")
+
+calendar_object = uco.observable.ObservableObject()
+calendar_facet = uco.observable.FacetCalendarEntry(
+    application=calendar_app_object,
+    attendant=[attendant_1_object, attendant_2_object],
+    duration=600,
+    end_time=calendar_end_time,
+    event_status="accepted",
+    event_type="information",
+    is_private=True,
+    location=location_object,
+    modified_time=calendar_modified_time,
+    observable_created_time=calendar_created_time,
+    owner=owner_object,
+    recurrence="Every month",
+    remind_time=calendar_reminded_time,
+    start_time=calendar_start_time,
+    subject="Yesterday's jam",
+)
+
+calendar_object.append_facets(calendar_facet)
+bundle.append_to_uco_object(calendar_object)
+
 ##################
 # Print the case #
 ##################
