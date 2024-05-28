@@ -775,6 +775,27 @@ calendar_facet = uco.observable.FacetCalendarEntry(
 calendar_object.append_facets(calendar_facet)
 bundle.append_to_uco_object(calendar_object)
 
+##########################
+# Adding a MobileAccount #
+##########################
+
+mobile_account_object = uco.observable.ObservableObject()
+mobile_account_facet = uco.observable.FacetMobileAccount(
+    IMSI="22210",
+    MSISDN="00493879166532",
+    MSISDN_type="GSM",
+)
+mobile_account_object.append_facets(mobile_account_facet)
+bundle.append_to_uco_object(mobile_account_object)
+
+account_relation = uco.observable.ObservableRelationship(
+    source=device_object,
+    target=mobile_account_object,
+    kind_of_relationship="Has_Account",
+    directional=True,
+)
+bundle.append_to_uco_object(account_relation)
+
 ##################
 # Print the case #
 ##################
