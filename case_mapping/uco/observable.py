@@ -229,6 +229,34 @@ class FacetAccount(FacetEntity):
         )
 
 
+class FacetMobileAccount(FacetEntity):
+    def __init__(
+        self,
+        IMSI: Optional[str] = None,
+        MSISDN: Optional[str] = None,
+        MSISDN_type: Optional[str] = None,
+    ):
+        """
+        A mobile account facet is a grouping of characteristics unique to an arrangement
+        with an entity to enable and control the provision of some capability or service
+        on a portable computing device.
+        :param IMSI: An International Mobile Subscriber Identity (IMSI) is a unique identification
+        associated with all GSM and UMTS network mobile phone users.
+        :param MSISDN: Mobile Station International Subscriber Directory Number (MSISDN) is a number
+        used to identify a mobile phone number internationally.
+        :param MSISDN_type: The network mobile phone (GMS or UMTS)
+        """
+        super().__init__()
+        self["@type"] = "uco-observable:MobileAccountFacet"
+        self._str_vars(
+            **{
+                "uco-observable:IMSI": IMSI,
+                "uco-observable:MSISDN": MSISDN,
+                "uco-observable:MSISDNType": MSISDN_type,
+            }
+        )
+
+
 class FacetContentData(FacetEntity):
     def __init__(
         self,

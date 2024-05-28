@@ -1555,6 +1555,34 @@
                     }
                 }
             ]
+        },
+        {
+            "@id": "kb:dce632ef-83f0-5481-9b10-d38455d155be",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:3a19b98a-0be3-5c59-a9ba-bf82784ea379",
+                    "@type": "uco-observable:MobileAccountFacet",
+                    "uco-observable:IMSI": "22210",
+                    "uco-observable:MSISDN": "00493879166532",
+                    "uco-observable:MSISDNType": "GSM"
+                }
+            ]
+        },
+        {
+            "@id": "kb:9404f6f3-0348-5e14-bbf4-cb15562899bf",
+            "@type": "uco-observable:ObservableRelationship",
+            "uco-core:isDirectional": {
+                "@type": "xsd:boolean",
+                "@value": true
+            },
+            "uco-core:kindOfRelationship": "Has_Account",
+            "uco-core:source": {
+                "@id": "kb:a7b7ae64-d607-5f2a-a4ea-8722062f52a1"
+            },
+            "uco-core:target": {
+                "@id": "kb:dce632ef-83f0-5481-9b10-d38455d155be"
+            }
         }
     ]
 }
