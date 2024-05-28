@@ -39,18 +39,18 @@ class FacetLocation(FacetEntity):
 class FacetSimpleAdress(FacetEntity):
     def __init__(
         self,
-        country=None,
-        locality=None,
-        street=None,
-        postal_code=None,
-        region=None,
-        address_type=None,
+        country: Optional[str] = None,
+        locality: Optional[str] = None,
+        street: Optional[str] = None,
+        postal_code: Optional[str] = None,
+        region: Optional[str] = None,
+        address_type: Optional[str] = None,
     ):
         super().__init__()
         self["@type"] = "uco-location:SimpleAddressFacet"
         self._str_vars(
             **{
-                "uco-location:adressType": address_type,
+                "uco-location:addressType": address_type,
                 "uco-location:country": country,
                 "uco-location:locality": locality,
                 "uco-location:postalCode": postal_code,

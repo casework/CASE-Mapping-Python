@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from cdo_local_uuid import local_uuid
 
-from ..base import FacetEntity, ObjectEntity, unpack_args_array
+from ..base import FacetEntity, ObjectEntity
 from .core import Relationship
 from .identity import Identity
 
@@ -937,21 +937,29 @@ class FacetExtInode(FacetEntity):
 class FacetCalendarEntry(FacetEntity):
     def __init__(
         self,
-        subject=None,
-        start_time=None,
+        application: Union[None, ObjectEntity] = None,
+        attendant: Union[None, Identity, List[Identity]] = None,
+        duration: Optional[int] = None,
         end_time=None,
-        status=None,
-        private=None,
-        recurrence=None,
+        event_status: Optional[str] = None,
+        event_type: Optional[str] = None,
+        is_private: Optional[bool] = None,
+        location: Union[None, ObjectEntity] = None,
+        modified_time=None,
+        observable_created_time=None,
+        owner: Union[None, ObjectEntity] = None,
+        recurrence: Optional[str] = None,
         remind_time=None,
-        attendants=None,
+        start_time=None,
+        subject: Optional[str] = None,
     ):
         super().__init__()
         self["@type"] = "uco-observable:CalendarEntryFacet"
         self._str_vars(
             **{
-                "observable:subject": subject,
-                "uco-observable:eventStatus": status,
+                "uco-observable:eventStatus": event_status,
+                "uco-observable:eventType": event_type,
+                "uco-observable:subject": subject,
                 "uco-observable:recurrence": recurrence,
             }
         )
@@ -960,14 +968,20 @@ class FacetCalendarEntry(FacetEntity):
                 "uco-observable:startTime": start_time,
                 "uco-observable:endTime": end_time,
                 "uco-observable:remindTime": remind_time,
+                "uco-observable:observableCreatedTime": observable_created_time,
+                "uco-observable:modifiedTime": modified_time,
             }
         )
-        self._bool_vars(**{"observable:isPrivate": private})
-        self.append_attendants(attendants)
-
-    @unpack_args_array
-    def append_attendants(self, *args):
-        self._append_observable_objects("uco-observable:attendant", *args)
+        self._int_vars(**{"uco-observable:duration": duration})
+        self._bool_vars(**{"uco-observable:isPrivate": is_private})
+        self._node_reference_vars(
+            **{
+                "uco-observable:application": application,
+                "uco-observable:attendant": attendant,
+                "uco-observable:location": location,
+                "uco-observable:owner": owner,
+            }
+        )
 
 
 class FacetBrowserCookie(FacetEntity):
