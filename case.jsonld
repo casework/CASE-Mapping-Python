@@ -21,6 +21,35 @@
         "kb": "http://example.org/kb/"
     },
     "uco-core:description": "An Example Case File",
+    "uco-core:UcoInherentCharacterizationThing": [
+        {
+            "@id": "kb:ae69f729-f403-5b2b-9f71-b7cf6e442437",
+            "@type": "uco-observable:ApplicationVersion",
+            "uco-observable:version": "10.10",
+            "uco-observable:installDate": {
+                "@type": "xsd:dateTime",
+                "@value": "2024-01-22T10:18:39+00:00"
+            }
+        },
+        {
+            "@id": "kb:978743fe-b914-5238-9349-bdfe8e1cb3c7",
+            "@type": "uco-observable:ApplicationVersion",
+            "uco-observable:version": "10.11",
+            "uco-observable:installDate": {
+                "@type": "xsd:dateTime",
+                "@value": "2024-02-22T15:44:00+00:00"
+            }
+        },
+        {
+            "@id": "kb:6c162ca8-5fa4-5d05-bf32-0bc39e94b795",
+            "@type": "uco-observable:ApplicationVersion",
+            "uco-observable:version": "10.12",
+            "uco-observable:installDate": {
+                "@type": "xsd:dateTime",
+                "@value": "2024-03-22T08:21:19+00:00"
+            }
+        }
+    ],
     "uco-core:object": [
         {
             "@id": "kb:307df50e-0116-5c51-904c-d5aa69279018",
@@ -368,7 +397,7 @@
                 {
                     "@id": "kb:6e0ac6ce-6afc-58c6-b4b6-501fa5de2699",
                     "@type": "uco-observable:ApplicationFacet",
-                    "uco-core:name": "Safari"
+                    "uco-observable:applicationIdentifier": "Safari"
                 }
             ]
         },
@@ -507,7 +536,7 @@
                 {
                     "@id": "kb:32599b39-84d2-5471-9452-c494171897fd",
                     "@type": "uco-observable:ApplicationFacet",
-                    "uco-core:name": "WhatsApp"
+                    "uco-observable:applicationIdentifier": "WhatsApp"
                 }
             ]
         },
@@ -693,7 +722,7 @@
                 {
                     "@id": "kb:a19e1e1f-3953-5fb9-92b6-2b46f85752b2",
                     "@type": "uco-observable:ApplicationFacet",
-                    "uco-core:name": "Discord"
+                    "uco-observable:applicationIdentifier": "Discord"
                 }
             ]
         },
@@ -841,7 +870,7 @@
                 {
                     "@id": "kb:dc1b4415-1284-57ea-b7b9-b75675e7c57c",
                     "@type": "uco-observable:ApplicationFacet",
-                    "uco-core:name": "Facebook"
+                    "uco-observable:applicationIdentifier": "Facebook"
                 }
             ]
         },
@@ -1029,7 +1058,7 @@
                 {
                     "@id": "kb:be169244-8ae1-5953-a585-9ed1866ff422",
                     "@type": "uco-observable:ApplicationFacet",
-                    "uco-core:name": "Native"
+                    "uco-observable:applicationIdentifier": "Native"
                 }
             ]
         },
@@ -1417,7 +1446,7 @@
                 {
                     "@id": "kb:2cab6225-86e8-5117-96d7-bad3351cf42d",
                     "@type": "uco-observable:ApplicationFacet",
-                    "uco-core:name": "Google Calendar"
+                    "uco-observable:applicationIdentifier": "Google Calendar"
                 }
             ]
         },
@@ -1583,6 +1612,84 @@
             "uco-core:target": {
                 "@id": "kb:dce632ef-83f0-5481-9b10-d38455d155be"
             }
+        },
+        {
+            "@id": "kb:b5952e3b-5e8a-5059-a2fa-fb1e3d727226",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:1ea0f9f9-a53b-50c6-be1c-b4fd46b3569b",
+                    "@type": "uco-observable:OperatingSystemFacet",
+                    "uco-observable:environmentVariables": {
+                        "@id": "kb:4e32a8c7-9d4b-5f8d-aa81-6ab6905814fe",
+                        "@type": "uco-types:Dictionary",
+                        "uco-types:entry": [
+                            {
+                                "@id": "kb:9acc6e58-a812-5282-be00-e9ce5fcd6556",
+                                "@type": "uco-types:DictionaryEntry",
+                                "uco-types:key": "path",
+                                "uco-types:value": "/opt/local/bin:/opt/local/sbin:/usr/bin:"
+                            },
+                            {
+                                "@id": "kb:b9d5ac46-0f15-53d2-8492-100eb99d07d2",
+                                "@type": "uco-types:DictionaryEntry",
+                                "uco-types:key": "temp",
+                                "uco-types:value": "/tmp:/usr/temp"
+                            },
+                            {
+                                "@id": "kb:ac487f0f-a4aa-5c69-a07c-7639798dc16a",
+                                "@type": "uco-types:DictionaryEntry",
+                                "uco-types:key": "systemroot",
+                                "uco-types:value": "/root"
+                            }
+                        ]
+                    },
+                    "uco-observable:advertisingID": "XX908WN",
+                    "uco-observable:bitness": "64-bit",
+                    "uco-observable:version": "17.4.1",
+                    "uco-observable:installDate": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2023-02-19T09:22:09+00:00"
+                    },
+                    "uco-observable:isLimitAdTrackingEnabled": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    },
+                    "uco-observable:manufacturer": {
+                        "@id": "kb:fa07818e-5832-5d5f-81b4-f7e143e98252"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:ad363517-4ccf-58a9-ab1b-08838e039a20",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:a56563f2-780b-50ee-9b5a-c3fa6a64ae4e",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-observable:applicationIdentifier": "Telegram Messenger",
+                    "uco-observable:version": "10.12",
+                    "uco-observable:numberOfLaunches": {
+                        "@type": "xsd:integer",
+                        "@value": "53891"
+                    },
+                    "uco-observable:installedVersionHistory": [
+                        {
+                            "@id": "kb:ae69f729-f403-5b2b-9f71-b7cf6e442437"
+                        },
+                        {
+                            "@id": "kb:978743fe-b914-5238-9349-bdfe8e1cb3c7"
+                        },
+                        {
+                            "@id": "kb:6c162ca8-5fa4-5d05-bf32-0bc39e94b795"
+                        }
+                    ],
+                    "uco-observable:operatingSystem": {
+                        "@id": "kb:b5952e3b-5e8a-5059-a2fa-fb1e3d727226"
+                    }
+                }
+            ]
         }
     ]
 }

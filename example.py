@@ -199,7 +199,7 @@ url_object.append_facets(url_facet)
 bundle.append_to_uco_object(url_object)
 
 browser_object = uco.observable.ObservableObject()
-browser_facet = uco.observable.FacetApplication(app_name="Safari")
+browser_facet = uco.observable.FacetApplication(application_identifier="Safari")
 browser_object.append_facets(browser_facet)
 bundle.append_to_uco_object(browser_object)
 
@@ -264,7 +264,7 @@ bundle.append_to_uco_object(phone_account_object2)
 ############################
 cyber_item4 = uco.observable.ObservableObject()
 application_cyber_item = uco.observable.ObservableObject()
-sms_application = uco.observable.FacetApplication(app_name="WhatsApp")
+sms_application = uco.observable.FacetApplication(application_identifier="WhatsApp")
 application_cyber_item.append_facets(sms_application)
 sms_msg = uco.observable.FacetMessage(
     msg_to=[phone_account_object, phone_account_object2],
@@ -314,7 +314,7 @@ bundle.append_to_uco_object(investigation)
 
 # Application Object
 app_object = uco.observable.ObservableObject()
-app_facet = uco.observable.FacetApplication(app_name="Discord")
+app_facet = uco.observable.FacetApplication(application_identifier="Discord")
 app_object.append_facets(app_facet)
 bundle.append_to_uco_object(app_object)
 
@@ -381,7 +381,9 @@ bundle.append_to_uco_object(message_thread_object)
 social_activity_object = uco.observable.ObservableObject()
 
 social_media_app = uco.observable.ObservableObject()
-social_media_app_facet = uco.observable.FacetApplication(app_name="Facebook")
+social_media_app_facet = uco.observable.FacetApplication(
+    application_identifier="Facebook"
+)
 social_media_app.append_facets(social_media_app_facet)
 bundle.append_to_uco_object(social_media_app)
 
@@ -466,7 +468,7 @@ account_object_4.append_facets(account_facet_4, phone_account_facet_4)
 bundle.append_to_uco_object(account_object_4)
 
 app_call_object = uco.observable.ObservableObject()
-app_call_facet = uco.observable.FacetApplication(app_name="Native")
+app_call_facet = uco.observable.FacetApplication(application_identifier="Native")
 app_call_object.append_facets(app_call_facet)
 bundle.append_to_uco_object(app_call_object)
 
@@ -703,7 +705,9 @@ bundle.append_to_uco_object(geo_relation)
 ##########################
 
 calendar_app_object = uco.observable.ObservableObject()
-calendar_app_facet = uco.observable.FacetApplication(app_name="Google Calendar")
+calendar_app_facet = uco.observable.FacetApplication(
+    application_identifier="Google Calendar"
+)
 calendar_app_object.append_facets(calendar_app_facet)
 bundle.append_to_uco_object(calendar_app_object)
 
@@ -795,6 +799,61 @@ account_relation = uco.observable.ObservableRelationship(
     directional=True,
 )
 bundle.append_to_uco_object(account_relation)
+
+####################################################
+# Adding an Application with an ApplicationVersion #
+####################################################
+app_install_date_1 = datetime.strptime("2024-01-22T10:18:39", "%Y-%m-%dT%H:%M:%S")
+app_install_date_2 = datetime.strptime("2024-02-22T15:44:00", "%Y-%m-%dT%H:%M:%S")
+app_install_date_3 = datetime.strptime("2024-03-22T08:21:19", "%Y-%m-%dT%H:%M:%S")
+
+app_install_version_1_object = uco.observable.ObservableApplicationVersion(
+    install_date=app_install_date_1, version="10.10"
+)
+
+bundle.append_to_uco_inherent_characterization_thing(app_install_version_1_object)
+
+app_install_version_2_object = uco.observable.ObservableApplicationVersion(
+    install_date=app_install_date_2, version="10.11"
+)
+
+bundle.append_to_uco_inherent_characterization_thing(app_install_version_2_object)
+
+app_install_version_3_object = uco.observable.ObservableApplicationVersion(
+    install_date=app_install_date_3, version="10.12"
+)
+
+bundle.append_to_uco_inherent_characterization_thing(app_install_version_3_object)
+
+os_object = uco.observable.ObservableObject()
+os_facet = uco.observable.FacetOperatingSystem(
+    os_manufacturer=manufacturer_apple,
+    os_advertisingID="XX908WN",
+    os_bitness="64-bit",
+    os_install_date=os_date,
+    os_isLimitAdTrackingEnabled=True,
+    os_version="17.4.1",
+    os_environment_variables=os_env_vars,
+)
+os_object.append_facets(os_facet)
+bundle.append_to_uco_object(os_object)
+
+app_telegram_facet = uco.observable.FacetApplication(
+    application_identifier="Telegram Messenger",
+    installed_version_history=[
+        app_install_version_1_object,
+        app_install_version_2_object,
+        app_install_version_3_object,
+    ],
+    number_of_launches=53891,
+    operating_system=os_object,
+    version="10.12",
+)
+
+app_telegram_object = uco.observable.ObservableObject()
+
+app_telegram_object.append_facets(app_telegram_facet)
+bundle.append_to_uco_object(app_telegram_object)
 
 ##################
 # Print the case #
