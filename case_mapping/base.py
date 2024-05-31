@@ -140,17 +140,15 @@ class UcoThing(dict):
     def _node_reference_vars(self, **kwargs):
         for key, var in kwargs.items():
             if isinstance(var, list) or isinstance(var, tuple):
-                is_object_entity = [isinstance(item, ObjectEntity) for item in var]
-                if all(is_object_entity):
+                is_uco_thing = [isinstance(item, UcoThing) for item in var]
+                if all(is_uco_thing):
                     self[key] = [{"@id": item.get_id()} for item in var]
                 else:
-                    self.__handle_list_type_errors(
-                        key, var, "ObjectEntity (no @id key)"
-                    )
-            elif isinstance(var, ObjectEntity):
+                    self.__handle_list_type_errors(key, var, "UcoThing (no @id key)")
+            elif isinstance(var, UcoThing):
                 self[key] = {"@id": var.get_id()}
             else:
-                self.__handle_var_type_errors(key, var, "ObjectEntity (no @id key)")
+                self.__handle_var_type_errors(key, var, "UcoThing (no @id key)")
 
     def _str_list_vars(self, **kwargs):
         for key, var in kwargs.items():
