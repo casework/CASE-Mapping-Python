@@ -3,9 +3,10 @@ from typing import Any, Dict, List, Optional, Union
 
 from cdo_local_uuid import local_uuid
 
-from ..base import FacetEntity, ObjectEntity
+from ..base import FacetEntity, ObjectEntity, UcoInherentCharacterizationThing
 from .core import Relationship
 from .identity import Identity
+from .types import Dictionary
 
 
 class ObservableDomainName(ObjectEntity):
@@ -319,16 +320,26 @@ class FacetContentData(FacetEntity):
             self["uco-observable:hash"] = [data]
 
 
-class FacetApplication(FacetEntity):
-    def __init__(self, app_name=None, os=None):
+class ObservableApplicationVersion(UcoInherentCharacterizationThing):
+    def __init__(
+        self, install_date=None, uninstall_date=None, version: Optional[str] = None
+    ):
         """
-        A simple application
-        :param app_name: Name of application (e.g. Native, Facebook, WhatsApp, etc.)
+        Used to represent a grouping of characteristics unique to a particular
+        software program version.
+        :param install_date: The date the application was installed.
+        :param uninstall_date: The date the application was uninstalled
+        :param version: The application version installed/uninstalled.
         """
         super().__init__()
-        self["@type"] = "uco-observable:ApplicationFacet"
-        self._str_vars(**{"uco-core:name": app_name})
-        self._node_reference_vars(**{"uco-observable:operatingSystem": os})
+        self["@type"] = "uco-observable:ApplicationVersion"
+        self._str_vars(**{"uco-observable:version": version})
+        self._datetime_vars(
+            **{
+                "uco-observable:installDate": install_date,
+                "uco-observable:uninstallDate": uninstall_date,
+            }
+        )
 
 
 class FacetDataRange(FacetEntity):
@@ -413,6 +424,52 @@ class ObservableObject(Observable):
         self["@type"] = "uco-observable:ObservableObject"
         self._str_vars(**{"uco-observable:state": state})
         self._bool_vars(**{"uco-observable:hasChanged": has_changed})
+
+
+class FacetApplication(FacetEntity):
+    def __init__(
+        self,
+        application_identifier: Optional[str] = None,
+        installed_version_history: Union[
+            None, ObservableApplicationVersion, List[ObservableApplicationVersion]
+        ] = None,
+        number_of_launches: Optional[int] = None,
+        operating_system: Union[ObservableObject, None] = None,
+        version: Optional[str] = None,
+    ):
+        """
+        A simple application
+        :param application_identifier: Application identifier (Whatsapp, Shazam etc)
+        :param installed_version_history: The history of installed application version(s).
+        :param number_of_launches: How many times the application was launched.
+        :param operating_system: A reference to an OperatingSystem object.
+        :param version: The version of the application.
+        """
+        super().__init__()
+        self["@type"] = "uco-observable:ApplicationFacet"
+        self._str_vars(
+            **{
+                "uco-observable:applicationIdentifier": application_identifier,
+                "uco-observable:version": version,
+            }
+        )
+        self._int_vars(
+            **{
+                "uco-observable:numberOfLaunches": number_of_launches,
+            }
+        )
+        if installed_version_history is not None:
+            # Inline each ApplicationVersion node.
+            self._append_stuff(
+                "uco-observable:installedVersionHistory",
+                *installed_version_history,
+                objects=True,
+            )
+        self._node_reference_vars(
+            **{
+                "uco-observable:operatingSystem": operating_system,
+            }
+        )
 
 
 class FacetUrlHistory(FacetEntity):
@@ -1235,29 +1292,25 @@ class FacetOperatingSystem(FacetEntity):
         os_isLimitAdTrackingEnabled: Optional[bool] = None,
         os_manufacturer: Union[None, Identity] = None,
         os_version: Optional[str] = None,
-        os_environment_variables: Union[None, Dict] = None,
+        os_environment_variables: Union[None, Dict, Dictionary] = None,
         **kwargs: Any,
     ):
         super().__init__()
 
         self["@type"] = "uco-observable:OperatingSystemFacet"
 
-        if os_environment_variables:
-            self["uco-observable:environmentVariables"] = {
-                "@id": self.prefix_label + ":" + str(local_uuid()),
-                "@type": "uco-types:Dictionary",
-                "uco-types:entry": [],
-            }
-            for k, v in os_environment_variables.items():
-                item = {
-                    "@id": self.prefix_label + ":" + str(local_uuid()),
-                    "@type": "uco-types:DictionaryEntry",
-                    "uco-types:key": k,
-                    "uco-types:value": v,
-                }
-                self["uco-observable:environmentVariables"]["uco-types:entry"].append(
-                    item
+        # Handle case where environment variables dictionary is provided as a plain Python dict.
+        if os_environment_variables is not None:
+            if isinstance(os_environment_variables, Dictionary):
+                self._node_reference_vars(
+                    **{
+                        "uco-observable:environmentVariables": os_environment_variables,
+                    }
                 )
+            else:
+                _os_environment_variables = Dictionary()
+                _os_environment_variables._dict_var(os_environment_variables)
+                self["uco-observable:environmentVariables"] = _os_environment_variables
 
         self._str_vars(
             **{
@@ -1640,6 +1693,7 @@ directory = {
     "uco-observable:AccountFacet": FacetAccount,
     "uco-observable:ContentDataFacet": FacetContentData,
     "uco-observable:ApplicationFacet": FacetApplication,
+    "uco-observable:ApplicationVersion": ObservableApplicationVersion,
     "uco-observable:DataRangeFacet": FacetDataRange,
     "uco-observable:DeviceFacet": FacetDevice,
     "uco-observable:WifiAddressFacet": FacetWifiAddress,
