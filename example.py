@@ -28,7 +28,7 @@ def _next_timestamp() -> datetime:
 
 # Generate a case bundle and list to hold investigation items
 bundle = uco.core.Bundle(description="An Example Case File")
-investigation_items: list[base.FacetEntity] = []
+investigation_items: list[base.ObjectEntity] = []
 
 ############################################
 # A DeviceFacet and a OperatingSystemFacet #

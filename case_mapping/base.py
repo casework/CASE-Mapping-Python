@@ -20,7 +20,7 @@ def unpack_args_array(func):
     return wrapper
 
 
-class FacetEntity(dict):
+class UcoThing(dict):
     def __init__(
         self,
         *args: Any,
@@ -40,11 +40,11 @@ class FacetEntity(dict):
         Examples
         ========
 
-        When instantiating a ``FacetEntity``, the JSON dictionary's ``@id`` key will start with the object's ``prefix_label``.
+        When instantiating any ``UcoThing``, the JSON dictionary's ``@id`` key will start with the object's ``prefix_label``.
 
-        >>> x = FacetEntity()
+        >>> x = UcoThing()
         >>> assert x["@id"][0:3] == "kb:"
-        >>> y = FacetEntity(prefix_label="ex")
+        >>> y = UcoThing(prefix_label="ex")
         >>> assert y["@id"][0:3] == "ex:"
         """
         self.prefix_iri = prefix_iri
@@ -68,7 +68,7 @@ class FacetEntity(dict):
             ):  # if single ref add it to list
                 self[key] = [self[key]]
             for item in args:
-                if isinstance(item, FacetEntity):
+                if isinstance(item, UcoThing):
                     if refs:
                         self[key].append({"@id": item.get_id()})
                     elif objects:
@@ -186,7 +186,15 @@ class FacetEntity(dict):
             raise TypeError
 
 
-class ObjectEntity(FacetEntity):
+class UcoInherentCharacterizationThing(UcoThing):
+    pass
+
+
+class FacetEntity(UcoInherentCharacterizationThing):
+    pass
+
+
+class ObjectEntity(UcoThing):
     def __init__(
         self,
         *args: Any,

@@ -341,44 +341,6 @@ class ObservableApplicationVersion(ObjectEntity):
         )
 
 
-class FacetApplication(FacetEntity):
-    def __init__(
-        self,
-        application_identifier: Optional[str] = None,
-        installed_version_history: Union[None, ObjectEntity, List[ObjectEntity]] = None,
-        number_of_launches: Optional[int] = None,
-        operating_system: Union[FacetEntity, None] = None,
-        version: Optional[str] = None,
-    ):
-        """
-        A simple application
-        :param application_identifier: Application identifier (Whatsapp, Shazam etc)
-        :param installed_version_history: The history of installed application version(s).
-        :param number_of_launches: How many times the application was launched.
-        :param operating_system: A reference to an OperatingSystemFacet object.
-        :param version: The version of the application.
-        """
-        super().__init__()
-        self["@type"] = "uco-observable:ApplicationFacet"
-        self._str_vars(
-            **{
-                "uco-observable:applicationIdentifier": application_identifier,
-                "uco-observable:version": version,
-            }
-        )
-        self._int_vars(
-            **{
-                "uco-observable:numberOfLaunches": number_of_launches,
-            }
-        )
-        self._node_reference_vars(
-            **{
-                "uco-observable:installedVersionHistory": installed_version_history,
-                "uco-observable:operatingSystem": operating_system,
-            }
-        )
-
-
 class FacetDataRange(FacetEntity):
     def __init__(self, range_offset=None, range_size=None):
         """
@@ -461,6 +423,44 @@ class ObservableObject(Observable):
         self["@type"] = "uco-observable:ObservableObject"
         self._str_vars(**{"uco-observable:state": state})
         self._bool_vars(**{"uco-observable:hasChanged": has_changed})
+
+
+class FacetApplication(FacetEntity):
+    def __init__(
+        self,
+        application_identifier: Optional[str] = None,
+        installed_version_history: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        number_of_launches: Optional[int] = None,
+        operating_system: Union[ObservableObject, None] = None,
+        version: Optional[str] = None,
+    ):
+        """
+        A simple application
+        :param application_identifier: Application identifier (Whatsapp, Shazam etc)
+        :param installed_version_history: The history of installed application version(s).
+        :param number_of_launches: How many times the application was launched.
+        :param operating_system: A reference to an OperatingSystem object.
+        :param version: The version of the application.
+        """
+        super().__init__()
+        self["@type"] = "uco-observable:ApplicationFacet"
+        self._str_vars(
+            **{
+                "uco-observable:applicationIdentifier": application_identifier,
+                "uco-observable:version": version,
+            }
+        )
+        self._int_vars(
+            **{
+                "uco-observable:numberOfLaunches": number_of_launches,
+            }
+        )
+        self._node_reference_vars(
+            **{
+                "uco-observable:installedVersionHistory": installed_version_history,
+                "uco-observable:operatingSystem": operating_system,
+            }
+        )
 
 
 class FacetUrlHistory(FacetEntity):
