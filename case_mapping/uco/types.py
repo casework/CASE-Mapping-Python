@@ -1,7 +1,7 @@
-from ..base import FacetEntity
+from ..base import UcoInherentCharacterizationThing
 
 
-class ControlledDictionaryEntry(FacetEntity):
+class ControlledDictionaryEntry(UcoInherentCharacterizationThing):
     def __init__(self, key=None, value=None):
         """
         A controlled dictionary entry is a single (term/key, value) pair where the term/key is constrained to an
