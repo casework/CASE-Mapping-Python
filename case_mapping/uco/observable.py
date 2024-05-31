@@ -6,6 +6,7 @@ from cdo_local_uuid import local_uuid
 from ..base import FacetEntity, ObjectEntity, UcoInherentCharacterizationThing
 from .core import Relationship
 from .identity import Identity
+from .types import Dictionary
 
 
 class ObservableDomainName(ObjectEntity):
@@ -1291,29 +1292,25 @@ class FacetOperatingSystem(FacetEntity):
         os_isLimitAdTrackingEnabled: Optional[bool] = None,
         os_manufacturer: Union[None, Identity] = None,
         os_version: Optional[str] = None,
-        os_environment_variables: Union[None, Dict] = None,
+        os_environment_variables: Union[None, Dict, Dictionary] = None,
         **kwargs: Any,
     ):
         super().__init__()
 
         self["@type"] = "uco-observable:OperatingSystemFacet"
 
-        if os_environment_variables:
-            self["uco-observable:environmentVariables"] = {
-                "@id": self.prefix_label + ":" + str(local_uuid()),
-                "@type": "uco-types:Dictionary",
-                "uco-types:entry": [],
-            }
-            for k, v in os_environment_variables.items():
-                item = {
-                    "@id": self.prefix_label + ":" + str(local_uuid()),
-                    "@type": "uco-types:DictionaryEntry",
-                    "uco-types:key": k,
-                    "uco-types:value": v,
-                }
-                self["uco-observable:environmentVariables"]["uco-types:entry"].append(
-                    item
+        # Handle case where environment variables dictionary is provided as a plain Python dict.
+        if os_environment_variables is not None:
+            if isinstance(os_environment_variables, Dictionary):
+                self._node_reference_vars(
+                    **{
+                        "uco-observable:environmentVariables": os_environment_variables,
+                    }
                 )
+            else:
+                _os_environment_variables = Dictionary()
+                _os_environment_variables._dict_var(os_environment_variables)
+                self["uco-observable:environmentVariables"] = _os_environment_variables
 
         self._str_vars(
             **{
