@@ -21,35 +21,6 @@
         "kb": "http://example.org/kb/"
     },
     "uco-core:description": "An Example Case File",
-    "uco-core:UcoInherentCharacterizationThing": [
-        {
-            "@id": "kb:ae69f729-f403-5b2b-9f71-b7cf6e442437",
-            "@type": "uco-observable:ApplicationVersion",
-            "uco-observable:version": "10.10",
-            "uco-observable:installDate": {
-                "@type": "xsd:dateTime",
-                "@value": "2024-01-22T10:18:39+00:00"
-            }
-        },
-        {
-            "@id": "kb:978743fe-b914-5238-9349-bdfe8e1cb3c7",
-            "@type": "uco-observable:ApplicationVersion",
-            "uco-observable:version": "10.11",
-            "uco-observable:installDate": {
-                "@type": "xsd:dateTime",
-                "@value": "2024-02-22T15:44:00+00:00"
-            }
-        },
-        {
-            "@id": "kb:6c162ca8-5fa4-5d05-bf32-0bc39e94b795",
-            "@type": "uco-observable:ApplicationVersion",
-            "uco-observable:version": "10.12",
-            "uco-observable:installDate": {
-                "@type": "xsd:dateTime",
-                "@value": "2024-03-22T08:21:19+00:00"
-            }
-        }
-    ],
     "uco-core:object": [
         {
             "@id": "kb:307df50e-0116-5c51-904c-d5aa69279018",
@@ -1676,13 +1647,31 @@
                     },
                     "uco-observable:installedVersionHistory": [
                         {
-                            "@id": "kb:ae69f729-f403-5b2b-9f71-b7cf6e442437"
+                            "@id": "kb:ae69f729-f403-5b2b-9f71-b7cf6e442437",
+                            "@type": "uco-observable:ApplicationVersion",
+                            "uco-observable:version": "10.10",
+                            "uco-observable:installDate": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-01-22T10:18:39+00:00"
+                            }
                         },
                         {
-                            "@id": "kb:978743fe-b914-5238-9349-bdfe8e1cb3c7"
+                            "@id": "kb:978743fe-b914-5238-9349-bdfe8e1cb3c7",
+                            "@type": "uco-observable:ApplicationVersion",
+                            "uco-observable:version": "10.11",
+                            "uco-observable:installDate": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-02-22T15:44:00+00:00"
+                            }
                         },
                         {
-                            "@id": "kb:6c162ca8-5fa4-5d05-bf32-0bc39e94b795"
+                            "@id": "kb:6c162ca8-5fa4-5d05-bf32-0bc39e94b795",
+                            "@type": "uco-observable:ApplicationVersion",
+                            "uco-observable:version": "10.12",
+                            "uco-observable:installDate": {
+                                "@type": "xsd:dateTime",
+                                "@value": "2024-03-22T08:21:19+00:00"
+                            }
                         }
                     ],
                     "uco-observable:operatingSystem": {
