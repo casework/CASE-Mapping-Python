@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from cdo_local_uuid import local_uuid
 
-from ..base import FacetEntity, ObjectEntity
+from ..base import FacetEntity, ObjectEntity, UcoInherentCharacterizationThing
 from .core import Relationship
 from .identity import Identity
 
@@ -319,7 +319,7 @@ class FacetContentData(FacetEntity):
             self["uco-observable:hash"] = [data]
 
 
-class ObservableApplicationVersion(ObjectEntity):
+class ObservableApplicationVersion(UcoInherentCharacterizationThing):
     def __init__(
         self, install_date=None, uninstall_date=None, version: Optional[str] = None
     ):
@@ -429,7 +429,9 @@ class FacetApplication(FacetEntity):
     def __init__(
         self,
         application_identifier: Optional[str] = None,
-        installed_version_history: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        installed_version_history: Union[
+            None, ObservableApplicationVersion, List[ObservableApplicationVersion]
+        ] = None,
         number_of_launches: Optional[int] = None,
         operating_system: Union[ObservableObject, None] = None,
         version: Optional[str] = None,
@@ -455,9 +457,15 @@ class FacetApplication(FacetEntity):
                 "uco-observable:numberOfLaunches": number_of_launches,
             }
         )
+        if installed_version_history is not None:
+            # Inline each ApplicationVersion node.
+            self._append_stuff(
+                "uco-observable:installedVersionHistory",
+                *installed_version_history,
+                objects=True,
+            )
         self._node_reference_vars(
             **{
-                "uco-observable:installedVersionHistory": installed_version_history,
                 "uco-observable:operatingSystem": operating_system,
             }
         )

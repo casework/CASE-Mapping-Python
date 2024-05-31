@@ -59,7 +59,6 @@ class Bundle(ObjectEntity):
             }
         )
 
-        self["uco-core:UcoInherentCharacterizationThing"] = []
         if case_identifier:
             self["@id"] = case_identifier
 
@@ -74,16 +73,6 @@ class Bundle(ObjectEntity):
         :param args: A CASE object, or objects, often an observable. (e.g., one of many devices from a search operation)
         """
         self._append_observable_objects("uco-core:object", *args)
-
-    @unpack_args_array
-    def append_to_uco_inherent_characterization_thing(self, *args):
-        """
-        Add a single/tuple of result(s) to the list of outputs from an action
-        :param args: A CASE object, or objects, often an observable. (e.g., one of many devices from a search operation)
-        """
-        self._append_observable_objects(
-            "uco-core:UcoInherentCharacterizationThing", *args
-        )
 
     @unpack_args_array
     def append_to_rdfs_comments(self, *args):

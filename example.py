@@ -811,19 +811,13 @@ app_install_version_1_object = uco.observable.ObservableApplicationVersion(
     install_date=app_install_date_1, version="10.10"
 )
 
-bundle.append_to_uco_inherent_characterization_thing(app_install_version_1_object)
-
 app_install_version_2_object = uco.observable.ObservableApplicationVersion(
     install_date=app_install_date_2, version="10.11"
 )
 
-bundle.append_to_uco_inherent_characterization_thing(app_install_version_2_object)
-
 app_install_version_3_object = uco.observable.ObservableApplicationVersion(
     install_date=app_install_date_3, version="10.12"
 )
-
-bundle.append_to_uco_inherent_characterization_thing(app_install_version_3_object)
 
 os_object = uco.observable.ObservableObject()
 os_facet = uco.observable.FacetOperatingSystem(
