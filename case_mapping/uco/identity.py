@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from ..base import FacetEntity, ObjectEntity
+from ..base import FacetEntity, IdentityAbstraction, ObjectEntity
 
 
 class FacetBirthInformation(FacetEntity):
@@ -13,7 +13,7 @@ class FacetBirthInformation(FacetEntity):
         self._datetime_vars(**{"uco-identity:birthdate": birthdate})
 
 
-class Identity(ObjectEntity):
+class Identity(IdentityAbstraction):
     def __init__(self, name: Optional[str] = None, facets=None):
         super().__init__()
         self["@type"] = "uco-identity:Identity"

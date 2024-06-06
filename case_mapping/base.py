@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Sequence, Union
 
 from cdo_local_uuid import local_uuid
 
@@ -196,11 +196,15 @@ class ObjectEntity(UcoThing):
     def __init__(
         self,
         *args: Any,
-        description: Optional[str] = None,
-        modified_time: Optional[datetime] = None,
-        name: Optional[str] = None,
+        created_by: Optional["IdentityAbstraction"] = None,
+        description: Union[None, str, Sequence[str]] = None,
+        facets: Union[None, FacetEntity, Sequence[FacetEntity]] = None,
+        modified_time: Union[None, datetime, Sequence[datetime]] = None,
         object_created_time: Optional[datetime] = None,
-        facets: Optional[List[FacetEntity]] = None,
+        object_marking: Union[None, "ObjectEntity", Sequence["ObjectEntity"]] = None,
+        name: Optional[str] = None,
+        spec_version: Optional[str] = None,
+        tag: Union[None, str, Sequence[str]] = None,
         **kwargs: Any,
     ) -> None:
         """
@@ -208,11 +212,24 @@ class ObjectEntity(UcoThing):
         """
         super().__init__(*args, **kwargs)
         self["@type"] = "uco-core:UcoObject"
-        self._str_vars(**{"uco-core:name": name, "uco-core:description": description})
+        self._str_vars(
+            **{
+                "uco-core:name": name,
+                "uco-core:description": description,
+                "uco-core:specVersion": spec_version,
+                "uco-core:tag": tag,
+            }
+        )
         self._datetime_vars(
             **{
                 "uco-core:modifiedTime": modified_time,
                 "uco-core:objectCreatedTime": object_created_time,
+            }
+        )
+        self._node_reference_vars(
+            **{
+                "uco-core:createdBy": created_by,
+                "uco-core:objectMarking": object_marking,
             }
         )
         if isinstance(facets, list):
@@ -268,3 +285,11 @@ class ObjectEntity(UcoThing):
                     print(f"{item}: NOT A CASE OBJECT")
 
             self["olo:length"] = str(current_index)
+
+
+class IdentityAbstraction(ObjectEntity):
+    """
+    An identity abstraction is a grouping of identifying characteristics unique to an individual or organization. This class is an ontological structural abstraction for this concept. Implementations of this concept should utilize the identity:Identity class.
+    """
+
+    pass

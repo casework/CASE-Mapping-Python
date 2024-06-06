@@ -4,17 +4,12 @@ from typing import Any, List, Optional, Union
 from pytz import timezone
 
 from ..base import ObjectEntity, unpack_args_array
-from .identity import Identity
 
 
 class Bundle(ObjectEntity):
     def __init__(
         self,
         *args: Any,
-        created_by: Optional[Identity] = None,
-        object_marking: Optional[ObjectEntity] = None,
-        spec_version: Optional[str] = None,
-        tag: Optional[str] = None,
         **kwargs: Any,
     ) -> None:
         """
@@ -50,21 +45,7 @@ class Bundle(ObjectEntity):
                 % self.prefix_label
             )
         self["@context"][self.prefix_label] = self.prefix_iri
-
         self["@type"] = "uco-core:Bundle"
-        self._str_vars(
-            **{
-                "uco-core:specVersion": spec_version,
-                "uco-core:tag": tag,
-            }
-        )
-
-        self._node_reference_vars(
-            **{
-                "uco-core:createdBy": created_by,
-                "uco-core:objectMarking": object_marking,
-            }
-        )
 
     @unpack_args_array
     def append_to_case_graph(self, *args):
