@@ -12,10 +12,8 @@ class Bundle(ObjectEntity):
         self,
         *args: Any,
         created_by: Optional[Identity] = None,
-        description: Optional[str] = None,
         has_facet: Optional[ObjectEntity] = None,
         modified_time=None,
-        name=None,
         object_created_time=None,
         object_marking: Optional[ObjectEntity] = None,
         spec_version: Optional[str] = None,
@@ -59,9 +57,7 @@ class Bundle(ObjectEntity):
         self["@type"] = "uco-core:Bundle"
         self._str_vars(
             **{
-                "uco-core:name": name,
                 "uco-core:specVersion": spec_version,
-                "uco-core:description": description,
                 "uco-core:tag": tag,
             }
         )
