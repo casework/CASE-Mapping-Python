@@ -10,6 +10,7 @@ from .identity import Identity
 class Bundle(ObjectEntity):
     def __init__(
         self,
+        *args: Any,
         created_by: Optional[Identity] = None,
         description: Optional[str] = None,
         has_facet: Optional[ObjectEntity] = None,
@@ -19,7 +20,6 @@ class Bundle(ObjectEntity):
         object_marking: Optional[ObjectEntity] = None,
         spec_version: Optional[str] = None,
         tag: Optional[str] = None,
-        *args: Any,
         **kwargs: Any,
     ) -> None:
         """
