@@ -13,8 +13,6 @@ class Bundle(ObjectEntity):
         *args: Any,
         created_by: Optional[Identity] = None,
         has_facet: Optional[ObjectEntity] = None,
-        modified_time=None,
-        object_created_time=None,
         object_marking: Optional[ObjectEntity] = None,
         spec_version: Optional[str] = None,
         tag: Optional[str] = None,
@@ -59,12 +57,6 @@ class Bundle(ObjectEntity):
             **{
                 "uco-core:specVersion": spec_version,
                 "uco-core:tag": tag,
-            }
-        )
-        self._datetime_vars(
-            **{
-                "uco-core:modifiedTime": modified_time,
-                "uco-core:objectCreatedTime": object_created_time,
             }
         )
 

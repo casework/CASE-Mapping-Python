@@ -197,7 +197,9 @@ class ObjectEntity(UcoThing):
         self,
         *args: Any,
         description: Optional[str] = None,
+        modified_time: Optional[datetime] = None,
         name: Optional[str] = None,
+        object_created_time: Optional[datetime] = None,
         facets: Optional[List[FacetEntity]] = None,
         **kwargs: Any,
     ) -> None:
@@ -207,6 +209,12 @@ class ObjectEntity(UcoThing):
         super().__init__(*args, **kwargs)
         self["@type"] = "uco-core:UcoObject"
         self._str_vars(**{"uco-core:name": name, "uco-core:description": description})
+        self._datetime_vars(
+            **{
+                "uco-core:modifiedTime": modified_time,
+                "uco-core:objectCreatedTime": object_created_time,
+            }
+        )
         if isinstance(facets, list):
             self.append_facets(*facets)
 
