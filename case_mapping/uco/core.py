@@ -1,18 +1,24 @@
 from datetime import datetime
-from typing import Any, Optional
+from typing import Any, List, Optional, Union
 
 from pytz import timezone
 
 from ..base import ObjectEntity, unpack_args_array
+from .identity import Identity
 
 
 class Bundle(ObjectEntity):
     def __init__(
         self,
-        case_identifier=None,
-        uco_core_name=None,
-        spec_version=None,
-        description=None,
+        created_by: Optional[Identity] = None,
+        description: Optional[str] = None,
+        has_facet: Optional[ObjectEntity] = None,
+        modified_time=None,
+        name=None,
+        object_created_time=None,
+        object_marking: Optional[ObjectEntity] = None,
+        spec_version: Optional[str] = None,
+        tag: Optional[str] = None,
         *args: Any,
         **kwargs: Any,
     ) -> None:
@@ -53,14 +59,26 @@ class Bundle(ObjectEntity):
         self["@type"] = "uco-core:Bundle"
         self._str_vars(
             **{
-                "uco-core:name": uco_core_name,
+                "uco-core:name": name,
                 "uco-core:specVersion": spec_version,
                 "uco-core:description": description,
+                "uco-core:tag": tag,
+            }
+        )
+        self._datetime_vars(
+            **{
+                "uco-core:modifiedTime": modified_time,
+                "uco-core:objectCreatedTime": object_created_time,
             }
         )
 
-        if case_identifier:
-            self["@id"] = case_identifier
+        self._node_reference_vars(
+            **{
+                "uco-core:hasFacet": has_facet,
+                "uco-core:createdBy": created_by,
+                "uco-core:objectMarking": object_marking,
+            }
+        )
 
     @unpack_args_array
     def append_to_case_graph(self, *args):

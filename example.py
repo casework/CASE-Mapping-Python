@@ -27,7 +27,28 @@ def _next_timestamp() -> datetime:
 
 
 # Generate a case bundle and list to hold investigation items
-bundle = uco.core.Bundle(description="An Example Case File")
+bundle_identity = uco.identity.Identity()
+bundle_identity_name = uco.identity.FacetSimpleName(
+    given_name="Maurice", family_name="Moss"
+)
+
+bundle_identity.append_facets(bundle_identity_name)
+
+bundle_created_by = bundle_identity
+bundle_created_time = datetime.strptime("2024-04-28T21:38:19", "%Y-%m-%dT%H:%M:%S")
+bundle_modified_time = datetime.strptime("2024-05-02T21:38:19", "%Y-%m-%dT%H:%M:%S")
+
+bundle = uco.core.Bundle(
+    created_by=bundle_identity,
+    description="An Example Case File",
+    modified_time=bundle_modified_time,
+    name="json ld file",
+    object_created_time=bundle_created_time,
+    spec_version="UCO/CASE 1.3",
+    tag="Artifacts extracted from a mobile phone",
+)
+bundle.append_to_uco_object(bundle_identity)
+
 investigation_items: list[base.ObjectEntity] = []
 
 ############################################
@@ -38,12 +59,13 @@ manufacturer_nikon = uco.identity.Organization(name="Nikon")
 bundle.append_to_uco_object(manufacturer_nikon)
 device1 = uco.observable.FacetDevice(manufacturer=manufacturer_nikon, model="D750")
 os_date = datetime.strptime("2023-02-19T09:22:09", "%Y-%m-%dT%H:%M:%S")
-manufacturer_apple = uco.identity.Organization(name="Apple")
+
 os_env_vars = {
     "path": "/opt/local/bin:/opt/local/sbin:/usr/bin:",
     "temp": "/tmp:/usr/temp",
     "systemroot": "/root",
 }
+manufacturer_apple = uco.identity.Organization(name="Apple")
 
 os_facet = uco.observable.FacetOperatingSystem(
     os_manufacturer=manufacturer_apple,
@@ -109,11 +131,12 @@ inv_act = case.investigation.InvestigativeAction(
 )
 investigation_items.append(inv_act)  # NOTE: Appending whole object not just id
 bundle.append_to_uco_object(manufacturer_apple)
-device2 = uco.observable.FacetDevice(
+
+device_iphone = uco.observable.FacetDevice(
     device_type="iPhone", manufacturer=manufacturer_apple, model="6XS", serial="77"
 )
-# inv_act.append_facets(action_ref, device2)
-inv_act.append_facets(device2)
+# inv_act.append_facets(action_ref, device_iphone)
+inv_act.append_facets(device_iphone)
 bundle.append_to_uco_object(inv_act)
 
 #############################################################
