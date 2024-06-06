@@ -12,7 +12,6 @@ class Bundle(ObjectEntity):
         self,
         *args: Any,
         created_by: Optional[Identity] = None,
-        has_facet: Optional[ObjectEntity] = None,
         object_marking: Optional[ObjectEntity] = None,
         spec_version: Optional[str] = None,
         tag: Optional[str] = None,
@@ -62,7 +61,6 @@ class Bundle(ObjectEntity):
 
         self._node_reference_vars(
             **{
-                "uco-core:hasFacet": has_facet,
                 "uco-core:createdBy": created_by,
                 "uco-core:objectMarking": object_marking,
             }
