@@ -3,6 +3,14 @@
     "@type": "uco-core:Bundle",
     "uco-core:name": "json ld file",
     "uco-core:description": "An Example Case File",
+    "uco-core:modifiedTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2024-05-02T21:38:19+00:00"
+    },
+    "uco-core:objectCreatedTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2024-04-28T21:38:19+00:00"
+    },
     "@context": {
         "@vocab": "http://caseontology.org/core#",
         "case-investigation": "https://ontology.caseontology.org/case/investigation/",
@@ -24,14 +32,6 @@
     },
     "uco-core:specVersion": "UCO/CASE 1.3",
     "uco-core:tag": "Artifacts extracted from a mobile phone",
-    "uco-core:modifiedTime": {
-        "@type": "xsd:dateTime",
-        "@value": "2024-05-02T21:38:19+00:00"
-    },
-    "uco-core:objectCreatedTime": {
-        "@type": "xsd:dateTime",
-        "@value": "2024-04-28T21:38:19+00:00"
-    },
     "uco-core:createdBy": {
         "@id": "kb:aef8e4c4-db83-59fd-8f71-b65cd7676c0a"
     },
