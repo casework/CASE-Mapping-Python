@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, Optional
+from typing import Any, List, Optional, Union
 
 from pytz import timezone
 
@@ -9,10 +9,6 @@ from ..base import ObjectEntity, unpack_args_array
 class Bundle(ObjectEntity):
     def __init__(
         self,
-        case_identifier=None,
-        uco_core_name=None,
-        spec_version=None,
-        description=None,
         *args: Any,
         **kwargs: Any,
     ) -> None:
@@ -49,18 +45,7 @@ class Bundle(ObjectEntity):
                 % self.prefix_label
             )
         self["@context"][self.prefix_label] = self.prefix_iri
-
         self["@type"] = "uco-core:Bundle"
-        self._str_vars(
-            **{
-                "uco-core:name": uco_core_name,
-                "uco-core:specVersion": spec_version,
-                "uco-core:description": description,
-            }
-        )
-
-        if case_identifier:
-            self["@id"] = case_identifier
 
     @unpack_args_array
     def append_to_case_graph(self, *args):
