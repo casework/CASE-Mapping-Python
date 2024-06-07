@@ -1,6 +1,6 @@
 from typing import Optional
 
-from ..base import FacetEntity, UcoObject
+from ..base import Facet, UcoObject
 
 
 class Location(UcoObject):
@@ -10,7 +10,7 @@ class Location(UcoObject):
         self.append_facets(facets)
 
 
-class FacetLocation(FacetEntity):
+class LatLongCoordinatesFacet(Facet):
     def __init__(
         self,
         latitude: Optional[float] = None,
@@ -36,7 +36,7 @@ class FacetLocation(FacetEntity):
         )
 
 
-class FacetSimpleAdress(FacetEntity):
+class SimpleAdressFacet(Facet):
     def __init__(
         self,
         country: Optional[str] = None,
@@ -62,6 +62,6 @@ class FacetSimpleAdress(FacetEntity):
 
 directory = {
     "uco-location:Location": Location,
-    "uco-location:LatLongCoordinatesFacet": FacetLocation,
-    "uco-location:SimpleAddressFacet": FacetSimpleAdress,
+    "uco-location:LatLongCoordinatesFacet": LatLongCoordinatesFacet,
+    "uco-location:SimpleAddressFacet": SimpleAdressFacet,
 }

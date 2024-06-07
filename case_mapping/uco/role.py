@@ -1,7 +1,7 @@
-from ..base import FacetEntity
+from ..base import Facet
 
 
-class Role(FacetEntity):
+class Role(Facet):
     def __init__(
         self,
         description=None,

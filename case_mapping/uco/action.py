@@ -3,7 +3,7 @@ from typing import Any, List, Optional, Sequence, Union
 
 from pytz import timezone
 
-from ..base import FacetEntity, UcoObject, unpack_args_array
+from ..base import Facet, UcoObject, unpack_args_array
 from .location import Location
 
 

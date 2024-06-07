@@ -1,9 +1,9 @@
 from typing import Dict, Optional
 
-from ..base import FacetEntity, IdentityAbstraction, UcoObject
+from ..base import Facet, IdentityAbstraction, UcoObject
 
 
-class FacetBirthInformation(FacetEntity):
+class BirthInformationFacet(Facet):
     def __init__(self, birthdate=None):
         """
         :param birthdate: the date of birth of an identity
@@ -30,7 +30,7 @@ class Organization(Identity):
         self["@type"] = "uco-identity:Organization"
 
 
-class FacetSimpleName(FacetEntity):
+class SimpleNameFacet(Facet):
     def __init__(self, given_name=None, family_name=None):
         """
         :param given_name: Full name of the identity of person
@@ -47,8 +47,8 @@ class FacetSimpleName(FacetEntity):
 
 
 directory = {
-    "uco-identity:BirthInformationFacet": FacetBirthInformation,
+    "uco-identity:BirthInformationFacet": BirthInformationFacet,
     "uco-identity:Identity": Identity,
     "uco-identity:Organization": Organization,
-    "uco-identity:SimpleNameFacet": FacetSimpleName,
+    "uco-identity:SimpleNameFacet": SimpleNameFacet,
 }

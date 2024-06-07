@@ -28,7 +28,7 @@ def _next_timestamp() -> datetime:
 
 # Generate a case bundle and list to hold investigation items
 bundle_identity = uco.identity.Identity()
-bundle_identity_name = uco.identity.FacetSimpleName(
+bundle_identity_name = uco.identity.SimpleNameFacet(
     given_name="Maurice", family_name="Moss"
 )
 
@@ -57,7 +57,7 @@ investigation_items: list[base.UcoObject] = []
 device_camera = uco.observable.ObservableObject()
 manufacturer_nikon = uco.identity.Organization(name="Nikon")
 bundle.append_to_uco_object(manufacturer_nikon)
-device1 = uco.observable.FacetDevice(manufacturer=manufacturer_nikon, model="D750")
+device1 = uco.observable.DeviceFacet(manufacturer=manufacturer_nikon, model="D750")
 os_date = datetime.strptime("2023-02-19T09:22:09", "%Y-%m-%dT%H:%M:%S")
 
 os_env_vars = {
@@ -67,7 +67,7 @@ os_env_vars = {
 }
 manufacturer_apple = uco.identity.Organization(name="Apple")
 
-os_facet = uco.observable.FacetOperatingSystem(
+os_facet = uco.observable.OperatingSystemFacet(
     os_manufacturer=manufacturer_apple,
     os_advertisingID="DX4CDXKN",
     os_bitness="64-bit",
@@ -90,7 +90,7 @@ f_date_created = datetime.strptime("2024-04-18T12:06:33", "%Y-%m-%dT%H:%M:%S")
 f_date_modified = datetime.strptime("2024-04-21T12:06:33", "%Y-%m-%dT%H:%M:%S")
 f_date_metadata = datetime.strptime("2024-04-21T10:16:43", "%Y-%m-%dT%H:%M:%S")
 
-file1 = uco.observable.FacetFile(
+file1 = uco.observable.FileFacet(
     file_allocation_status="Contiguous Allocation",
     file_extension="jpg",
     file_name="IMG_0123.jpg",
@@ -103,7 +103,7 @@ file1 = uco.observable.FacetFile(
     file_mime_type="image/jpeg",
 )
 
-file_content1 = uco.observable.FacetContentData(
+file_content1 = uco.observable.ContentDataFacet(
     byte_order="Big-endian",
     magic_number="/9j/ww==",
     mime_type="image/jpeg",
@@ -112,12 +112,12 @@ file_content1 = uco.observable.FacetContentData(
     hash_method="SHA256",
     hash_value="11122273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
 )
-file_raster1 = uco.observable.FacetRasterPicture(
+file_raster1 = uco.observable.RasterPictureFacet(
     picture_type="jpg", picture_height=12345, picture_width=12346, bits_per_pixel=2
 )
 
 exif = {"Make": "Canon", "Model": "Powershot"}
-file_exif1 = uco.observable.FacetEXIF(**exif)
+file_exif1 = uco.observable.EXIFFacet(**exif)
 sd_card.append_facets(file1, file_content1, file_raster1, file_exif1)
 bundle.append_to_uco_object(sd_card)
 
@@ -132,7 +132,7 @@ inv_act = case.investigation.InvestigativeAction(
 investigation_items.append(inv_act)  # NOTE: Appending whole object not just id
 bundle.append_to_uco_object(manufacturer_apple)
 
-device_iphone = uco.observable.FacetDevice(
+device_iphone = uco.observable.DeviceFacet(
     device_type="iPhone", manufacturer=manufacturer_apple, model="6XS", serial="77"
 )
 # inv_act.append_facets(action_ref, device_iphone)
@@ -152,7 +152,7 @@ dummy_observable = uco.observable.ObservableObject(
 )
 manufacturer_oneplus = uco.identity.Organization(name="oneplus")
 bundle.append_to_uco_object(manufacturer_oneplus)
-device9 = uco.observable.FacetDevice(
+device9 = uco.observable.DeviceFacet(
     device_type="Android", manufacturer=manufacturer_oneplus, model="8", serial="123123"
 )
 inv_act9.append_facets(device9)
@@ -167,7 +167,7 @@ cyber_rel1 = uco.observable.ObservableRelationship(
     kind_of_relationship="Contained_Within",
     directional=True,
 )
-path_rel1 = uco.observable.FacetPathRelation(path="/sdcard/IMG_0123.jpg")
+path_rel1 = uco.observable.PathRelationFacet(path="/sdcard/IMG_0123.jpg")
 cyber_rel1.append_facets(path_rel1)
 bundle.append_to_uco_object(cyber_rel1)
 
@@ -175,24 +175,24 @@ bundle.append_to_uco_object(cyber_rel1)
 # Adding an Email Account    #
 ##############################
 email_address_object_1 = uco.observable.ObservableObject()
-email_address_1 = uco.observable.FacetEmailAddress(
+email_address_1 = uco.observable.EmailAddressFacet(
     email_address_value="info@example.com", display_name="Example User"
 )
 email_address_object_1.append_facets(email_address_1)
 
 email_account_object_1 = uco.observable.ObservableObject()
-account_1 = uco.observable.FacetEmailAccount(email_address=email_address_object_1)
+account_1 = uco.observable.EmailAccountFacet(email_address=email_address_object_1)
 email_account_object_1.append_facets(account_1)
 bundle.append_to_uco_object(email_account_object_1, email_address_object_1)
 
 email_address_object_2 = uco.observable.ObservableObject()
-email_address_2 = uco.observable.FacetEmailAddress(
+email_address_2 = uco.observable.EmailAddressFacet(
     email_address_value="admin@example.com", display_name="Example Admin"
 )
 email_address_object_2.append_facets(email_address_2)
 
 email_account_object_2 = uco.observable.ObservableObject()
-account_2 = uco.observable.FacetEmailAccount(email_address=email_address_object_2)
+account_2 = uco.observable.EmailAccountFacet(email_address=email_address_object_2)
 email_account_object_2.append_facets(account_2)
 bundle.append_to_uco_object(email_account_object_2, email_address_object_2)
 
@@ -200,7 +200,7 @@ bundle.append_to_uco_object(email_account_object_2, email_address_object_2)
 #  Adding an Email Message   #
 ##############################
 cyber_item3 = uco.observable.ObservableObject()
-email_msg = uco.observable.FacetEmailMessage(
+email_msg = uco.observable.EmailMessageFacet(
     msg_to=[email_address_object_1, email_address_object_2],
     msg_from=email_address_object_1,
     subject="Thoughts on Our Next Book Club Pick?",
@@ -217,12 +217,12 @@ bundle.append_to_uco_object(cyber_item3)
 #  Adding an FacetUrlHistory and aUrlHistoryEntry #
 ###################################################
 url_object = uco.observable.ObservableObject()
-url_facet = uco.observable.FacetUrl(url_address="www.docker.com/howto")
+url_facet = uco.observable.UrlFacet(url_address="www.docker.com/howto")
 url_object.append_facets(url_facet)
 bundle.append_to_uco_object(url_object)
 
 browser_object = uco.observable.ObservableObject()
-browser_facet = uco.observable.FacetApplication(application_identifier="Safari")
+browser_facet = uco.observable.ApplicationFacet(application_identifier="Safari")
 browser_object.append_facets(browser_facet)
 bundle.append_to_uco_object(browser_object)
 
@@ -262,7 +262,7 @@ url_history_entry_object = uco.observable.ObservableObject()
 
 history_entries.append(history_entry_1)
 history_entries.append(history_entry_2)
-url_history_facet = uco.observable.FacetUrlHistory(
+url_history_facet = uco.observable.UrlHistoryFacet(
     browser=browser_object, history_entries=history_entries
 )
 
@@ -273,12 +273,12 @@ bundle.append_to_uco_object(url_history_entry_object)
 # Adding an SMS Account    #
 ############################
 phone_account_object = uco.observable.ObservableObject()
-phone_account1 = uco.observable.FacetPhoneAccount(phone_number="123456")
+phone_account1 = uco.observable.PhoneAccountFacet(phone_number="123456")
 phone_account_object.append_facets(phone_account1)
 bundle.append_to_uco_object(phone_account_object)
 
 phone_account_object2 = uco.observable.ObservableObject()
-phone_account2 = uco.observable.FacetPhoneAccount(phone_number="987654")
+phone_account2 = uco.observable.PhoneAccountFacet(phone_number="987654")
 phone_account_object2.append_facets(phone_account2)
 bundle.append_to_uco_object(phone_account_object2)
 
@@ -287,9 +287,9 @@ bundle.append_to_uco_object(phone_account_object2)
 ############################
 cyber_item4 = uco.observable.ObservableObject()
 application_cyber_item = uco.observable.ObservableObject()
-sms_application = uco.observable.FacetApplication(application_identifier="WhatsApp")
+sms_application = uco.observable.ApplicationFacet(application_identifier="WhatsApp")
 application_cyber_item.append_facets(sms_application)
-sms_msg = uco.observable.FacetMessage(
+sms_msg = uco.observable.MessageFacet(
     msg_to=[phone_account_object, phone_account_object2],
     msg_from=phone_account_object,
     message_text="Are you free this weekend?",
@@ -303,9 +303,9 @@ bundle.append_to_uco_object(cyber_item4, application_cyber_item)
 #  Adding an Identity block#
 ############################
 identity = uco.identity.Identity()
-identity_name = uco.identity.FacetSimpleName(given_name="Davey", family_name="Jones")
+identity_name = uco.identity.SimpleNameFacet(given_name="Davey", family_name="Jones")
 # (Example birthday: Roughly 30 years ago.)
-identity_birth = uco.identity.FacetBirthInformation(
+identity_birth = uco.identity.BirthInformationFacet(
     birthdate=_next_timestamp() - timedelta(days=10950),
 )
 identity.append_facets(identity_birth, identity_name)
@@ -315,7 +315,7 @@ bundle.append_to_uco_object(identity)
 #  Adding a location block #
 ############################
 location1 = uco.location.Location()
-lat_long = uco.location.FacetLocation(latitude=61.185055, longitude=9.468836)
+lat_long = uco.location.LatLongCoordinatesFacet(latitude=61.185055, longitude=9.468836)
 location1.append_facets(lat_long)
 bundle.append_to_uco_object(location1)
 
@@ -337,21 +337,21 @@ bundle.append_to_uco_object(investigation)
 
 # Application Object
 app_object = uco.observable.ObservableObject()
-app_facet = uco.observable.FacetApplication(application_identifier="Discord")
+app_facet = uco.observable.ApplicationFacet(application_identifier="Discord")
 app_object.append_facets(app_facet)
 bundle.append_to_uco_object(app_object)
 
 # Account 1
 id_account_object_1 = uco.observable.ObservableObject()
-id_account_facet_1 = uco.observable.FacetAccount(identifier="11111007")
-app_account_facet_1 = uco.observable.FacetApplicationAccount(application=app_object)
+id_account_facet_1 = uco.observable.AccountFacet(identifier="11111007")
+app_account_facet_1 = uco.observable.ApplicationAccountFacet(application=app_object)
 id_account_object_1.append_facets(id_account_facet_1, app_account_facet_1)
 bundle.append_to_uco_object(id_account_object_1)
 
 # Account 2
 id_account_object_2 = uco.observable.ObservableObject()
-id_account_facet_2 = uco.observable.FacetAccount(identifier="22222007")
-app_account_facet_2 = uco.observable.FacetApplicationAccount(application=app_object)
+id_account_facet_2 = uco.observable.AccountFacet(identifier="22222007")
+app_account_facet_2 = uco.observable.ApplicationAccountFacet(application=app_object)
 id_account_object_2.append_facets(id_account_facet_2, app_account_facet_2)
 bundle.append_to_uco_object(id_account_object_2)
 
@@ -361,7 +361,7 @@ message_object_1 = uco.observable.Message(
     has_changed=True,
 )
 sent_datetime = datetime.strptime("2024-01-02T16:55:01", "%Y-%m-%dT%H:%M:%S")
-facet_message_1 = uco.observable.FacetMessage(
+facet_message_1 = uco.observable.MessageFacet(
     msg_to=id_account_object_1,
     msg_from=id_account_object_2,
     message_text="Send me the instructions!",
@@ -377,7 +377,7 @@ message_object_2 = uco.observable.Message(
 )
 
 sent_datetime = datetime.strptime("2024-01-02T17:28:42", "%Y-%m-%dT%H:%M:%S")
-facet_message_2 = uco.observable.FacetMessage(
+facet_message_2 = uco.observable.MessageFacet(
     msg_to=id_account_object_2,
     msg_from=id_account_object_1,
     message_text="Sure, in a couple of hours you'lll receive them",
@@ -389,7 +389,7 @@ bundle.append_to_uco_object(message_object_2)
 
 # Create MessageThread
 message_thread_object = uco.observable.MessageThread(name="Jenny D.")
-message_thread_facet = uco.observable.FacetMessagethread(
+message_thread_facet = uco.observable.MessagethreadFacet(
     visibility=True,
     participants=[id_account_object_1, id_account_object_2],
     messages=[message_object_1, message_object_2],
@@ -404,14 +404,14 @@ bundle.append_to_uco_object(message_thread_object)
 social_activity_object = uco.observable.ObservableObject()
 
 social_media_app = uco.observable.ObservableObject()
-social_media_app_facet = uco.observable.FacetApplication(
+social_media_app_facet = uco.observable.ApplicationFacet(
     application_identifier="Facebook"
 )
 social_media_app.append_facets(social_media_app_facet)
 bundle.append_to_uco_object(social_media_app)
 
 social_media_url = uco.observable.ObservableObject()
-social_media_url_facet = uco.observable.FacetUrl(
+social_media_url_facet = uco.observable.UrlFacet(
     url_address="https://www.facebook.com/search/top?q=rome is more"
 )
 social_media_url.append_facets(social_media_url_facet)
@@ -419,7 +419,7 @@ bundle.append_to_uco_object(social_media_url)
 
 post_datetime = datetime.strptime("2024-04-02T17:28:42", "%Y-%m-%dT%H:%M:%S")
 
-social_activity_facet = drafting.entities.FacetSocialMediaActivity(
+social_activity_facet = drafting.entities.SocialMediaActivityFacet(
     body="Good people exist. We need people like Adrian.",
     page_title="Positive thoughts",
     author_identifier="100016939415901",
@@ -437,61 +437,61 @@ social_activity_facet = drafting.entities.FacetSocialMediaActivity(
 social_activity_object.append_facets(social_activity_facet)
 bundle.append_to_uco_object(social_activity_object)
 
-##################
-# Adding a Call  #
-##################
+#################
+# Adding a Call #
+#################
 identity_organisation_1 = uco.identity.Organization()
-simple_name_facet_1 = uco.identity.FacetSimpleName(given_name="Orange")
+simple_name_facet_1 = uco.identity.SimpleNameFacet(given_name="Orange")
 identity_organisation_1.append_facets(simple_name_facet_1)
 
 bundle.append_to_uco_object(identity_organisation_1)
 
 account_object_1 = uco.observable.ObservableObject()
-account_facet_1 = uco.observable.FacetAccount(
+account_facet_1 = uco.observable.AccountFacet(
     identifier="Jesse iPhone 8", issuer_id=identity_organisation_1
 )
-phone_account_facet_1 = uco.observable.FacetPhoneAccount(phone_number="+19821764400")
+phone_account_facet_1 = uco.observable.PhoneAccountFacet(phone_number="+19821764400")
 account_object_1.append_facets(account_facet_1, phone_account_facet_1)
 
 bundle.append_to_uco_object(account_object_1)
 
 identity_organisation_2 = uco.identity.Organization()
-simple_name_facet_2 = uco.identity.FacetSimpleName(given_name="Telenor")
+simple_name_facet_2 = uco.identity.SimpleNameFacet(given_name="Telenor")
 identity_organisation_2.append_facets(simple_name_facet_2)
 bundle.append_to_uco_object(identity_organisation_2)
 
 account_object_2 = uco.observable.ObservableObject()
-account_facet_2 = uco.observable.FacetAccount(
+account_facet_2 = uco.observable.AccountFacet(
     identifier="Walter iPhone 6", issuer_id=identity_organisation_2
 )
-phone_account_facet_2 = uco.observable.FacetPhoneAccount(phone_number="+19732941683")
+phone_account_facet_2 = uco.observable.PhoneAccountFacet(phone_number="+19732941683")
 account_object_2.append_facets(account_facet_2, phone_account_facet_2)
 bundle.append_to_uco_object(account_object_2)
 
 identity_organisation_3 = uco.identity.Organization()
-simple_name_facet_3 = uco.identity.FacetSimpleName(given_name="Vodafone")
+simple_name_facet_3 = uco.identity.SimpleNameFacet(given_name="Vodafone")
 identity_organisation_3.append_facets(simple_name_facet_3)
 bundle.append_to_uco_object(identity_organisation_3)
 
 account_object_3 = uco.observable.ObservableObject()
-account_facet_3 = uco.observable.FacetAccount(
+account_facet_3 = uco.observable.AccountFacet(
     identifier="Magdalena Android 16", issuer_id=identity_organisation_3
 )
 
-phone_account_facet_3 = uco.observable.FacetPhoneAccount(phone_number="+393283633741")
+phone_account_facet_3 = uco.observable.PhoneAccountFacet(phone_number="+393283633741")
 account_object_3.append_facets(account_facet_3, phone_account_facet_3)
 bundle.append_to_uco_object(account_object_3)
 
 account_object_4 = uco.observable.ObservableObject()
-account_facet_4 = uco.observable.FacetAccount(
+account_facet_4 = uco.observable.AccountFacet(
     identifier="Polly iPhone 12", issuer_id=identity_organisation_3
 )
-phone_account_facet_4 = uco.observable.FacetPhoneAccount(phone_number="+393389408011")
+phone_account_facet_4 = uco.observable.PhoneAccountFacet(phone_number="+393389408011")
 account_object_4.append_facets(account_facet_4, phone_account_facet_4)
 bundle.append_to_uco_object(account_object_4)
 
 app_call_object = uco.observable.ObservableObject()
-app_call_facet = uco.observable.FacetApplication(application_identifier="Native")
+app_call_facet = uco.observable.ApplicationFacet(application_identifier="Native")
 app_call_object.append_facets(app_call_facet)
 bundle.append_to_uco_object(app_call_object)
 
@@ -499,7 +499,7 @@ call_start_time = datetime.strptime("2024-04-19T21:38:19", "%Y-%m-%dT%H:%M:%S")
 call_end_time = datetime.strptime("2024-04-19T21:40:37", "%Y-%m-%dT%H:%M:%S")
 call_object = uco.observable.ObservableObject()
 
-call_facet = uco.observable.FacetCall(
+call_facet = uco.observable.CallFacet(
     application=app_call_object,
     call_type="incoming",
     call_duration=138,
@@ -529,7 +529,7 @@ bundle.append_to_uco_object(provenance_rec_object)
 # TODO - Record provenance of extracted file.
 
 # Record extracted file.
-extracted_file_file_facet1 = uco.observable.FacetFile(
+extracted_file_file_facet1 = uco.observable.FileFacet(
     file_extension="jpg",
     file_name="IMG_0123.jpg",
     file_is_directory=False,
@@ -537,14 +537,14 @@ extracted_file_file_facet1 = uco.observable.FacetFile(
 extracted_file_1 = uco.observable.File(facets=[extracted_file_file_facet1])
 bundle.append_to_uco_object(extracted_file_1)
 
-extraction_root_directory_file_facet1 = uco.observable.FacetFile(file_is_directory=True)
+extraction_root_directory_file_facet1 = uco.observable.FileFacet(file_is_directory=True)
 extraction_root_directory1 = uco.observable.File(
     description="Root directory of file extractions for this case.",
     facets=[extraction_root_directory_file_facet1],
 )
 bundle.append_to_uco_object(extraction_root_directory1)
 
-path_relation_facet1 = uco.observable.FacetPathRelation(
+path_relation_facet1 = uco.observable.PathRelationFacet(
     path="files/Image/IIMG_0123.jpg"
 )
 
@@ -563,21 +563,21 @@ bundle.append_to_uco_object(path_relation)
 
 # Device + Mobile phone
 device_phone_object = uco.observable.ObservableObject()
-device_phone_facet = uco.observable.FacetDevice(
+device_phone_facet = uco.observable.DeviceFacet(
     device_type="Mobile phone",
     model="iPhone XR",
     manufacturer=manufacturer_apple,
     serial="DX4CDFDBOJE",
 )
 activation_time = datetime.strptime("2024-02-26T10:18:39", "%Y-%m-%dT%H:%M:%S")
-device_mobile_facet = uco.observable.FacetMobileDevice(
+device_mobile_facet = uco.observable.MobileDeviceFacet(
     IMEI="359405082912450",
     bluetooth_device_name="Beats solo",
     keypad_unlock_code="124589",
     storage_capacity_in_bytes=64000,
     phone_activation_time=activation_time,
 )
-sim_card_facet = uco.observable.FacetSimCard(
+sim_card_facet = uco.observable.SimCardFacet(
     ICCID="8901260243790437158",
     IMSI="310260249043715",
     PIN="041981",
@@ -594,7 +594,7 @@ device_phone_object.append_facets(
 bundle.append_to_uco_object(device_phone_object)
 
 file_extracted = uco.observable.ObservableObject()
-file_zip_facet = uco.observable.FacetFile(
+file_zip_facet = uco.observable.FileFacet(
     file_allocation_status="Contiguous Allocation",
     file_extension="zip",
     file_name="Apple_iPhone XR (A1901).zip",
@@ -604,7 +604,7 @@ file_zip_facet = uco.observable.FacetFile(
     file_mime_type="application/zip",
 )
 
-file_hash_facet = uco.observable.FacetContentData(
+file_hash_facet = uco.observable.ContentDataFacet(
     hash_method="SHA256",
     hash_value="11122273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
 )
@@ -640,7 +640,7 @@ bundle.append_to_uco_object(tool_acquisition)
 action_start_time = datetime.strptime("2024-02-29T12:28:49", "%Y-%m-%dT%H:%M:%S")
 action_end_time = datetime.strptime("2024-02-29T12:43:44", "%Y-%m-%dT%H:%M:%S")
 action_location_object = uco.location.Location()
-action_location_facet = uco.location.FacetSimpleAdress(
+action_location_facet = uco.location.SimpleAdressFacet(
     country="Italy",
     locality="Genoa",
     street="via dei Ciclamini, 7",
@@ -668,7 +668,7 @@ bundle.append_to_uco_object(action_acquisition)
 
 
 wn_object = uco.observable.ObservableObject()
-wn_facet = uco.observable.FacetWirelessNetworkConnection(
+wn_facet = uco.observable.WirelessNetworkConnectionFacet(
     wn_base_station="TMobileWingman",
     wn_password="fioriBluspinegialle3",
     wn_ssid="d8:38:fc:38:3f:8",
@@ -678,7 +678,7 @@ wn_object.append_facets(wn_facet)
 bundle.append_to_uco_object(wn_object)
 
 geo_location_object = uco.observable.ObservableObject()
-geo_location_facet = uco.location.FacetLocation(
+geo_location_facet = uco.location.LatLongCoordinatesFacet(
     latitude=40.11259078,
     longitude=-75.65714263,
     altitude=0.0,
@@ -698,7 +698,7 @@ bundle.append_to_uco_object(geo_relation)
 # Adding a CellSite #
 #####################
 cell_site_object = uco.observable.ObservableObject()
-cell_site_facet = uco.observable.FacetCellSite(
+cell_site_facet = uco.observable.CellSiteFacet(
     cell_site_country_code="310",
     cell_site_identifier="187589293",
     cell_site_location_area_code="2953",
@@ -709,7 +709,7 @@ cell_site_object.append_facets(cell_site_facet)
 bundle.append_to_uco_object(cell_site_object)
 
 geo_location_object = uco.observable.ObservableObject()
-geo_location_facet = uco.location.FacetLocation(
+geo_location_facet = uco.location.LatLongCoordinatesFacet(
     latitude=36.16585393,
     longitude=-86.77639682,
     altitude=0.0,
@@ -730,14 +730,14 @@ bundle.append_to_uco_object(geo_relation)
 ##########################
 
 calendar_app_object = uco.observable.ObservableObject()
-calendar_app_facet = uco.observable.FacetApplication(
+calendar_app_facet = uco.observable.ApplicationFacet(
     application_identifier="Google Calendar"
 )
 calendar_app_object.append_facets(calendar_app_facet)
 bundle.append_to_uco_object(calendar_app_object)
 
 location_object = uco.location.Location()
-location_facet = uco.location.FacetSimpleAdress(
+location_facet = uco.location.SimpleAdressFacet(
     country="The Netherlands",
     locality="Groningen",
     street="Nieuwe Boteringestraat 38-20",
@@ -749,28 +749,28 @@ location_object.append_facets(location_facet)
 bundle.append_to_uco_object(location_object)
 
 attendant_1_object = uco.identity.Identity()
-attendand_1_facet = uco.identity.FacetSimpleName(
+attendand_1_facet = uco.identity.SimpleNameFacet(
     given_name="Maurice", family_name="Moss"
 )
-identity_birth = uco.identity.FacetBirthInformation(
+identity_birth = uco.identity.BirthInformationFacet(
     birthdate=_next_timestamp() - timedelta(days=10950),
 )
 attendant_1_object.append_facets(identity_birth, attendand_1_facet)
 bundle.append_to_uco_object(attendant_1_object)
 
 attendant_2_object = uco.identity.Identity()
-attendand_2_facet = uco.identity.FacetSimpleName(
+attendand_2_facet = uco.identity.SimpleNameFacet(
     given_name="Roy", family_name="Trenneman"
 )
-identity_birth = uco.identity.FacetBirthInformation(
+identity_birth = uco.identity.BirthInformationFacet(
     birthdate=_next_timestamp() - timedelta(days=10950),
 )
 attendant_2_object.append_facets(identity_birth, attendand_2_facet)
 bundle.append_to_uco_object(attendant_2_object)
 
 owner_object = uco.identity.Identity()
-owner_facet = uco.identity.FacetSimpleName(given_name="Jen", family_name="Barber")
-identity_birth = uco.identity.FacetBirthInformation(
+owner_facet = uco.identity.SimpleNameFacet(given_name="Jen", family_name="Barber")
+identity_birth = uco.identity.BirthInformationFacet(
     birthdate=_next_timestamp() - timedelta(days=10950),
 )
 owner_object.append_facets(identity_birth, owner_facet)
@@ -783,7 +783,7 @@ calendar_created_time = datetime.strptime("2024-04-18T08:27:00", "%Y-%m-%dT%H:%M
 calendar_modified_time = datetime.strptime("2024-04-21T16:33:00", "%Y-%m-%dT%H:%M:%S")
 
 calendar_object = uco.observable.ObservableObject()
-calendar_facet = uco.observable.FacetCalendarEntry(
+calendar_facet = uco.observable.CalendarEntryFacet(
     application=calendar_app_object,
     attendant=[attendant_1_object, attendant_2_object],
     duration=600,
@@ -809,7 +809,7 @@ bundle.append_to_uco_object(calendar_object)
 ##########################
 
 mobile_account_object = uco.observable.ObservableObject()
-mobile_account_facet = uco.observable.FacetMobileAccount(
+mobile_account_facet = uco.observable.MobileAccountFacet(
     IMSI="22210",
     MSISDN="00493879166532",
     MSISDN_type="GSM",
@@ -845,7 +845,7 @@ app_install_version_3_object = uco.observable.ObservableApplicationVersion(
 )
 
 os_object = uco.observable.ObservableObject()
-os_facet = uco.observable.FacetOperatingSystem(
+os_facet = uco.observable.OperatingSystemFacet(
     os_manufacturer=manufacturer_apple,
     os_advertisingID="XX908WN",
     os_bitness="64-bit",
@@ -857,7 +857,7 @@ os_facet = uco.observable.FacetOperatingSystem(
 os_object.append_facets(os_facet)
 bundle.append_to_uco_object(os_object)
 
-app_telegram_facet = uco.observable.FacetApplication(
+app_telegram_facet = uco.observable.ApplicationFacet(
     application_identifier="Telegram Messenger",
     installed_version_history=[
         app_install_version_1_object,
@@ -881,13 +881,13 @@ bundle.append_to_uco_object(app_telegram_object)
 event_rec_object = uco.observable.ObservableObject()
 
 event_rec_application = uco.observable.ObservableObject()
-event_rec_application_facet = uco.observable.FacetApplication(
+event_rec_application_facet = uco.observable.ApplicationFacet(
     application_identifier="iPhoneNetworkDataUsage",
 )
 
 event_rec_account_object = uco.observable.ObservableObject()
-event_rec_id_account_facet = uco.observable.FacetAccount(identifier="u_moss")
-event_rec_app_account_facet = uco.observable.FacetApplicationAccount(
+event_rec_id_account_facet = uco.observable.AccountFacet(identifier="u_moss")
+event_rec_app_account_facet = uco.observable.ApplicationAccountFacet(
     application=event_rec_account_object
 )
 event_rec_account_object.append_facets(

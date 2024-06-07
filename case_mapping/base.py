@@ -188,7 +188,7 @@ class UcoInherentCharacterizationThing(UcoThing):
     pass
 
 
-class FacetEntity(UcoInherentCharacterizationThing):
+class Facet(UcoInherentCharacterizationThing):
     pass
 
 
@@ -198,7 +198,7 @@ class UcoObject(UcoThing):
         *args: Any,
         created_by: Optional["IdentityAbstraction"] = None,
         description: Union[None, str, Sequence[str]] = None,
-        facets: Union[None, FacetEntity, Sequence[FacetEntity]] = None,
+        facets: Union[None, Facet, Sequence[Facet]] = None,
         modified_time: Union[None, datetime, Sequence[datetime]] = None,
         object_created_time: Optional[datetime] = None,
         object_marking: Union[None, "UcoObject", Sequence["UcoObject"]] = None,
@@ -275,7 +275,7 @@ class UcoObject(UcoThing):
             current_index = len(self["olo:slot"])
 
             for item in args:
-                if isinstance(item, FacetEntity):
+                if isinstance(item, Facet):
                     new_entry = dict()
                     current_index += 1
                     new_entry["olo:index"] = str(current_index)

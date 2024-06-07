@@ -1,7 +1,7 @@
-from ..base import FacetEntity, UcoObject, unpack_args_array
+from ..base import Facet, UcoObject, unpack_args_array
 
 
-class FacetPassiveDNS(FacetEntity):
+class PassiveDNSFacet(Facet):
     def __init__(
         self, time_first=None, time_last=None, record_type=None, domain=None, ip=None
     ):
@@ -46,7 +46,7 @@ class FacetPassiveDNS(FacetEntity):
             )
 
 
-class FacetTornodeInfo(FacetEntity):
+class TornodeInfoFacet(Facet):
     def __init__(
         self,
         router_name=None,
@@ -98,7 +98,7 @@ class FacetTornodeInfo(FacetEntity):
             )
 
 
-class FacetLocalInternetRegistry(FacetEntity):
+class LocalInternetRegistryFacet(Facet):
     def __init__(self, isp_name=None):
         """
         Used to define an ISP name
@@ -124,19 +124,7 @@ class ObservablePort(UcoObject):
         self._bool_vars(**{"uco-observable:hasChanged": has_changed})
 
 
-# it seems redundant, the identity:Organization class can be used instead
-# class FacetOrganization(FacetEntity):
-#    def __init__(self, org=None):
-#        """
-#        Used to define the organisation that an ISP assigns an IP address block to.
-#        :param org: An organisation registered to an IP address block (like UCD Campus Network)
-#        """
-#        super().__init__()
-#        self["@type"] = "drafting:OrganizationFacet"
-#        self._str_vars(**{"drafting:organization": org})
-
-
-class FacetBlockHasherScan(FacetEntity):
+class BlockHasherScanFacet(Facet):
     def __init__(
         self,
         total_blocks=None,
@@ -168,7 +156,7 @@ class FacetBlockHasherScan(FacetEntity):
         )
 
 
-class FacetBlockHasherUpload(FacetEntity):
+class BlockHasherUploadFacet(Facet):
     def __init__(
         self, source_file=None, bhash=None, fhash=None, category=None, rejected="False"
     ):
@@ -184,7 +172,7 @@ class FacetBlockHasherUpload(FacetEntity):
         )
 
 
-class FacetSocialMediaActivity(FacetEntity):
+class SocialMediaActivityFacet(Facet):
     def __init__(
         self,
         body=None,
@@ -251,7 +239,7 @@ class FacetSocialMediaActivity(FacetEntity):
         )
 
 
-class FacetNIO(FacetEntity):
+class NIOFacet(Facet):
     def __init__(self, **kwargs):
         """
         Blank facet for stuff not in ontology???
@@ -287,7 +275,7 @@ class FacetNIO(FacetEntity):
                 self["drafting:dumpResults"]["drafting:entry"].append(item)
 
 
-class FacetMachineLearningResults(FacetEntity):
+class MachineLearningResultsFacet(Facet):
     def __init__(self, version=None, toolname=None, rendered_image_path=None, **kwargs):
         """
         Specifies a dictinary for accepting of items that may be output by numerous ML models or tools.
@@ -337,7 +325,7 @@ class FacetMachineLearningResults(FacetEntity):
                 self["drafting:machineLearningResults"]["drafting:entry"].append(item)
 
 
-class FacetAnpr(FacetEntity):
+class AnprFacet(Facet):
     def __init__(self, anprPlate=None, anprTimestamp=None, anprLocation=None):
         """
         Characteristics of the ANPR Facet.
@@ -358,65 +346,7 @@ class FacetAnpr(FacetEntity):
         )  # todo: this is an overlap and should be added in a better way ? Also there should be more properties added to this however we do not have ANPR source materials available
 
 
-# class FacetSearchedItem(FacetEntity):
-#     def __init__(
-#         self,
-#         search_value=None,
-#         search_result=None,
-#         application=None,
-#         search_launch_time=None,
-#     ):
-#         super().__init__()
-#         self["@type"] = "drafting:SearchedItemFacet"
-#         self._str_vars(
-#             **{
-#                 "drafting:searchValue": search_value,
-#                 "drafting:searchResult": search_result,
-#             }
-#         )
-#         self._datetime_vars(
-#             **{"drafting:searchLaunchedTime": search_launch_time}
-#         )
-#         self._node_reference_vars(**{"uco-observable:application": application})
-
-
-# bette to use EventRecordFacet
-
-# class FacetLogEntries(FacetEntity):
-#     def __init__(
-#         self,
-#         log_type=None,
-#         reference=None,
-#         paid_currency=None,
-#         exchange_currency=None,
-#         entry_category=None,
-#         entry_datetime=None,
-#         amount_paid=None,
-#         exchange_amount=None,
-#         exchange_rate=None,
-#     ):
-#         super().__init__()
-#         self["@type"] = "drafting:LogEntriesFacet"
-#         self._str_vars(
-#             **{
-#                 "drafting:logType": log_type,
-#                 "drafting:logReference": reference,
-#                 "drafting:logPaidCurrency": paid_currency,
-#                 "drafting:logExchangeCurrency": exchange_currency,
-#                 "drafting:logEntryCategory": entry_category,
-#             }
-#         )
-#         self._datetime_vars(**{"drafting:logEntryTime": entry_datetime})
-#         self._float_vars(
-#             **{
-#                 "drafting:logPaidAmount": amount_paid,
-#                 "drafting:logExchangeAmount": exchange_amount,
-#                 "drafting:logExchangeRate": exchange_rate,
-#             }
-#         )
-
-
-class FacetCmsKeyValue(FacetEntity):
+class CmsKeyValueFacet(Facet):
     def __init__(self, key=None, value=None):
         super().__init__()
         self["@type"] = ["drafting:CmsKeyValueFacet", "uco-core:Facet"]
@@ -428,7 +358,7 @@ class FacetCmsKeyValue(FacetEntity):
 ############################################
 
 
-class FacetMachineLearningJob(FacetEntity):
+class MachineLearningJobFacet(Facet):
     def __init__(self, inputs=None, model_name=None):
         super().__init__()
         self["@type"] = ["drafting:MachineLearningJobFacet", "uco-core:Facet"]
@@ -440,7 +370,7 @@ class FacetMachineLearningJob(FacetEntity):
         self._append_refs("drafting:inputs", *args)
 
 
-class FacetNerEntity(FacetEntity):
+class NerEntityFacet(Facet):
     def __init__(
         self, entity_value=None, entity_type=None, occurrences=None, ml_job=None
     ):
@@ -462,7 +392,7 @@ class FacetNerEntity(FacetEntity):
         self["uco-observable:message"].append_indexed_items(messages)
 
 
-class FacetTextInterval(FacetEntity):
+class TextIntervalFacet(Facet):
     def __init__(self, start_index, end_index, ml_job=None):
         super().__init__()
         self["@type"] = ["drafting:TextIntervalFacet", "uco-core:Facet"]
@@ -482,7 +412,7 @@ class TextIntervals(UcoObject):
         self.append_indexed_items(indexed_items)
 
 
-class FacetExtractedUrl(FacetEntity):
+class ExtractedUrlFacet(Facet):
     def __init__(self, url=None, start_index=None, end_index=None, ml_job=None):
         super().__init__()
         self["@type"] = ["drafting:ExtractedUrlFacet", "uco-core:Facet"]
@@ -500,7 +430,7 @@ class FacetExtractedUrl(FacetEntity):
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
 
-class FacetExtractedTopic(FacetEntity):
+class ExtractedTopicFacet(Facet):
     def __init__(self, topic=None, probability=None, ml_job=None):
         super().__init__()
         self["@type"] = ["drafting:ExtractedTopicFacet", "uco-core:Facet"]
@@ -509,7 +439,7 @@ class FacetExtractedTopic(FacetEntity):
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
 
-class FacetSentimentAnalysisResult(FacetEntity):
+class SentimentAnalysisResultFacet(Facet):
     def __init__(self, sentiment_value=None, ml_job=None):
         super().__init__()
         self["@type"] = ["drafting:SentimentAnalysisResultFacet", "uco-core:Facet"]
@@ -517,7 +447,7 @@ class FacetSentimentAnalysisResult(FacetEntity):
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
 
-class FacetTextSummarizationResult(FacetEntity):
+class TextSummarizationResultFacet(Facet):
     def __init__(self, summarized_text=None, ml_job=None):
         super().__init__()
         self["@type"] = ["drafting:TextSummarizationResultFacet", "uco-core:Facet"]
@@ -525,7 +455,7 @@ class FacetTextSummarizationResult(FacetEntity):
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
 
-class FacetTextAnnotationResult(FacetEntity):
+class TextAnnotationResultFacet(Facet):
     def __init__(self, annotated_text=None, ml_job=None):
         super().__init__()
         self["@type"] = ["drafting:TextAnnotationResultFacet", "uco-core:Facet"]
@@ -533,7 +463,7 @@ class FacetTextAnnotationResult(FacetEntity):
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
 
-class FacetTranslationResult(FacetEntity):
+class TranslationResultFacet(Facet):
     def __init__(
         self,
         source_language=None,
@@ -555,7 +485,7 @@ class FacetTranslationResult(FacetEntity):
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
 
-class FacetLanguageDetectionResult(FacetEntity):
+class LanguageDetectionResultFacet(Facet):
     def __init__(self, source_language=None, ml_job=None):
         super().__init__()
         self["@type"] = ["drafting:LanguageDetectionResultFacet", "uco-core:Facet"]
@@ -563,7 +493,7 @@ class FacetLanguageDetectionResult(FacetEntity):
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
 
-class FacetStylometryResults(FacetEntity):
+class StylometryResultsFacet(Facet):
     def __init__(
         self,
         pos_aux=None,
@@ -620,7 +550,7 @@ class FacetStylometryResults(FacetEntity):
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
 
-class FacetStylometrySimilarity(FacetEntity):
+class StylometrySimilarityFacet(Facet):
     def __init__(
         self,
         authors=None,
@@ -658,7 +588,7 @@ class FacetStylometrySimilarity(FacetEntity):
         self._append_refs("drafting:authors", *args)
 
 
-class FacetDocumentCollection(FacetEntity):
+class DocumentCollectionFacet(Facet):
     def __init__(self, authors=None, documents=None, ml_job=None):
         super().__init__()
         self["@type"] = ["drafting:DocumentCollectionFacet", "uco-core:Facet"]
@@ -671,7 +601,7 @@ class FacetDocumentCollection(FacetEntity):
         )
 
 
-class FacetKddKeyInfo(FacetEntity):
+class KddKeyInfoFacet(Facet):
     def __init__(
         self,
         key_name=None,
@@ -721,7 +651,7 @@ class FacetKddKeyInfo(FacetEntity):
         self._append_refs("drafting:containsValues", *args)
 
 
-class FacetKddValueInfo(FacetEntity):
+class KddValueInfoFacet(Facet):
     def __init__(
         self,
         value=None,
@@ -755,7 +685,7 @@ class FacetKddValueInfo(FacetEntity):
         )
 
 
-class FacetKddKeyCombination(FacetEntity):
+class KddKeyCombinationFacet(Facet):
     def __init__(
         self,
         support=None,
@@ -797,7 +727,7 @@ class FacetKddKeyCombination(FacetEntity):
         )
 
 
-class FacetKddKeyRule(FacetEntity):
+class KddKeyRuleFacet(Facet):
     def __init__(
         self,
         key_x=None,
@@ -858,34 +788,34 @@ class FacetKddKeyRule(FacetEntity):
 
 
 directory = {
-    "drafting:PassiveDnsFacet": FacetPassiveDNS,
-    "drafting:TornodeInfoFacet": FacetTornodeInfo,
-    "drafting:LocalInternetRegistryFacet": FacetLocalInternetRegistry,
+    "drafting:PassiveDnsFacet": PassiveDNSFacet,
+    "drafting:TornodeInfoFacet": TornodeInfoFacet,
+    "drafting:LocalInternetRegistryFacet": LocalInternetRegistryFacet,
     "drafting:ObservablePort": ObservablePort,
-    "drafting:BlockHasherScanFacet": FacetBlockHasherScan,
-    "drafting:BlockHasherUploadFacet": FacetBlockHasherUpload,
-    "drafting:SocialMediaActivityFacet": FacetSocialMediaActivity,
-    "drafting:dump": FacetNIO,
-    "drafting:machineLearningResultFacet": FacetMachineLearningResults,
-    "drafting:anprLog": FacetAnpr,
-    "drafting:BlockHasherScanFacet": FacetBlockHasherScan,
-    "drafting:BlockHasherUploadFacet": FacetBlockHasherUpload,
-    "drafting:MachineLearningJobFacet": FacetMachineLearningJob,
-    "drafting:NerEntityFacet": FacetNerEntity,
-    "drafting:ExtractedUrlFacet": FacetExtractedUrl,
-    "drafting:TranslationResultFacet": FacetTranslationResult,
-    "drafting:LanguageDetectionResultFacet": FacetLanguageDetectionResult,
-    "drafting:ExtractedTopicFacet": FacetExtractedTopic,
-    "drafting:SentimentAnalysisResultFacet": FacetSentimentAnalysisResult,
-    "drafting:TextSummarizationResultFacet": FacetTextSummarizationResult,
-    "drafting:TextAnnotationResultFacet": FacetTextAnnotationResult,
-    "drafting:TextIntervalFacet": FacetTextInterval,
+    "drafting:BlockHasherScanFacet": BlockHasherScanFacet,
+    "drafting:BlockHasherUploadFacet": BlockHasherUploadFacet,
+    "drafting:SocialMediaActivityFacet": SocialMediaActivityFacet,
+    "drafting:dump": NIOFacet,
+    "drafting:machineLearningResultFacet": MachineLearningResultsFacet,
+    "drafting:anprLog": AnprFacet,
+    "drafting:BlockHasherScanFacet": BlockHasherScanFacet,
+    "drafting:BlockHasherUploadFacet": BlockHasherUploadFacet,
+    "drafting:MachineLearningJobFacet": MachineLearningJobFacet,
+    "drafting:NerEntityFacet": NerEntityFacet,
+    "drafting:ExtractedUrlFacet": ExtractedUrlFacet,
+    "drafting:TranslationResultFacet": TranslationResultFacet,
+    "drafting:LanguageDetectionResultFacet": LanguageDetectionResultFacet,
+    "drafting:ExtractedTopicFacet": ExtractedTopicFacet,
+    "drafting:SentimentAnalysisResultFacet": SentimentAnalysisResultFacet,
+    "drafting:TextSummarizationResultFacet": TextSummarizationResultFacet,
+    "drafting:TextAnnotationResultFacet": TextAnnotationResultFacet,
+    "drafting:TextIntervalFacet": TextIntervalFacet,
     "drafting:TextIntervals": TextIntervals,
-    "drafting:StylometryResultsFacet": FacetStylometryResults,
-    "drafting:StylometrySimilarityFacet": FacetStylometrySimilarity,
-    "drafting:DocumentCollectionFacet": FacetDocumentCollection,
-    "drafting:KddKeyInfoFacet": FacetKddKeyInfo,
-    "drafting:KddValueInfoFacet": FacetKddValueInfo,
-    "drafting:KddKeyCombinationFacet": FacetKddKeyCombination,
-    "drafting:KddKeyRuleFacet": FacetKddKeyRule,
+    "drafting:StylometryResultsFacet": StylometryResultsFacet,
+    "drafting:StylometrySimilarityFacet": StylometrySimilarityFacet,
+    "drafting:DocumentCollectionFacet": DocumentCollectionFacet,
+    "drafting:KddKeyInfoFacet": KddKeyInfoFacet,
+    "drafting:KddValueInfoFacet": KddValueInfoFacet,
+    "drafting:KddKeyCombinationFacet": KddKeyCombinationFacet,
+    "drafting:KddKeyRuleFacet": KddKeyRuleFacet,
 }
