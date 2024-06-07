@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from cdo_local_uuid import local_uuid
 
-from ..base import FacetEntity, ObjectEntity, UcoInherentCharacterizationThing
+from ..base import FacetEntity, UcoInherentCharacterizationThing, UcoObject
 from .action import Action
 from .core import Relationship
 from .identity import Identity
@@ -11,7 +11,7 @@ from .location import Location
 from .types import Dictionary
 
 
-class ObservableDomainName(ObjectEntity):
+class ObservableDomainName(UcoObject):
     def __init__(self, has_changed=None, state=None, facets=None):
         """
         Used to represent domain name objects
@@ -39,7 +39,7 @@ class FacetDomainName(FacetEntity):
         self._bool_vars(**{"uco-observable:isTLD": isTLD})
 
 
-class ObservableHostName(ObjectEntity):
+class ObservableHostName(UcoObject):
     def __init__(self, hostname, has_changed=None, state=None):
         """
         Used to represent host names of devices on a network
@@ -55,7 +55,7 @@ class ObservableHostName(ObjectEntity):
         self._bool_vars(**{"uco-observable:hasChanged": has_changed})
 
 
-class ObservableIPv4Address(ObjectEntity):
+class ObservableIPv4Address(UcoObject):
     def __init__(self, has_changed=None, state=None, facets=None):
         """
         Used to represent an IPv4 address object
@@ -80,7 +80,7 @@ class FacetIPv4Address(FacetEntity):
         self._str_vars(**{"uco-observable:addressValue": ip})
 
 
-class ObservableAutonomousSystem(ObjectEntity):
+class ObservableAutonomousSystem(UcoObject):
     def __init__(self, has_changed=None, state=None, facets=None):
         """
         An autonomous system is a collection of connected Internet Protocol (IP) routing prefixes under the control of one or more network operators on behalf of a single administrative entity or domain that presents a common, clearly defined routing policy to the Internet.
@@ -110,7 +110,7 @@ class FacetAutonomousSystem(FacetEntity):
         self._str_vars(**{"uco-observable:asHandle": as_handle})
 
 
-class X509Certificate(ObjectEntity):
+class X509Certificate(UcoObject):
     def __init__(
         self,
         has_changed=False,
@@ -435,7 +435,7 @@ class BluetoothAddress(FacetEntity):
         )
 
 
-class Observable(ObjectEntity):
+class Observable(UcoObject):
     def __init__(
         self,
         *args: Any,
@@ -586,22 +586,20 @@ class FacetUrlHistory(FacetEntity):
                         self.__handle_var_type_errors(key, var, "int")
                 elif key in keys_ref:
                     if isinstance(var, list) or isinstance(var, tuple):
-                        is_object_entity = [
-                            isinstance(item, ObjectEntity) for item in var
-                        ]
+                        is_object_entity = [isinstance(item, UcoObject) for item in var]
                         if all(is_object_entity):
                             history_entry[key] = [
                                 {"@id": item.get_id()} for item in var
                             ]
                         else:
                             self.__handle_list_type_errors(
-                                key, var, "ObjectEntity (no @id key)"
+                                key, var, "UcoObject (no @id key)"
                             )
-                    elif isinstance(var, ObjectEntity):
+                    elif isinstance(var, UcoObject):
                         history_entry[key] = {"@id": var.get_id()}
                     else:
                         self.__handle_var_type_errors(
-                            key, var, "ObjectEntity (no @id key)"
+                            key, var, "UcoObject (no @id key)"
                         )
                 elif key == "uco-observable:manuallyEnteredCount":
                     history_entry[key] = {
@@ -1062,17 +1060,17 @@ class FacetExtInode(FacetEntity):
 class FacetCalendarEntry(FacetEntity):
     def __init__(
         self,
-        application: Union[None, ObjectEntity] = None,
+        application: Union[None, UcoObject] = None,
         attendant: Union[None, Identity, List[Identity]] = None,
         duration: Optional[int] = None,
         end_time=None,
         event_status: Optional[str] = None,
         event_type: Optional[str] = None,
         is_private: Optional[bool] = None,
-        location: Union[None, ObjectEntity] = None,
+        location: Union[None, UcoObject] = None,
         modified_time=None,
         observable_created_time=None,
-        owner: Union[None, ObjectEntity] = None,
+        owner: Union[None, UcoObject] = None,
         recurrence: Optional[str] = None,
         remind_time=None,
         start_time=None,
@@ -1385,11 +1383,11 @@ class FacetPathRelation(FacetEntity):
 class EventRecordFacet(FacetEntity):
     def __init__(
         self,
-        account: Union[None, ObjectEntity] = None,
-        application: Union[None, ObjectEntity] = None,
-        cyber_action: Union[None, ObjectEntity] = None,
+        account: Union[None, UcoObject] = None,
+        application: Union[None, UcoObject] = None,
+        cyber_action: Union[None, UcoObject] = None,
         end_time: Optional[datetime] = None,
-        event_record_device: Union[None, ObjectEntity] = None,
+        event_record_device: Union[None, UcoObject] = None,
         event_record_id: Optional[str] = None,
         event_record_raw: Optional[str] = None,
         event_record_service_name: Optional[str] = None,
@@ -1447,8 +1445,8 @@ class ObservableRelationship(Observable, Relationship):
     def __init__(
         self,
         *args: Any,
-        source: ObjectEntity,
-        target: ObjectEntity,
+        source: UcoObject,
+        target: UcoObject,
         start_time: Optional[datetime] = None,
         end_time: Optional[datetime] = None,
         kind_of_relationship: str,
@@ -1668,7 +1666,7 @@ class FacetMessagethread(FacetEntity):
         self._append_refs("uco-observable:participant", *args)
 
 
-class MessageThread(ObjectEntity):
+class MessageThread(UcoObject):
     def __init__(self, name=None, facets=None):
         super().__init__()
         self["@type"] = "uco-observable:MessageThread"
@@ -1676,7 +1674,7 @@ class MessageThread(ObjectEntity):
         self.append_facets(facets)
 
 
-class Message(ObjectEntity):
+class Message(UcoObject):
     def __init__(self, has_changed=None, state=None, indexed_items=None):
         """
         A message is a discrete unit of electronic communication intended by the source for consumption by some

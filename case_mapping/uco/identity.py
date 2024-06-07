@@ -1,6 +1,6 @@
 from typing import Dict, Optional
 
-from ..base import FacetEntity, IdentityAbstraction, ObjectEntity
+from ..base import FacetEntity, IdentityAbstraction, UcoObject
 
 
 class FacetBirthInformation(FacetEntity):

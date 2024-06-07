@@ -1,4 +1,4 @@
-from ..base import FacetEntity, ObjectEntity, unpack_args_array
+from ..base import FacetEntity, UcoObject, unpack_args_array
 
 
 class FacetPassiveDNS(FacetEntity):
@@ -109,7 +109,7 @@ class FacetLocalInternetRegistry(FacetEntity):
         self._str_vars(**{"drafting:ispName": isp_name})
 
 
-class ObservablePort(ObjectEntity):
+class ObservablePort(UcoObject):
     def __init__(self, port, has_changed=None, state=None):
         """
         Used to represent a network port
@@ -475,7 +475,7 @@ class FacetTextInterval(FacetEntity):
         self._node_reference_vars(**{"drafting:machineLearningJob": ml_job})
 
 
-class TextIntervals(ObjectEntity):
+class TextIntervals(UcoObject):
     def __init__(self, indexed_items=None):
         super().__init__()
         self["@type"] = "drafting:TextIntervals"

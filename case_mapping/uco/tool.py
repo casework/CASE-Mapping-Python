@@ -1,10 +1,10 @@
 from typing import Any, Optional
 
-from ..base import ObjectEntity
+from ..base import UcoObject
 from .identity import Identity
 
 
-class Tool(ObjectEntity):
+class Tool(UcoObject):
     def __init__(
         self,
         *args: Any,

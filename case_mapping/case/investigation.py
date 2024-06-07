@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from pytz import timezone
 
-from ..base import FacetEntity, ObjectEntity
+from ..base import FacetEntity, UcoObject
 from ..uco.action import Action
 from ..uco.location import Location
 
@@ -15,13 +15,13 @@ class InvestigativeAction(Action):
         description: Optional[str] = None,
         facets: Optional[List[FacetEntity]] = None,
         end_time: Optional[datetime] = None,
-        environment: Optional[ObjectEntity] = None,
-        instrument: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        environment: Optional[UcoObject] = None,
+        instrument: Union[None, UcoObject, List[UcoObject]] = None,
         location: Union[None, Location, List[Location]] = None,
         name: Optional[str] = None,
-        objects: Union[None, ObjectEntity, List[ObjectEntity]] = None,
-        performer: Optional[ObjectEntity] = None,
-        results: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        objects: Union[None, UcoObject, List[UcoObject]] = None,
+        performer: Optional[UcoObject] = None,
+        results: Union[None, UcoObject, List[UcoObject]] = None,
         start_time: Optional[datetime] = None,
         **kwargs: Any,
     ) -> None:
@@ -46,7 +46,7 @@ class InvestigativeAction(Action):
         self["@type"] = "case-investigation:InvestigativeAction"
 
 
-class CaseInvestigation(ObjectEntity):
+class CaseInvestigation(UcoObject):
     def __init__(self, name=None, focus=None, description=None, core_objects=None):
         """
         An investigative action is a CASE object that represents the who, where, when of investigation
@@ -69,11 +69,11 @@ class CaseInvestigation(ObjectEntity):
         self.append_core_objects(core_objects)
 
 
-class ProvenanceRecord(ObjectEntity):
+class ProvenanceRecord(UcoObject):
     def __init__(
         self,
         exhibit_number: Optional[str] = None,
-        uco_core_objects: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        uco_core_objects: Union[None, UcoObject, List[UcoObject]] = None,
     ):
         super().__init__()
         self["@type"] = "case-investigation:ProvenanceRecord"

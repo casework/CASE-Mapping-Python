@@ -192,7 +192,7 @@ class FacetEntity(UcoInherentCharacterizationThing):
     pass
 
 
-class ObjectEntity(UcoThing):
+class UcoObject(UcoThing):
     def __init__(
         self,
         *args: Any,
@@ -201,7 +201,7 @@ class ObjectEntity(UcoThing):
         facets: Union[None, FacetEntity, Sequence[FacetEntity]] = None,
         modified_time: Union[None, datetime, Sequence[datetime]] = None,
         object_created_time: Optional[datetime] = None,
-        object_marking: Union[None, "ObjectEntity", Sequence["ObjectEntity"]] = None,
+        object_marking: Union[None, "UcoObject", Sequence["UcoObject"]] = None,
         name: Optional[str] = None,
         spec_version: Optional[str] = None,
         tag: Union[None, str, Sequence[str]] = None,
@@ -287,7 +287,7 @@ class ObjectEntity(UcoThing):
             self["olo:length"] = str(current_index)
 
 
-class IdentityAbstraction(ObjectEntity):
+class IdentityAbstraction(UcoObject):
     """
     An identity abstraction is a grouping of identifying characteristics unique to an individual or organization. This class is an ontological structural abstraction for this concept. Implementations of this concept should utilize the identity:Identity class.
     """
