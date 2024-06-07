@@ -431,7 +431,6 @@ class ObservableObject(Observable):
 class ObservableAction(Action):
     def __init__(
         self,
-        *args: Any,
         name: Optional[str] = None,
         description: Optional[str] = None,
         action_count: Optional[int] = None,
@@ -447,12 +446,15 @@ class ObservableAction(Action):
         result: Union[None, ObjectEntity, List[ObjectEntity]] = None,
         start_time: Optional[datetime] = None,
         subaction: Optional[ObjectEntity] = None,
-        **kwargs: Any,
     ) -> None:
         """
         An observable action is a grouping of characteristics unique to something that may be done or performed within the digital domain.
         """
-        super().__init__()
+        super().__init__(
+            name=name,
+            description=description,
+            performer=performer,
+        )
         self["@type"] = "uco-observable:ObservableAction"
         self._nonegative_int_vars(
             **{
@@ -465,12 +467,6 @@ class ObservableAction(Action):
                 "@type": "uco-vocabulary:ActionStatusTypeVocab",
                 "@value": action_status,
             }
-        self._str_vars(
-            **{
-                "uco-core:description": description,
-                "uco-core:name": name,
-            }
-        )
         self._datetime_vars(
             **{
                 "uco-action:endTime": end_time,
@@ -485,7 +481,6 @@ class ObservableAction(Action):
                 "uco-action:location": location,
                 "uco-action:object": object,
                 "uco-action:participant": participant,
-                "uco-action:performer": performer,
                 "uco-action:result": result,
                 "uco-action:subaction": subaction,
             }
@@ -1414,15 +1409,15 @@ class EventRecordFacet(FacetEntity):
         account: Union[None, ObjectEntity] = None,
         application: Union[None, ObjectEntity] = None,
         cyber_action: Union[None, ObjectEntity] = None,
-        end_time=None,
+        end_time: Optional[datetime] = None,
         event_record_device: Union[None, ObjectEntity] = None,
         event_record_id: Optional[str] = None,
         event_record_raw: Optional[str] = None,
         event_record_service_name: Optional[str] = None,
         event_record_text: Optional[str] = None,
         event_type: Optional[str] = None,
-        observable_created_time=None,
-        start_time=None,
+        observable_created_time: Optional[datetime] = None,
+        start_time: Optional[datetime] = None,
     ):
         """
          An event facet is a grouping of characteristics unique to something that happens in a digital context
