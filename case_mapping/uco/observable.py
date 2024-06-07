@@ -232,6 +232,35 @@ class FacetAccount(FacetEntity):
         )
 
 
+class AccountAuthenticationFacet(FacetEntity):
+    def __init__(
+        self,
+        password: Optional[str] = None,
+        password_last_changed: Optional[datetime] = None,
+        password_type: Optional[str] = None,
+    ):
+        """
+        An account authentication facet is a grouping of characteristics unique
+        to the mechanism of accessing an account.
+        :param password: Specifies an authentication password.
+        :param password_last_changed: The date and time that the password was last changed.
+        :param password_type: The type of password, for instance plain-text or encrypted.
+        """
+        super().__init__()
+        self["@type"] = "uco-observable:AccountAuthenticationFacet"
+        self._str_vars(
+            **{
+                "uco-observable:password": password,
+                "uco-observable:passwordType": password_type,
+            }
+        )
+        self._datetime_vars(
+            **{
+                "uco-observable:passwordLastChanged": password_last_changed,
+            }
+        )
+
+
 class FacetMobileAccount(FacetEntity):
     def __init__(
         self,
@@ -1721,6 +1750,7 @@ directory = {
     "uco-observable:AutonomousSystem": ObservableAutonomousSystem,
     "uco-observable:AutonomousSystemFacet": FacetAutonomousSystem,
     "uco-observable:AccountFacet": FacetAccount,
+    "uco-observable:AccountAuthenticationFacet": AccountAuthenticationFacet,
     "uco-observable:ContentDataFacet": FacetContentData,
     "uco-observable:ApplicationFacet": FacetApplication,
     "uco-observable:ApplicationVersion": ObservableApplicationVersion,

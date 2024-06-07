@@ -1809,6 +1809,22 @@
                     }
                 }
             ]
+        },
+        {
+            "@id": "kb:6b735727-56a7-562d-af4f-dffdb7ad96bd",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:6706063d-7303-523b-802c-3a48e0f4ac7b",
+                    "@type": "uco-observable:AccountAuthenticationFacet",
+                    "uco-observable:password": "bee,flies,on,passion,flowers,2467",
+                    "uco-observable:passwordType": "plain-text",
+                    "uco-observable:passwordLastChanged": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-06-07T15:09:19+00:00"
+                    }
+                }
+            ]
         }
     ]
 }
