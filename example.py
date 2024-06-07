@@ -933,6 +933,21 @@ event_rec_object_facet = uco.observable.EventRecordFacet(
 event_rec_object.append_facets(event_rec_object_facet)
 bundle.append_to_uco_object(event_rec_object)
 
+###################################
+# Adding an AccountAuthentication #
+###################################
+
+authentication_account_object = uco.observable.ObservableObject()
+password_last_changed = datetime.strptime("2024-06-07T15:09:19", "%Y-%m-%dT%H:%M:%S")
+authentication_account_facet = uco.observable.AccountAuthenticationFacet(
+    password="bee,flies,on,passion,flowers,2467",
+    password_last_changed=password_last_changed,
+    password_type="plain-text",
+)
+authentication_account_object.append_facets(authentication_account_facet)
+bundle.append_to_uco_object(authentication_account_object)
+
+
 ##################
 # Print the case #
 ##################
