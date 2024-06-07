@@ -562,7 +562,7 @@ bundle.append_to_uco_object(path_relation)
 ##########################################################
 
 # Device + Mobile phone
-device_object = uco.observable.ObservableObject()
+device_phone_object = uco.observable.ObservableObject()
 device_phone_facet = uco.observable.FacetDevice(
     device_type="Mobile phone",
     model="iPhone XR",
@@ -588,8 +588,10 @@ sim_card_facet = uco.observable.FacetSimCard(
     storage_capacity_in_bytes=65536,
 )
 
-device_object.append_facets(device_phone_facet, device_mobile_facet, sim_card_facet)
-bundle.append_to_uco_object(device_object)
+device_phone_object.append_facets(
+    device_phone_facet, device_mobile_facet, sim_card_facet
+)
+bundle.append_to_uco_object(device_phone_object)
 
 file_extracted = uco.observable.ObservableObject()
 file_zip_facet = uco.observable.FacetFile(
@@ -611,7 +613,7 @@ bundle.append_to_uco_object(file_extracted)
 
 provenance_mobile_device = case.investigation.ProvenanceRecord(
     exhibit_number="CASE_X iPhoneXR s/n DX4CDFDBOJE",
-    uco_core_objects=device_object,
+    uco_core_objects=device_phone_object,
 )
 bundle.append_to_uco_object(provenance_mobile_device)
 
@@ -816,7 +818,7 @@ mobile_account_object.append_facets(mobile_account_facet)
 bundle.append_to_uco_object(mobile_account_object)
 
 account_relation = uco.observable.ObservableRelationship(
-    source=device_object,
+    source=device_phone_object,
     target=mobile_account_object,
     kind_of_relationship="Has_Account",
     directional=True,
@@ -871,6 +873,65 @@ app_telegram_object = uco.observable.ObservableObject()
 
 app_telegram_object.append_facets(app_telegram_facet)
 bundle.append_to_uco_object(app_telegram_object)
+
+########################
+# Adding a EventRecord #
+########################
+
+event_rec_object = uco.observable.ObservableObject()
+
+event_rec_application = uco.observable.ObservableObject()
+event_rec_application_facet = uco.observable.FacetApplication(
+    application_identifier="iPhoneNetworkDataUsage",
+)
+
+event_rec_account_object = uco.observable.ObservableObject()
+event_rec_id_account_facet = uco.observable.FacetAccount(identifier="u_moss")
+event_rec_app_account_facet = uco.observable.FacetApplicationAccount(
+    application=event_rec_account_object
+)
+event_rec_account_object.append_facets(
+    event_rec_id_account_facet, event_rec_app_account_facet
+)
+bundle.append_to_uco_object(event_rec_account_object)
+
+
+event_rec_application.append_facets(event_rec_application_facet)
+bundle.append_to_uco_object(event_rec_application)
+
+event_rec_start_time = datetime.strptime("2024-04-21T21:38:19", "%Y-%m-%dT%H:%M:%S")
+event_rec_created_time = datetime.strptime("2024-04-21T21:38:19", "%Y-%m-%dT%H:%M:%S")
+event_rec_end_time = datetime.strptime("2024-04-21T23:58:19", "%Y-%m-%dT%H:%M:%S")
+event_rec_action = uco.observable.ObservableAction(
+    name="Network log entry",
+    description="Network log entry extraction of all lines",
+    action_status="Complete/Finish",
+    end_time=action_end_time,
+    start_time=action_start_time,
+    instrument=tool_acquisition,
+    location=action_location_object,
+    objects=provenance_mobile_device,
+    participant=performer_object,
+    performer=performer_object,
+    result=provenance_zip_file,
+)
+bundle.append_to_uco_object(event_rec_action)
+
+event_rec_object_facet = uco.observable.EventRecordFacet(
+    account=event_rec_account_object,
+    application=event_rec_application,
+    cyber_action=event_rec_action,
+    end_time=event_rec_end_time,
+    event_record_device=device_phone_object,
+    event_record_id="geod/AlexisBarreyat.BeReal",
+    event_record_raw="Wifi In:0, Wifi Out:0, Wan In:37847, 10689999, Wan Out:18956",
+    event_record_service_name="BeReal",
+    event_type="information",
+    observable_created_time=event_rec_created_time,
+    start_time=event_rec_start_time,
+)
+event_rec_object.append_facets(event_rec_object_facet)
+bundle.append_to_uco_object(event_rec_object)
 
 ##################
 # Print the case #

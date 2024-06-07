@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Any, List, Optional, Union
+from typing import Any, List, Optional, Sequence, Union
 
 from pytz import timezone
 
@@ -11,19 +11,21 @@ class Action(ObjectEntity):
     def __init__(
         self,
         *args: Any,
-        description: Optional[str] = None,
-        facets: Optional[List[FacetEntity]] = None,
+        action_count: Optional[int] = None,
+        action_status: Optional[str] = None,
         end_time: Optional[datetime] = None,
         environment: Optional[ObjectEntity] = None,
-        instrument: Union[None, ObjectEntity, List[ObjectEntity]] = None,
-        location: Union[None, Location, List[Location]] = None,
-        name: Optional[str] = None,
-        objects: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        error: Optional[ObjectEntity] = None,
+        instrument: Union[None, ObjectEntity, Sequence[ObjectEntity]] = None,
+        location: Union[None, Location, Sequence[Location]] = None,
+        objects: Union[None, ObjectEntity, Sequence[ObjectEntity]] = None,
+        participant: Union[None, Sequence[ObjectEntity]] = None,
         performer: Optional[ObjectEntity] = None,
-        results: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        results: Union[None, ObjectEntity, Sequence[ObjectEntity]] = None,
         start_time: Optional[datetime] = None,
+        subaction: Optional[ObjectEntity] = None,
         **kwargs: Any,
-    ):
+    ) -> None:
         """
         An action is something that may be done or performed.
         Actions group the properties characterizing core action-elements (who, how, with what, where, etc.).
@@ -38,21 +40,32 @@ class Action(ObjectEntity):
         :param object: The things that the action is performed on/against.
         :param result: The things resulting from performing an action.
         """
-        super().__init__(
-            *args, description=description, facets=facets, name=name, **kwargs
-        )
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-action:Action"
+        self._nonegative_int_vars(
+            **{
+                "uco-action:actionCount": action_count,
+            }
+        )
+        if action_status:
+            self["uco-action:actionStatus"] = {
+                "@type": "uco-vocabulary:ActionStatusTypeVocab",
+                "@value": action_status,
+            }
         self._datetime_vars(
             **{"uco-action:startTime": start_time, "uco-action:endTime": end_time}
         )
         self._node_reference_vars(
             **{
                 "uco-action:environment": environment,
+                "uco-action:error": error,
                 "uco-action:performer": performer,
                 "uco-action:instrument": instrument,
                 "uco-action:location": location,
                 "uco-action:result": results,
                 "uco-action:object": objects,
+                "uco-action:participant": participant,
+                "uco-action:subaction": subaction,
             }
         )
 

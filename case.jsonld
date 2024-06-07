@@ -1705,6 +1705,110 @@
                     }
                 }
             ]
+        },
+        {
+            "@id": "kb:63455f6a-3e0a-58d2-b425-68030c41a62a",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:67ecf21e-de3c-5430-84ac-891a81265d51",
+                    "@type": "uco-observable:AccountFacet",
+                    "uco-observable:isActive": {
+                        "@type": "xsd:boolean",
+                        "@value": true
+                    },
+                    "uco-observable:accountIdentifier": "u_moss"
+                },
+                {
+                    "@id": "kb:ab3cd06a-45f4-5067-ada0-646de5548101",
+                    "@type": "uco-observable:ApplicationAccountFacet",
+                    "uco-observable:application": {
+                        "@id": "kb:63455f6a-3e0a-58d2-b425-68030c41a62a"
+                    }
+                }
+            ]
+        },
+        {
+            "@id": "kb:b6326bd9-8691-59c5-b126-9ca2be995d78",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:82bd053b-bb47-5931-a59e-bcb6b451d048",
+                    "@type": "uco-observable:ApplicationFacet",
+                    "uco-observable:applicationIdentifier": "iPhoneNetworkDataUsage"
+                }
+            ]
+        },
+        {
+            "@id": "kb:1b700918-7f2d-55ad-acd8-fba19ce9e7aa",
+            "@type": "uco-observable:ObservableAction",
+            "uco-core:name": "Network log entry",
+            "uco-core:description": "Network log entry extraction of all lines",
+            "uco-action:actionStatus": {
+                "@type": "uco-vocabulary:ActionStatusTypeVocab",
+                "@value": "Complete/Finish"
+            },
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2024-02-29T12:28:49+00:00"
+            },
+            "uco-action:endTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2024-02-29T12:43:44+00:00"
+            },
+            "uco-action:performer": {
+                "@id": "kb:0db6f576-b92c-520d-9e1a-445eb103254b"
+            },
+            "uco-action:instrument": {
+                "@id": "kb:dae7ab48-4877-5aeb-83be-51c67fa53493"
+            },
+            "uco-action:location": {
+                "@id": "kb:f0e14e08-35aa-5381-b2f2-5822f93163b7"
+            },
+            "uco-action:object": {
+                "@id": "kb:1506e4eb-8c84-5ffc-9329-3cf998ca145b"
+            },
+            "uco-action:participant": {
+                "@id": "kb:0db6f576-b92c-520d-9e1a-445eb103254b"
+            }
+        },
+        {
+            "@id": "kb:28779a1c-3868-5089-9408-e989937cf375",
+            "@type": "uco-observable:ObservableObject",
+            "uco-core:hasFacet": [
+                {
+                    "@id": "kb:075ee909-b08c-5f4a-9c43-08a00829d72d",
+                    "@type": "uco-observable:EventRecordFacet",
+                    "uco-observable:eventRecordID": "geod/AlexisBarreyat.BeReal",
+                    "uco-observable:eventRecordRaw": "Wifi In:0, Wifi Out:0, Wan In:37847, 10689999, Wan Out:18956",
+                    "uco-observable:eventRecordServiceName": "BeReal",
+                    "uco-observable:eventType": "information",
+                    "uco-observable:account": {
+                        "@id": "kb:63455f6a-3e0a-58d2-b425-68030c41a62a"
+                    },
+                    "uco-observable:application": {
+                        "@id": "kb:b6326bd9-8691-59c5-b126-9ca2be995d78"
+                    },
+                    "uco-observable:cyberAction": {
+                        "@id": "kb:1b700918-7f2d-55ad-acd8-fba19ce9e7aa"
+                    },
+                    "uco-observable:eventRecordDevice": {
+                        "@id": "kb:cad54a2d-fb07-50a8-9f71-7d7ea46d0b68"
+                    },
+                    "uco-observable:observableCreatedTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-21T21:38:19+00:00"
+                    },
+                    "uco-observable:startTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-21T21:38:19+00:00"
+                    },
+                    "uco-observable:endTime": {
+                        "@type": "xsd:dateTime",
+                        "@value": "2024-04-21T23:58:19+00:00"
+                    }
+                }
+            ]
         }
     ]
 }
