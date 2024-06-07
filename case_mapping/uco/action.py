@@ -3,27 +3,27 @@ from typing import Any, List, Optional, Sequence, Union
 
 from pytz import timezone
 
-from ..base import FacetEntity, ObjectEntity, unpack_args_array
+from ..base import FacetEntity, UcoObject, unpack_args_array
 from .location import Location
 
 
-class Action(ObjectEntity):
+class Action(UcoObject):
     def __init__(
         self,
         *args: Any,
         action_count: Optional[int] = None,
         action_status: Optional[str] = None,
         end_time: Optional[datetime] = None,
-        environment: Optional[ObjectEntity] = None,
-        error: Optional[ObjectEntity] = None,
-        instrument: Union[None, ObjectEntity, Sequence[ObjectEntity]] = None,
+        environment: Optional[UcoObject] = None,
+        error: Optional[UcoObject] = None,
+        instrument: Union[None, UcoObject, Sequence[UcoObject]] = None,
         location: Union[None, Location, Sequence[Location]] = None,
-        objects: Union[None, ObjectEntity, Sequence[ObjectEntity]] = None,
-        participant: Union[None, Sequence[ObjectEntity]] = None,
-        performer: Optional[ObjectEntity] = None,
-        results: Union[None, ObjectEntity, Sequence[ObjectEntity]] = None,
+        objects: Union[None, UcoObject, Sequence[UcoObject]] = None,
+        participant: Union[None, Sequence[UcoObject]] = None,
+        performer: Optional[UcoObject] = None,
+        results: Union[None, UcoObject, Sequence[UcoObject]] = None,
         start_time: Optional[datetime] = None,
-        subaction: Optional[ObjectEntity] = None,
+        subaction: Optional[UcoObject] = None,
         **kwargs: Any,
     ) -> None:
         """

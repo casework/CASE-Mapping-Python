@@ -3,10 +3,10 @@ from typing import Any, List, Optional, Union
 
 from pytz import timezone
 
-from ..base import ObjectEntity, unpack_args_array
+from ..base import UcoObject, unpack_args_array
 
 
-class Bundle(ObjectEntity):
+class Bundle(UcoObject):
     def __init__(
         self,
         *args: Any,
@@ -68,12 +68,12 @@ class Bundle(ObjectEntity):
         self._append_strings("uco-core:description", *args)
 
 
-class Relationship(ObjectEntity):
+class Relationship(UcoObject):
     def __init__(
         self,
         *args: Any,
-        source: ObjectEntity,
-        target: ObjectEntity,
+        source: UcoObject,
+        target: UcoObject,
         start_time: Optional[datetime] = None,
         end_time: Optional[datetime] = None,
         kind_of_relationship: str,

@@ -49,7 +49,7 @@ bundle = uco.core.Bundle(
 )
 bundle.append_to_uco_object(bundle_identity)
 
-investigation_items: list[base.ObjectEntity] = []
+investigation_items: list[base.UcoObject] = []
 
 ############################################
 # A DeviceFacet and a OperatingSystemFacet #

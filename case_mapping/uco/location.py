@@ -1,9 +1,9 @@
 from typing import Optional
 
-from ..base import FacetEntity, ObjectEntity
+from ..base import FacetEntity, UcoObject
 
 
-class Location(ObjectEntity):
+class Location(UcoObject):
     def __init__(self, facets=None):
         super().__init__()
         self["@type"] = "uco-location:Location"
