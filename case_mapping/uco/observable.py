@@ -4,8 +4,10 @@ from typing import Any, Dict, List, Optional, Union
 from cdo_local_uuid import local_uuid
 
 from ..base import FacetEntity, ObjectEntity, UcoInherentCharacterizationThing
+from .action import Action
 from .core import Relationship
 from .identity import Identity
+from .location import Location
 from .types import Dictionary
 
 
@@ -424,6 +426,70 @@ class ObservableObject(Observable):
         self["@type"] = "uco-observable:ObservableObject"
         self._str_vars(**{"uco-observable:state": state})
         self._bool_vars(**{"uco-observable:hasChanged": has_changed})
+
+
+class ObservableAction(Action):
+    def __init__(
+        self,
+        *args: Any,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        action_count: Optional[int] = None,
+        action_status: Optional[str] = None,
+        end_time: Optional[datetime] = None,
+        environment: Optional[ObjectEntity] = None,
+        error: Optional[ObjectEntity] = None,
+        instrument: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        location: Union[None, Location, List[Location]] = None,
+        object: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        participant: Optional[ObjectEntity] = None,
+        performer: Optional[ObjectEntity] = None,
+        result: Union[None, ObjectEntity, List[ObjectEntity]] = None,
+        start_time: Optional[datetime] = None,
+        subaction: Optional[ObjectEntity] = None,
+        **kwargs: Any,
+    ) -> None:
+        """
+        An observable action is a grouping of characteristics unique to something that may be done or performed within the digital domain.
+        """
+        super().__init__()
+        self["@type"] = "uco-observable:ObservableAction"
+        self._nonegative_int_vars(
+            **{
+                "uco-action:actionCount": action_count,
+            }
+        )
+
+        if action_status:
+            self["uco-action:actionStatus"] = {
+                "@type": "uco-vocabulary:ActionStatusTypeVocab",
+                "@value": action_status,
+            }
+        self._str_vars(
+            **{
+                "uco-core:description": description,
+                "uco-core:name": name,
+            }
+        )
+        self._datetime_vars(
+            **{
+                "uco-action:endTime": end_time,
+                "uco-action:startTime": start_time,
+            }
+        )
+        self._node_reference_vars(
+            **{
+                "uco-action:environment": environment,
+                "uco-action:error": error,
+                "uco-action:instrument": instrument,
+                "uco-action:location": location,
+                "uco-action:object": object,
+                "uco-action:participant": participant,
+                "uco-action:performer": performer,
+                "uco-action:result": result,
+                "uco-action:subaction": subaction,
+            }
+        )
 
 
 class FacetApplication(FacetEntity):
@@ -1342,42 +1408,61 @@ class FacetPathRelation(FacetEntity):
         self._str_vars(**{"uco-observable:path": path})
 
 
-class FacetEvent(FacetEntity):
+class EventRecordFacet(FacetEntity):
     def __init__(
         self,
-        event_type=None,
-        event_text=None,
-        event_id=None,
-        cyber_action=None,
-        computer_name=None,
-        created_time=None,
-        start_time=None,
+        account: Union[None, ObjectEntity] = None,
+        application: Union[None, ObjectEntity] = None,
+        cyber_action: Union[None, ObjectEntity] = None,
         end_time=None,
+        event_record_device: Union[None, ObjectEntity] = None,
+        event_record_id: Optional[str] = None,
+        event_record_raw: Optional[str] = None,
+        event_record_service_name: Optional[str] = None,
+        event_record_text: Optional[str] = None,
+        event_type: Optional[str] = None,
+        observable_created_time=None,
+        start_time=None,
     ):
         """
          An event facet is a grouping of characteristics unique to something that happens in a digital context
          (e.g., operating system events).
-        :param event_type: The type of the event, for example 'information', 'warning' or 'error'.
-        :param event_text: The textual representation of the event.
-        :param event_id: The identifier of the event.
+        :param account: Specifies the account referenced in an event log entry or
+                        used to run the scheduled task.
+        :param application: The application associated with this object.
         :param cyber_action: The action taken in response to the event.
-        :param created_time: The date and time at which the observable object being characterized was created.
-        :param start_time: The date and time at which the observable object being characterized started.
         :param end_time: The date and time at which the observable object being characterized ended.
+        :param event_record_device: The device where the event has been registered.
+        :param event_record_id: The identifier of the event.
+        :param event_record_raw: The complete raw content of the event record.
+        :param event_record_service_name: The service that generated the event record.
+        :param event_record_text: The textual representation of the event.
+        :param event_type: The type of the event, for example 'information', 'warning' or 'error'.
+        :param observable_created_time: The date and time at which the observable object being characterized was created.
+        :param start_time: The date and time at which the observable object being characterized started.
         """
         super().__init__()
         self["@type"] = "uco-observable:EventRecordFacet"
         self._str_vars(
             **{
+                "uco-observable:eventRecordID": event_record_id,
+                "uco-observable:eventRecordRaw": event_record_raw,
+                "uco-observable:eventRecordServiceName": event_record_service_name,
+                "uco-observable:eventRecordText": event_record_text,
                 "uco-observable:eventType": event_type,
-                "uco-observable:eventText": event_text,
-                "uco-observable:eventID": event_id,
-                "uco-observable:computerName": computer_name,
             }
         )
-        self._node_reference_vars(**{"uco-observable:cyberAction": cyber_action})
+        self._node_reference_vars(
+            **{
+                "uco-observable:account": account,
+                "uco-observable:application": application,
+                "uco-observable:cyberAction": cyber_action,
+                "uco-observable:eventRecordDevice": event_record_device,
+            }
+        )
         self._datetime_vars(
             **{
+                "uco-observable:observableCreatedTime": observable_created_time,
                 "uco-observable:startTime": start_time,
                 "uco-observable:endTime": end_time,
             }
@@ -1719,7 +1804,7 @@ directory = {
     "uco-observable:SIMCardFacet": FacetSimCard,
     "uco-observable:OperatingSystemFacet": FacetOperatingSystem,
     "uco-observable:PathRelationFacet": FacetPathRelation,
-    "uco-observable:EventFacet": FacetEvent,
+    "uco-observable:EventRecordFacet": EventRecordFacet,
     "uco-observable:ObservableRelationship": ObservableRelationship,
     "uco-observable:ApplicationAccountFacet": FacetApplicationAccount,
     "uco-observable:DigitalAccountFacet": FacetDigitalAccount,
