@@ -429,62 +429,12 @@ class ObservableObject(Observable):
 
 
 class ObservableAction(Action):
-    def __init__(
-        self,
-        name: Optional[str] = None,
-        description: Optional[str] = None,
-        action_count: Optional[int] = None,
-        action_status: Optional[str] = None,
-        end_time: Optional[datetime] = None,
-        environment: Optional[ObjectEntity] = None,
-        error: Optional[ObjectEntity] = None,
-        instrument: Union[None, ObjectEntity, List[ObjectEntity]] = None,
-        location: Union[None, Location, List[Location]] = None,
-        object: Union[None, ObjectEntity, List[ObjectEntity]] = None,
-        participant: Optional[ObjectEntity] = None,
-        performer: Optional[ObjectEntity] = None,
-        result: Union[None, ObjectEntity, List[ObjectEntity]] = None,
-        start_time: Optional[datetime] = None,
-        subaction: Optional[ObjectEntity] = None,
-    ) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         """
         An observable action is a grouping of characteristics unique to something that may be done or performed within the digital domain.
         """
-        super().__init__(
-            name=name,
-            description=description,
-            performer=performer,
-        )
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:ObservableAction"
-        self._nonegative_int_vars(
-            **{
-                "uco-action:actionCount": action_count,
-            }
-        )
-
-        if action_status:
-            self["uco-action:actionStatus"] = {
-                "@type": "uco-vocabulary:ActionStatusTypeVocab",
-                "@value": action_status,
-            }
-        self._datetime_vars(
-            **{
-                "uco-action:endTime": end_time,
-                "uco-action:startTime": start_time,
-            }
-        )
-        self._node_reference_vars(
-            **{
-                "uco-action:environment": environment,
-                "uco-action:error": error,
-                "uco-action:instrument": instrument,
-                "uco-action:location": location,
-                "uco-action:object": object,
-                "uco-action:participant": participant,
-                "uco-action:result": result,
-                "uco-action:subaction": subaction,
-            }
-        )
 
 
 class FacetApplication(FacetEntity):
