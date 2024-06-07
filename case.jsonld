@@ -1780,7 +1780,7 @@
                     "@id": "kb:075ee909-b08c-5f4a-9c43-08a00829d72d",
                     "@type": "uco-observable:EventRecordFacet",
                     "uco-observable:eventRecordID": "geod/AlexisBarreyat.BeReal",
-                    "uco-observable:eventRecordRaw": "[Wifi In:0, Wifi Out:0, Wan In:37847, 10689999, Wan Out:18956",
+                    "uco-observable:eventRecordRaw": "Wifi In:0, Wifi Out:0, Wan In:37847, 10689999, Wan Out:18956",
                     "uco-observable:eventRecordServiceName": "BeReal",
                     "uco-observable:eventType": "information",
                     "uco-observable:account": {
