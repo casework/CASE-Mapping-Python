@@ -1744,20 +1744,20 @@
             "@type": "uco-observable:ObservableAction",
             "uco-core:name": "Network log entry",
             "uco-core:description": "Network log entry extraction of all lines",
-            "uco-action:performer": {
-                "@id": "kb:0db6f576-b92c-520d-9e1a-445eb103254b"
-            },
             "uco-action:actionStatus": {
                 "@type": "uco-vocabulary:ActionStatusTypeVocab",
                 "@value": "Complete/Finish"
+            },
+            "uco-action:startTime": {
+                "@type": "xsd:dateTime",
+                "@value": "2024-02-29T12:28:49+00:00"
             },
             "uco-action:endTime": {
                 "@type": "xsd:dateTime",
                 "@value": "2024-02-29T12:43:44+00:00"
             },
-            "uco-action:startTime": {
-                "@type": "xsd:dateTime",
-                "@value": "2024-02-29T12:28:49+00:00"
+            "uco-action:performer": {
+                "@id": "kb:0db6f576-b92c-520d-9e1a-445eb103254b"
             },
             "uco-action:instrument": {
                 "@id": "kb:dae7ab48-4877-5aeb-83be-51c67fa53493"
@@ -1770,9 +1770,6 @@
             },
             "uco-action:participant": {
                 "@id": "kb:0db6f576-b92c-520d-9e1a-445eb103254b"
-            },
-            "uco-action:result": {
-                "@id": "kb:1dec274d-705a-5c0e-8b03-226f2e227501"
             }
         },
         {
