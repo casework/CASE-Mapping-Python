@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from cdo_local_uuid import local_uuid
 
-from ..base import FacetEntity, UcoInherentCharacterizationThing, UcoObject
+from ..base import Facet, UcoInherentCharacterizationThing, UcoObject
 from .action import Action
 from .core import Relationship
 from .identity import Identity
@@ -26,7 +26,7 @@ class ObservableDomainName(UcoObject):
         self.append_facets(facets)
 
 
-class FacetDomainName(FacetEntity):
+class DomainNameFacet(Facet):
     def __init__(self, domain, isTLD=False):
         """
         Used to represent data for domainname objects
@@ -69,7 +69,7 @@ class ObservableIPv4Address(UcoObject):
         self.append_facets(facets)
 
 
-class FacetIPv4Address(FacetEntity):
+class IPv4AddressFacet(Facet):
     def __init__(self, ip=None):
         """
         Used to represent IPv4 Addresses
@@ -97,7 +97,7 @@ class ObservableAutonomousSystem(UcoObject):
         self.append_facets(facets)
 
 
-class FacetAutonomousSystem(FacetEntity):
+class AutonomousSystemFacet(Facet):
     def __init__(self, as_number, as_handle=None):
         """
         An autonomous system facet is a grouping of characteristics unique to a collection of connected Internet Protocol (IP) routing prefixes under the control of one or more network operators on behalf of a single administrative entity or domain that presents a common, clearly defined routing policy to the Internet.
@@ -146,7 +146,7 @@ class X509Certificate(UcoObject):
         self.append_facets(facets)
 
 
-class FacetX509Certificate(FacetEntity):
+class X509CertificateFacet(Facet):
     def __init__(
         self,
         is_self_signed=False,
@@ -208,7 +208,7 @@ class FacetX509Certificate(FacetEntity):
         )
 
 
-class FacetAccount(FacetEntity):
+class AccountFacet(Facet):
     def __init__(self, identifier=None, is_active=True, issuer_id=None):
         """
         Used to represent user accounts
@@ -232,7 +232,7 @@ class FacetAccount(FacetEntity):
         )
 
 
-class AccountAuthenticationFacet(FacetEntity):
+class AccountAuthenticationFacet(Facet):
     def __init__(
         self,
         password: Optional[str] = None,
@@ -261,7 +261,7 @@ class AccountAuthenticationFacet(FacetEntity):
         )
 
 
-class FacetMobileAccount(FacetEntity):
+class MobileAccountFacet(Facet):
     def __init__(
         self,
         IMSI: Optional[str] = None,
@@ -289,7 +289,7 @@ class FacetMobileAccount(FacetEntity):
         )
 
 
-class FacetContentData(FacetEntity):
+class ContentDataFacet(Facet):
     def __init__(
         self,
         byte_order=None,
@@ -373,7 +373,7 @@ class ObservableApplicationVersion(UcoInherentCharacterizationThing):
         )
 
 
-class FacetDataRange(FacetEntity):
+class DataRangeFacet(Facet):
     def __init__(self, range_offset=None, range_size=None):
         """
         A data range facet is a grouping of characteristics unique to a particular contiguous scope
@@ -391,7 +391,7 @@ class FacetDataRange(FacetEntity):
         )
 
 
-class FacetDevice(FacetEntity):
+class DeviceFacet(Facet):
     def __init__(self, device_type=None, manufacturer=None, model=None, serial=None):
         """
         Characteristics of a piece of electronic equipment.
@@ -412,7 +412,7 @@ class FacetDevice(FacetEntity):
         )
 
 
-class FacetWifiAddress(FacetEntity):
+class WifiAddressFacet(Facet):
     def __init__(self, wifi_mac_address=None):
         """
         :param wifi_mac_address: The wifi mac address of a device (EG: 11:54:00:bc:c8:ba)
@@ -422,7 +422,7 @@ class FacetWifiAddress(FacetEntity):
         self._str_vars(**{"uco-observable:addressValue": wifi_mac_address})
 
 
-class BluetoothAddress(FacetEntity):
+class BluetoothAddressFacet(Facet):
     def __init__(self, name=None, address=None):
         """
         :param name:
@@ -466,7 +466,7 @@ class ObservableAction(Action):
         self["@type"] = "uco-observable:ObservableAction"
 
 
-class FacetApplication(FacetEntity):
+class ApplicationFacet(Facet):
     def __init__(
         self,
         application_identifier: Optional[str] = None,
@@ -512,7 +512,7 @@ class FacetApplication(FacetEntity):
         )
 
 
-class FacetUrlHistory(FacetEntity):
+class UrlHistoryFacet(Facet):
     def __init__(self, browser=None, history_entries=None):
         """
         :param browser_info: An observable object containing a URLHistoryFacet
@@ -610,72 +610,7 @@ class FacetUrlHistory(FacetEntity):
             self["uco-observable:urlHistoryEntry"].append(history_entry)
 
 
-# class UrlHistoryEntry(FacetEntity):
-#     It's no longer necessary, all data are included in the above FacetUrlHistory class
-#     def __init__(
-#         self,
-#         browser_user_profile=None,
-#         expiration_time=None,
-#         first_visit=None,
-#         host_name=None,
-#         keyword_search_term=None,
-#         last_visit=None,
-#         manually_entered_count=None,
-#         page_title=None,
-#         referrer_url=None,
-#         url=None,
-#         visit_count=None,
-#     ):
-#         """
-#         :param browser_user_profile: The web browser user profile for which the URL history entry was created.
-#         :param expiration_time: The date and time at which the validity of the object expires.
-#         :param first_visit: The date/time that the URL referred to by the URL field was first visited.
-#         :param host_name: The hostname of the system.
-#         :param keyword_search_term: The string representing a keyword search term contained within the URL field.
-#         :param last_visit: The date/time that the URL referred to by the URL field was last visited.
-#         :param manually_entered_count: The number of times the URL referred to by the URL field was manually entered into the browser's address field by the user.
-#         :param page_title: The title of a web page
-#         :param referrer_url: The origination point (i.e., URL) of a URL request.
-#         :param url: An observable object with a URLFacet.
-#         :param visit_count:  The number of times a URL has been visited by a particular web browser.
-#         """
-
-#         super().__init__()
-#         self["@type"] = "uco-observable:URLHistoryEntry"
-#         self._str_vars(
-#             **{
-#                 "uco-observable:browserUserProfile": browser_user_profile,
-#                 "uco-observable:hostname": host_name,
-#                 "uco-observable:pageTitle": page_title,
-#                 "uco-observable:keywordSearchTerm": keyword_search_term,
-#             }
-#         )
-#         self._int_vars(**{"uco-observable:visitCount": visit_count})
-#         self._datetime_vars(
-#             **{
-#                 "uco-observable:firstVisit": first_visit,
-#                 "uco-observable:lastVisit": last_visit,
-#                 "uco-observable:expirationTime": expiration_time,
-#             }
-#         )
-#         self._node_reference_vars(
-#             **{
-#                 "uco-observable:ble:referrerUrl": referrer_url,
-#                 "uco-observable:url": url,
-#             }
-#         )
-#         # TODO AJN: This is one instance of xsd:nonNegativeInteger.
-#         # There are other instances in the ontology requiring
-#         # nonNegativeIntegers.  Hence, the FacetEntity class needs to
-#         # have a helper function added.
-#         # https://github.com/casework/CASE-Mapping-Python/issues/37
-#         self["uco-observable:manuallyEnteredCount"] = {
-#             "@type": "xsd:nonNegativeInteger",
-#             "@value": "%d" % manually_entered_count,
-#         }
-
-
-class FacetUrl(FacetEntity):
+class UrlFacet(Facet):
     def __init__(
         self,
         url_address=None,
@@ -716,7 +651,7 @@ class FacetUrl(FacetEntity):
         self._int_vars(**{"uco-observable:port": url_port})
 
 
-class FacetBrowserBookmark(FacetEntity):
+class BrowserBookmarkFacet(Facet):
     def __init__(
         self,
         accessedTime=None,
@@ -757,7 +692,7 @@ class FacetBrowserBookmark(FacetEntity):
         )
 
 
-class FacetRasterPicture(FacetEntity):
+class RasterPictureFacet(Facet):
     def __init__(
         self,
         camera_id=None,
@@ -794,7 +729,7 @@ class FacetRasterPicture(FacetEntity):
         self._node_reference_vars(**{"uco-observable:camera": camera_id})
 
 
-class FacetCall(FacetEntity):
+class CallFacet(Facet):
     def __init__(
         self,
         application=None,
@@ -844,7 +779,7 @@ class FacetCall(FacetEntity):
         )
 
 
-class FacetPhoneAccount(FacetEntity):
+class PhoneAccountFacet(Facet):
     def __init__(self, phone_number=None):
         """
         :param phone_number: The number for this account (e.g., "+16503889249")
@@ -858,7 +793,7 @@ class FacetPhoneAccount(FacetEntity):
         )
 
 
-class FacetEmailAccount(FacetEntity):
+class EmailAccountFacet(Facet):
     def __init__(self, email_address):
         """
         :param email_address: An ObservableObject (with EmailAdressFacet)
@@ -868,7 +803,7 @@ class FacetEmailAccount(FacetEntity):
         self._node_reference_vars(**{"uco-observable:emailAddress": email_address})
 
 
-class FacetEmailAddress(FacetEntity):
+class EmailAddressFacet(Facet):
     def __init__(self, email_address_value=None, display_name=None):
         """
         Used to represent the value of an email address.
@@ -884,7 +819,7 @@ class FacetEmailAddress(FacetEntity):
         )
 
 
-class FacetEmailMessage(FacetEntity):
+class EmailMessageFacet(Facet):
     def __init__(
         self,
         msg_to=None,
@@ -986,7 +921,7 @@ class FacetEmailMessage(FacetEntity):
         )
 
 
-class FacetEXIF(FacetEntity):
+class EXIFFacet(Facet):
     def __init__(self, **kwargs):
         """
         Specifies exchangeable image file format (Exif) metadata tags for image and sound files recorded by digital cameras.
@@ -1011,7 +946,7 @@ class FacetEXIF(FacetEntity):
                 self["uco-observable:exifData"]["uco-types:entry"].append(item)
 
 
-class FacetExtInode(FacetEntity):
+class ExtInodeFacet(Facet):
     def __init__(
         self,
         deletion_time=None,
@@ -1057,7 +992,7 @@ class FacetExtInode(FacetEntity):
         )
 
 
-class FacetCalendarEntry(FacetEntity):
+class CalendarEntryFacet(Facet):
     def __init__(
         self,
         application: Union[None, UcoObject] = None,
@@ -1107,7 +1042,7 @@ class FacetCalendarEntry(FacetEntity):
         )
 
 
-class FacetBrowserCookie(FacetEntity):
+class BrowserCookieFacet(Facet):
     def __init__(
         self,
         name=None,
@@ -1138,7 +1073,7 @@ class File(ObservableObject):
         self["@type"] = "uco-observable:File"
 
 
-class FacetFile(FacetEntity):
+class FileFacet(Facet):
     def __init__(
         self,
         file_accessed_time=None,
@@ -1190,7 +1125,7 @@ class FacetFile(FacetEntity):
         self._bool_vars(**{"uco-observable:isDirectory": file_is_directory})
 
 
-class FacetMessage(FacetEntity):
+class MessageFacet(Facet):
     def __init__(
         self,
         msg_to=None,
@@ -1233,7 +1168,7 @@ class FacetMessage(FacetEntity):
         )
 
 
-class FacetMobileDevice(FacetEntity):
+class MobileDeviceFacet(Facet):
     def __init__(
         self,
         ESN: Optional[str] = None,
@@ -1272,7 +1207,7 @@ class FacetMobileDevice(FacetEntity):
         )
 
 
-class FacetSimCard(FacetEntity):
+class SimCardFacet(Facet):
     def __init__(
         self,
         ICCID: Optional[str] = None,
@@ -1320,7 +1255,7 @@ class FacetSimCard(FacetEntity):
         )
 
 
-class FacetOperatingSystem(FacetEntity):
+class OperatingSystemFacet(Facet):
     def __init__(
         self,
         *args: Any,
@@ -1369,7 +1304,7 @@ class FacetOperatingSystem(FacetEntity):
         )
 
 
-class FacetPathRelation(FacetEntity):
+class PathRelationFacet(Facet):
     def __init__(self, path: str) -> None:
         """
         This CASE object specifies the location of one object within another containing object.
@@ -1380,7 +1315,7 @@ class FacetPathRelation(FacetEntity):
         self._str_vars(**{"uco-observable:path": path})
 
 
-class EventRecordFacet(FacetEntity):
+class EventRecordFacet(Facet):
     def __init__(
         self,
         account: Union[None, UcoObject] = None,
@@ -1479,7 +1414,7 @@ class ObservableRelationship(Observable, Relationship):
         self["@type"] = "uco-observable:ObservableRelationship"
 
 
-class FacetApplicationAccount(FacetEntity):
+class ApplicationAccountFacet(Facet):
     def __init__(self, application=None):
         """
         An application account facet is a grouping of characteristics unique to an account within a particular software
@@ -1491,7 +1426,7 @@ class FacetApplicationAccount(FacetEntity):
         self._node_reference_vars(**{"uco-observable:application": application})
 
 
-class FacetDigitalAccount(FacetEntity):
+class DigitalAccountFacet(Facet):
     def __init__(
         self,
         display_name=None,
@@ -1521,7 +1456,7 @@ class FacetDigitalAccount(FacetEntity):
         self._bool_vars(**{"uco-observable:isDisabled": disabled})
 
 
-class FacetCellSite(FacetEntity):
+class CellSiteFacet(Facet):
     def __init__(
         self,
         cell_site_country_code: Optional[str] = None,
@@ -1556,7 +1491,7 @@ class FacetCellSite(FacetEntity):
         )
 
 
-class FacetWirelessNetworkConnection(FacetEntity):
+class WirelessNetworkConnectionFacet(Facet):
     def __init__(
         self,
         wn_base_station: Optional[str] = None,
@@ -1581,7 +1516,7 @@ class FacetWirelessNetworkConnection(FacetEntity):
         )
 
 
-class FacetSMSMessage(FacetEntity):
+class SMSMessageFacet(Facet):
     def __init__(
         self,
         msg_to=None,
@@ -1624,7 +1559,7 @@ class FacetSMSMessage(FacetEntity):
         )
 
 
-class FacetMessagethread(FacetEntity):
+class MessagethreadFacet(Facet):
     def __init__(
         self,
         visibility: Optional[bool] = None,
@@ -1687,7 +1622,7 @@ class Message(UcoObject):
         self.append_indexed_items(indexed_items)
 
 
-class FacetDiskPartition(FacetEntity):
+class DiskPartitionFacet(Facet):
     def __init__(
         self,
         serial_number=None,
@@ -1724,7 +1659,7 @@ class FacetDiskPartition(FacetEntity):
         )
 
 
-class FacetDisk(FacetEntity):
+class DiskFacet(Facet):
     def __init__(self, disk_type=None, size=None, partition=None):
         """
         Used to represent Fixed Disk
@@ -1741,52 +1676,51 @@ class FacetDisk(FacetEntity):
 
 directory = {
     "uco-observable:DomainName": ObservableDomainName,
-    "uco-observable:DomainNameFacet": FacetDomainName,
+    "uco-observable:DomainNameFacet": DomainNameFacet,
     "uco-observable:HostName": ObservableHostName,
     "uco-observable:IPv4Address": ObservableIPv4Address,
-    "uco-observable:IPv4AddressFacet": FacetIPv4Address,
+    "uco-observable:IPv4AddressFacet": IPv4AddressFacet,
     "uco-observable:AutonomousSystem": ObservableAutonomousSystem,
-    "uco-observable:AutonomousSystemFacet": FacetAutonomousSystem,
-    "uco-observable:AccountFacet": FacetAccount,
+    "uco-observable:AutonomousSystemFacet": AutonomousSystemFacet,
+    "uco-observable:AccountFacet": AccountFacet,
     "uco-observable:AccountAuthenticationFacet": AccountAuthenticationFacet,
-    "uco-observable:ContentDataFacet": FacetContentData,
-    "uco-observable:ApplicationFacet": FacetApplication,
+    "uco-observable:ContentDataFacet": ContentDataFacet,
+    "uco-observable:ApplicationFacet": ApplicationFacet,
     "uco-observable:ApplicationVersion": ObservableApplicationVersion,
-    "uco-observable:DataRangeFacet": FacetDataRange,
-    "uco-observable:DeviceFacet": FacetDevice,
-    "uco-observable:WifiAddressFacet": FacetWifiAddress,
-    "uco-observable:BluetoothAddressFacet": BluetoothAddress,
+    "uco-observable:DataRangeFacet": DataRangeFacet,
+    "uco-observable:DeviceFacet": DeviceFacet,
+    "uco-observable:WifiAddressFacet": WifiAddressFacet,
+    "uco-observable:BluetoothAddressFacet": BluetoothAddressFacet,
     "uco-observable:ObservableObject": ObservableObject,
-    "uco-observable:URLHistoryFacet": FacetUrlHistory,
-    # "uco-observable:URLHistoryEntry": UrlHistoryEntry,
-    "uco-observable:URLFacet": FacetUrl,
-    "uco-observable:RasterPictureFacet": FacetRasterPicture,
-    "uco-observable:CallFacet": FacetCall,
-    "uco-observable:PhoneAccountFacet": FacetPhoneAccount,
-    "uco-observable:EmailAccountFacet": FacetEmailAccount,
-    "uco-observable:EmailAddressFacet": FacetEmailAddress,
-    "uco-observable:EmailMessageFacet": FacetEmailMessage,
-    "uco-observable:EXIFFacet": FacetEXIF,
-    "uco-observable:ExtInodeFacet": FacetExtInode,
-    "uco-observable:CalendarEntryFacet": FacetCalendarEntry,
-    "uco-observable:BrowserCookieFacet": FacetBrowserCookie,
-    "uco-observable:FileFacet": FacetFile,
-    "uco-observable:MessageFacet": FacetMessage,
-    "uco-observable:SMSMessageFacet": FacetSMSMessage,
-    "uco-observable:MobileDeviceFacet": FacetMobileDevice,
-    "uco-observable:SIMCardFacet": FacetSimCard,
-    "uco-observable:OperatingSystemFacet": FacetOperatingSystem,
-    "uco-observable:PathRelationFacet": FacetPathRelation,
+    "uco-observable:URLHistoryFacet": UrlHistoryFacet,
+    "uco-observable:URLFacet": UrlFacet,
+    "uco-observable:RasterPictureFacet": RasterPictureFacet,
+    "uco-observable:CallFacet": CallFacet,
+    "uco-observable:PhoneAccountFacet": PhoneAccountFacet,
+    "uco-observable:EmailAccountFacet": EmailAccountFacet,
+    "uco-observable:EmailAddressFacet": EmailAddressFacet,
+    "uco-observable:EmailMessageFacet": EmailMessageFacet,
+    "uco-observable:EXIFFacet": EXIFFacet,
+    "uco-observable:ExtInodeFacet": ExtInodeFacet,
+    "uco-observable:CalendarEntryFacet": CalendarEntryFacet,
+    "uco-observable:BrowserCookieFacet": BrowserCookieFacet,
+    "uco-observable:FileFacet": FileFacet,
+    "uco-observable:MessageFacet": MessageFacet,
+    "uco-observable:SMSMessageFacet": SMSMessageFacet,
+    "uco-observable:MobileDeviceFacet": MobileDeviceFacet,
+    "uco-observable:SIMCardFacet": SimCardFacet,
+    "uco-observable:OperatingSystemFacet": OperatingSystemFacet,
+    "uco-observable:PathRelationFacet": PathRelationFacet,
     "uco-observable:EventRecordFacet": EventRecordFacet,
     "uco-observable:ObservableRelationship": ObservableRelationship,
-    "uco-observable:ApplicationAccountFacet": FacetApplicationAccount,
-    "uco-observable:DigitalAccountFacet": FacetDigitalAccount,
-    "uco-observable:WirelessNetworkConnectionFacet": FacetWirelessNetworkConnection,
-    "uco-observable:MessageThreadFacet": FacetMessagethread,
+    "uco-observable:ApplicationAccountFacet": ApplicationAccountFacet,
+    "uco-observable:DigitalAccountFacet": DigitalAccountFacet,
+    "uco-observable:WirelessNetworkConnectionFacet": WirelessNetworkConnectionFacet,
+    "uco-observable:MessageThreadFacet": MessagethreadFacet,
     "uco-observable:Message": Message,
     "uco-observable:MessageThread": MessageThread,
-    "uco-observable:DiskPartitionFacet": FacetDiskPartition,
-    "uco-observable:DiskFacet": FacetDisk,
+    "uco-observable:DiskPartitionFacet": DiskPartitionFacet,
+    "uco-observable:DiskFacet": DiskFacet,
     "uco-observable:X509Certificate": X509Certificate,
-    "uco-observable:X509CertificateFacet": FacetX509Certificate,
+    "uco-observable:X509CertificateFacet": X509CertificateFacet,
 }

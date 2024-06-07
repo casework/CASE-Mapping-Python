@@ -3,7 +3,7 @@ from typing import Any, Dict, List, Optional, Union
 
 from pytz import timezone
 
-from ..base import FacetEntity, UcoObject
+from ..base import Facet, UcoObject
 from ..uco.action import Action
 from ..uco.location import Location
 
@@ -13,7 +13,7 @@ class InvestigativeAction(Action):
         self,
         *args: Any,
         description: Optional[str] = None,
-        facets: Optional[List[FacetEntity]] = None,
+        facets: Optional[List[Facet]] = None,
         end_time: Optional[datetime] = None,
         environment: Optional[UcoObject] = None,
         instrument: Union[None, UcoObject, List[UcoObject]] = None,
