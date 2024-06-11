@@ -14,12 +14,22 @@
 #
 # We would appreciate acknowledgement if the software is used.
 
+import importlib
+
 import case_mapping
 
 
 def test_version() -> None:
-    version = case_mapping.__version__
-    assert version is not None
-    assert isinstance(version, str)
+    """
+    This test confirms the package version is retrievable and non-null.
+    """
+    version_by_init = case_mapping.__version__
+    assert version_by_init is not None
+    assert isinstance(version_by_init, str)
     # Ensure the version matches the expected major.minor.build format
-    assert len(version.split(".")) == 3
+    assert len(version_by_init.split(".")) == 3
+
+    version_by_metadata = importlib.metadata.version("case_mapping")
+    assert version_by_metadata is not None
+
+    assert version_by_init == version_by_metadata
