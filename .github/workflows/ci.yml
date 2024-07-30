@@ -15,10 +15,10 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -57,10 +57,3 @@ jobs:
       - name: Build Package
         run: |
           poetry build
-
-      # Only push to PyPi when a tag is created starting with 'v'
-      - name: Push to PyPi
-        if: startsWith(github.ref, 'refs/tags/v')
-        run: |
-          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-          poetry publish
