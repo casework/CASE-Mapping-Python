@@ -12,7 +12,7 @@ readme = "README.md"
 repository = "https://github.com/casework/CASE-Mapping-Python"
 classifiers = [
     "Development Status :: 3 - Alpha",
-    "Enviroment :: Console",
+    "Environment :: Console",
     "License :: OSI Approved :: Apache Software License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
