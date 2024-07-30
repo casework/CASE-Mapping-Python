@@ -3,6 +3,8 @@ name = "case-mapping"
 version = "0.1.0"
 description = "Classes to support representation of the CASE Cyber Ontology"
 authors = [
+]
+maintainers = [
     "Cyber Domain Ontology Maintainers <operations@cyberdomainontology.org>"
 ]
 license = "Apache-2.0"
