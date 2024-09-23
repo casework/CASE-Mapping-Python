@@ -1609,7 +1609,7 @@ class MessageThread(UcoObject):
         self.append_facets(facets)
 
 
-class Message(UcoObject):
+class Message(ObservableObject):
     def __init__(self, has_changed=None, state=None, indexed_items=None):
         """
         A message is a discrete unit of electronic communication intended by the source for consumption by some
