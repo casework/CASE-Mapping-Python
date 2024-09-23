@@ -398,6 +398,24 @@ message_thread_facet = uco.observable.MessagethreadFacet(
 message_thread_object.append_facets(message_thread_facet)
 bundle.append_to_uco_object(message_thread_object)
 
+# Create Chain of Evidence for a Message
+message_file_facet = uco.observable.FileFacet(
+    file_extension="sql",
+    file_name="messages.sql",
+    file_is_directory=False,
+)
+message_file = uco.observable.File(facets=[message_file_facet])
+bundle.append_to_uco_object(message_file)
+
+message_relation = uco.observable.ObservableRelationship(
+    source=message_object_1,
+    target=message_file,
+    kind_of_relationship="Contained_Within",
+    directional=True,
+)
+bundle.append_to_uco_object(message_relation)
+
+
 ##################################
 # Adding a Social Media Activity #
 ##################################
