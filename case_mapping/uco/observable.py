@@ -445,7 +445,13 @@ class Observable(UcoObject):
 
 
 class ObservableObject(Observable):
-    def __init__(self, *args: Any, has_changed=None, state=None, **kwargs: Any) -> None:
+    def __init__(
+        self,
+        *args: Any,
+        has_changed: Optional[bool] = None,
+        state: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
         """
         An observable object is a grouping of characteristics unique to a distinct article or unit within the digital domain.
         :param has_changed:
@@ -1610,15 +1616,13 @@ class MessageThread(UcoObject):
 
 
 class Message(ObservableObject):
-    def __init__(self, has_changed=None, state=None, indexed_items=None):
+    def __init__(self, *args: Any, indexed_items=None, **kwargs: Any) -> None:
         """
         A message is a discrete unit of electronic communication intended by the source for consumption by some
         recipient or group of recipients. [based on https://en.wikipedia.org/wiki/Message]
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:Message"
-        self._str_vars(**{"uco-observable:state": state})
-        self._bool_vars(**{"uco-observable:hasChanged": has_changed})
         self.append_indexed_items(indexed_items)
 
 
