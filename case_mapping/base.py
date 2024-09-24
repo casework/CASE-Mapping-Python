@@ -199,6 +199,7 @@ class UcoObject(UcoThing):
         created_by: Optional["IdentityAbstraction"] = None,
         description: Union[None, str, Sequence[str]] = None,
         facets: Union[None, Facet, Sequence[Facet]] = None,
+        created_time: Optional[datetime] = None,
         modified_time: Union[None, datetime, Sequence[datetime]] = None,
         object_created_time: Optional[datetime] = None,
         object_marking: Union[None, "UcoObject", Sequence["UcoObject"]] = None,
@@ -208,7 +209,15 @@ class UcoObject(UcoThing):
         **kwargs: Any,
     ) -> None:
         """
+        :param created_by: The identity that created a characterization of a concept.
+        :param created_time: The time at which a characterization of a concept is created.
+        :param description: A description of a particular concept characterization.
         :param facets: This will contain specific properties for this object
+        :param modified_time: Specifies the time that this particular version of the object was modified.
+        :param name: The name of a particular concept characterization.
+        :param object_marking: Marking definitions to be applied to a particular concept characterization in its entirety
+        :param spec_version: The version of UCO used to characterize a concept.
+        :param tag: One or more generic tags/labels.
         """
         super().__init__(*args, **kwargs)
         self["@type"] = "uco-core:UcoObject"
