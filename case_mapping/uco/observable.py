@@ -1051,26 +1051,39 @@ class CalendarEntryFacet(Facet):
 class BrowserCookieFacet(Facet):
     def __init__(
         self,
-        name=None,
-        path=None,
-        created_time=None,
-        last_access_time=None,
-        expiration_time=None,
-        secure=None,
-    ):
-        super().__init__()
+        *args: Any,
+        accessed_time: Optional[datetime] = None,
+        application: Optional[ObservableObject] = None,
+        cookie_domain: Optional[ObservableObject] = None,
+        cookie_name: Optional[str] = None,
+        cookie_path: Optional[str] = None,
+        created_time: Optional[datetime] = None,
+        expiration_time: Optional[datetime] = None,
+        is_secure: Optional[bool] = None,
+        **kwargs: Any,
+    ) -> None:
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:BrowserCookieFacet"
+        self._node_reference_vars(
+            **{
+                "uco-observable:application": application,
+                "uco-observable:cookieDomain": cookie_domain,
+            }
+        )
         self._str_vars(
-            **{"uco-observable:cookieName": name, "uco-observable:cookiePath": path}
+            **{
+                "uco-observable:cookieName": cookie_name,
+                "uco-observable:cookiePath": cookie_path,
+            }
         )
         self._datetime_vars(
             **{
                 "uco-observable:observableCreatedTime": created_time,
-                "uco-observable:lastAccessTime": last_access_time,
+                "uco-observable:accessedTime": accessed_time,
                 "uco-observable:expirationTime": expiration_time,
             }
         )
-        self._bool_vars(**{"uco-observable:isSecure": secure})
+        self._bool_vars(**{"uco-observable:isSecure": is_secure})
 
 
 class File(ObservableObject):
