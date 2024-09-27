@@ -774,8 +774,6 @@
                 "@type": "xsd:boolean",
                 "@value": true
             },
-            "olo:length": null,
-            "olo:slot": null,
             "uco-core:hasFacet": [
                 {
                     "@id": "kb:cc127ee8-9166-51c3-a531-d3fe4e6ab024",
@@ -801,8 +799,6 @@
                 "@type": "xsd:boolean",
                 "@value": true
             },
-            "olo:length": null,
-            "olo:slot": null,
             "uco-core:hasFacet": [
                 {
                     "@id": "kb:e5a13089-b18d-5a7d-9f02-6ceaa2dc616a",

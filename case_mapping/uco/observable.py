@@ -1629,14 +1629,13 @@ class MessageThread(UcoObject):
 
 
 class Message(ObservableObject):
-    def __init__(self, *args: Any, indexed_items=None, **kwargs: Any) -> None:
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
         """
         A message is a discrete unit of electronic communication intended by the source for consumption by some
         recipient or group of recipients. [based on https://en.wikipedia.org/wiki/Message]
         """
         super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:Message"
-        self.append_indexed_items(indexed_items)
 
 
 class DiskPartitionFacet(Facet):
