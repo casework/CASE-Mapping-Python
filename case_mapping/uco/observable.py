@@ -660,14 +660,14 @@ class UrlFacet(Facet):
 class BrowserBookmarkFacet(Facet):
     def __init__(
         self,
-        accessedTime=None,
-        application_id=None,
+        accessedTime: Optional[datetime] = None,
+        application_id: Optional[ObservableObject] = None,
         bookmarkPath: Optional[str] = None,
-        modifiedTime=None,
-        createdTime=None,
-        urlTargeted_id=None,
-        visitCount=None,
-    ):
+        modifiedTime: Optional[datetime] = None,
+        createdTime: Optional[datetime] = None,
+        urlTargeted_id: Optional[ObservableObject] = None,
+        visitCount: Optional[int] = None,
+    ) -> None:
         """
         This CASEObject represents a grouping of characteristics unique to a saved shortcut that directs a
         WWW (World Wide Web) browser software program to a particular WWW accessible resource.
