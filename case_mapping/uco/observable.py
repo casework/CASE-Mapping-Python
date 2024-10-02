@@ -691,7 +691,7 @@ class BrowserBookmarkFacet(Facet):
         )
         self._datetime_vars(
             **{
-                "uco-observable:observableCreatedTime": accessedTime,
+                "uco-observable:observableCreatedTime": createdTime,
                 "uco-observable:modifiedTime": modifiedTime,
                 "uco-observable:accessedTime": accessedTime,
             }
