@@ -24,3 +24,5 @@ case.ttl
 # Mac files/folders
 .DS_Store
 _*.json
+
+*.swp
