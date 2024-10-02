@@ -662,7 +662,7 @@ class BrowserBookmarkFacet(Facet):
         self,
         accessedTime=None,
         application_id=None,
-        bookmarkPath=None,
+        bookmarkPath: Optional[str] = None,
         modifiedTime=None,
         createdTime=None,
         urlTargeted_id=None,
@@ -681,7 +681,7 @@ class BrowserBookmarkFacet(Facet):
         """
         super().__init__()
         self["@type"] = "uco-observable:BrowserBookmarkFacet"
-        self._str_vars(**{"observable:bookmarkPath": bookmarkPath})
+        self._str_vars(**{"uco-observable:bookmarkPath": bookmarkPath})
         self._int_vars(**{"uco-observable:visitCount": visitCount})
         self._node_reference_vars(
             **{
