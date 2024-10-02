@@ -660,14 +660,14 @@ class UrlFacet(Facet):
 class BrowserBookmarkFacet(Facet):
     def __init__(
         self,
-        accessedTime=None,
-        application_id=None,
-        bookmarkPath=None,
-        modifiedTime=None,
-        createdTime=None,
-        urlTargeted_id=None,
-        visitCount=None,
-    ):
+        accessedTime: Optional[datetime] = None,
+        application_id: Optional[ObservableObject] = None,
+        bookmarkPath: Optional[str] = None,
+        modifiedTime: Optional[datetime] = None,
+        createdTime: Optional[datetime] = None,
+        urlTargeted_id: Optional[ObservableObject] = None,
+        visitCount: Optional[int] = None,
+    ) -> None:
         """
         This CASEObject represents a grouping of characteristics unique to a saved shortcut that directs a
         WWW (World Wide Web) browser software program to a particular WWW accessible resource.
@@ -681,7 +681,7 @@ class BrowserBookmarkFacet(Facet):
         """
         super().__init__()
         self["@type"] = "uco-observable:BrowserBookmarkFacet"
-        self._str_vars(**{"observable:bookmarkPath": bookmarkPath})
+        self._str_vars(**{"uco-observable:bookmarkPath": bookmarkPath})
         self._int_vars(**{"uco-observable:visitCount": visitCount})
         self._node_reference_vars(
             **{
@@ -691,7 +691,7 @@ class BrowserBookmarkFacet(Facet):
         )
         self._datetime_vars(
             **{
-                "uco-observable:observableCreatedTime": accessedTime,
+                "uco-observable:observableCreatedTime": createdTime,
                 "uco-observable:modifiedTime": modifiedTime,
                 "uco-observable:accessedTime": accessedTime,
             }
