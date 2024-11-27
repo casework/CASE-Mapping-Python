@@ -39,6 +39,7 @@ bundle_created_time = datetime.strptime("2024-04-28T21:38:19", "%Y-%m-%dT%H:%M:%
 bundle_modified_time = datetime.strptime("2024-05-02T21:38:19", "%Y-%m-%dT%H:%M:%S")
 
 bundle = uco.core.Bundle(
+    core_objects=[bundle_identity],
     created_by=bundle_identity,
     description="An Example Case File",
     modified_time=bundle_modified_time,
@@ -47,7 +48,6 @@ bundle = uco.core.Bundle(
     spec_version="UCO/CASE 1.3",
     tag="Artifacts extracted from a mobile phone",
 )
-bundle.append_to_uco_object(bundle_identity)
 
 investigation_items: list[base.UcoObject] = []
 

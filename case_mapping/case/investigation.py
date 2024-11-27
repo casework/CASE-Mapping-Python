@@ -5,6 +5,7 @@ from pytz import timezone
 
 from ..base import Facet, UcoObject
 from ..uco.action import Action
+from ..uco.core import ContextualCompilation
 from ..uco.location import Location
 
 
@@ -46,10 +47,8 @@ class InvestigativeAction(Action):
         self["@type"] = "case-investigation:InvestigativeAction"
 
 
-class CaseInvestigation(UcoObject):
-    def __init__(
-        self, *args: Any, focus=None, core_objects=None, **kwargs: Any
-    ) -> None:
+class CaseInvestigation(ContextualCompilation):
+    def __init__(self, *args: Any, focus=None, **kwargs: Any) -> None:
         """
         An investigative action is a CASE object that represents the who, where, when of investigation
         :param name: The name of an investigation (e.g., Murder of Suspect B,.)
@@ -66,7 +65,6 @@ class CaseInvestigation(UcoObject):
                 "case-investigation:focus": focus,
             }
         )
-        self.append_core_objects(core_objects)
 
 
 class ProvenanceRecord(UcoObject):
