@@ -579,8 +579,8 @@
             "@id": "kb:a19e1e1f-3953-5fb9-92b6-2b46f85752b2",
             "@type": "case-investigation:Investigation",
             "uco-core:name": "Crime A",
-            "case-investigation:focus": "Transfer of Illicit Materials",
             "uco-core:description": "Inquiry into the transfer of illicit materials and the devices used to do so",
+            "case-investigation:focus": "Transfer of Illicit Materials",
             "uco-core:object": [
                 {
                     "@id": "kb:9ed3e5de-cde8-5cec-a71b-774e485da67d",
