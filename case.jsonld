@@ -16,25 +16,6 @@
     "uco-core:createdBy": {
         "@id": "kb:aef8e4c4-db83-59fd-8f71-b65cd7676c0a"
     },
-    "@context": {
-        "@vocab": "http://caseontology.org/core#",
-        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
-        "drafting": "http://example.org/ontology/drafting/",
-        "co": "http://purl.org/co/",
-        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
-        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
-        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
-        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
-        "uco-role": "https://ontology.unifiedcyberontology.org/uco/role/",
-        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
-        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
-        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
-        "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
-        "xsd": "http://www.w3.org/2001/XMLSchema#",
-        "kb": "http://example.org/kb/"
-    },
     "uco-core:object": [
         {
             "@id": "kb:aef8e4c4-db83-59fd-8f71-b65cd7676c0a",
@@ -580,7 +561,6 @@
             "@type": "case-investigation:Investigation",
             "uco-core:name": "Crime A",
             "uco-core:description": "Inquiry into the transfer of illicit materials and the devices used to do so",
-            "case-investigation:focus": "Transfer of Illicit Materials",
             "uco-core:object": [
                 {
                     "@id": "kb:9ed3e5de-cde8-5cec-a71b-774e485da67d",
@@ -710,7 +690,8 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "case-investigation:focus": "Transfer of Illicit Materials"
         },
         {
             "@id": "kb:6f79d4ae-d92c-5cad-bbe5-a0afde6f475a",
@@ -1853,5 +1834,24 @@
                 }
             ]
         }
-    ]
+    ],
+    "@context": {
+        "@vocab": "http://caseontology.org/core#",
+        "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+        "drafting": "http://example.org/ontology/drafting/",
+        "co": "http://purl.org/co/",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+        "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+        "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+        "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+        "uco-role": "https://ontology.unifiedcyberontology.org/uco/role/",
+        "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+        "uco-tool": "https://ontology.unifiedcyberontology.org/uco/tool/",
+        "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+        "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+        "xsd": "http://www.w3.org/2001/XMLSchema#",
+        "kb": "http://example.org/kb/"
+    }
 }
