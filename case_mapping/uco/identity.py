@@ -1,14 +1,14 @@
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 
 from ..base import Facet, IdentityAbstraction, UcoObject
 
 
 class BirthInformationFacet(Facet):
-    def __init__(self, birthdate=None):
+    def __init__(self, *args: Any, birthdate=None, **kwargs: Any) -> None:
         """
         :param birthdate: the date of birth of an identity
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-identity:BirthInformationFacet"
         self._datetime_vars(**{"uco-identity:birthdate": birthdate})
 
@@ -31,12 +31,14 @@ class Organization(Identity):
 
 
 class SimpleNameFacet(Facet):
-    def __init__(self, given_name=None, family_name=None):
+    def __init__(
+        self, *args: Any, given_name=None, family_name=None, **kwargs: Any
+    ) -> None:
         """
         :param given_name: Full name of the identity of person
         :param family_name: Family name of identity of person
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-identity:SimpleNameFacet"
         self._str_vars(
             **{

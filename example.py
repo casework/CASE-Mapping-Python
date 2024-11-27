@@ -117,7 +117,7 @@ file_raster1 = uco.observable.RasterPictureFacet(
 )
 
 exif = {"Make": "Canon", "Model": "Powershot"}
-file_exif1 = uco.observable.EXIFFacet(**exif)
+file_exif1 = uco.observable.EXIFFacet(exif_key_value_pairs=exif)
 sd_card.append_facets(file1, file_content1, file_raster1, file_exif1)
 bundle.append_to_uco_object(sd_card)
 

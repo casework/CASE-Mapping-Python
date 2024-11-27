@@ -47,7 +47,9 @@ class InvestigativeAction(Action):
 
 
 class CaseInvestigation(UcoObject):
-    def __init__(self, name=None, focus=None, description=None, core_objects=None):
+    def __init__(
+        self, *args: Any, focus=None, core_objects=None, **kwargs: Any
+    ) -> None:
         """
         An investigative action is a CASE object that represents the who, where, when of investigation
         :param name: The name of an investigation (e.g., Murder of Suspect B,.)
@@ -57,13 +59,11 @@ class CaseInvestigation(UcoObject):
                object e.g., Persons involved in investigation, Investigation into a Murder, object refrences a
                case-object for a phone investigative action
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "case-investigation:Investigation"
         self._str_vars(
             **{
-                "uco-core:name": name,
                 "case-investigation:focus": focus,
-                "uco-core:description": description,
             }
         )
         self.append_core_objects(core_objects)

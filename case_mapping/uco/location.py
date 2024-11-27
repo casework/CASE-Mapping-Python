@@ -1,13 +1,12 @@
-from typing import Optional
+from typing import Any, Optional
 
 from ..base import Facet, UcoObject
 
 
 class Location(UcoObject):
-    def __init__(self, facets=None):
-        super().__init__()
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-location:Location"
-        self.append_facets(facets)
 
 
 class LatLongCoordinatesFacet(Facet):
