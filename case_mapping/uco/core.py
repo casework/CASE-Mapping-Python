@@ -1,12 +1,76 @@
 from datetime import datetime
-from typing import Any, List, Optional, Union
+from typing import Any, Optional, Sequence, Union
 
 from pytz import timezone
 
 from ..base import UcoObject, unpack_args_array
 
 
-class Bundle(UcoObject):
+class Compilation(UcoObject):
+    def __init__(
+        self,
+        *args: Any,
+        core_objects: Optional[Sequence[UcoObject]] = None,
+        **kwargs: Any,
+    ) -> None:
+        """
+        A compilation is a grouping of things.
+        """
+        super().__init__(*args, **kwargs)
+        self["@type"] = "uco-core:Compilation"
+        if core_objects is not None and len(core_objects) > 0:
+            self.append_core_objects(core_objects)
+
+    @unpack_args_array
+    def append_to_uco_object(self, *args) -> None:
+        """
+        Add a single/tuple of result(s) to the list of outputs from an action
+        :param args: A CASE object, or objects, often an observable. (e.g., one of many devices from a search operation)
+        """
+        self._append_observable_objects("uco-core:object", *args)
+
+
+class ContextualCompilation(Compilation):
+    def __init__(
+        self,
+        *args: Any,
+        core_objects: Sequence[UcoObject],
+        **kwargs: Any,
+    ) -> None:
+        """
+        A contextual compilation is a grouping of things sharing some context (e.g., a set of network connections observed on a given day, all accounts associated with a given person).
+
+        Future implementation note: At and before CASE 1.3.0, at least one core:object must be supplied at instantiation time of a contextual compilation.  At and after CASE 1.4.0, these objects will be optional.
+        """
+        if len(core_objects) == 0:
+            raise ValueError(
+                "A ContextualCompilation is required to have at least one UcoObject to link at initiation time.  This will become optional in CASE 1.4.0."
+            )
+        super().__init__(*args, **kwargs)
+        self["@type"] = "uco-core:ContextualCompilation"
+        self.append_core_objects(core_objects)
+
+
+class EnclosingCompilation(Compilation):
+    def __init__(
+        self,
+        *args: Any,
+        core_objects: Sequence[UcoObject],
+        **kwargs: Any,
+    ) -> None:
+        """
+        An enclosing compilation is a container for a grouping of things.
+        """
+        if len(core_objects) == 0:
+            raise ValueError(
+                "An EnclosingCompilation is required to have at least one UcoObject to link at initiation time."
+            )
+        super().__init__(*args, **kwargs)
+        self["@type"] = "uco-core:EnclosingCompilation"
+        self.append_core_objects(core_objects)
+
+
+class Bundle(EnclosingCompilation):
     def __init__(
         self,
         *args: Any,
@@ -14,6 +78,8 @@ class Bundle(UcoObject):
     ) -> None:
         """
         The main CASE Object for representing a case and its activities and objects.
+
+        Instantiating this class requires a starter sequence (set, list, or tuple) to be passed using the core_objects parameter.  (See EnclosingCompilation.)  To confirm conformant CASE will be generated, at least one UcoObject must be passed in this list.  However, this does not initially need to be the complete sequence of objects that will be in this Bundle.  Other UcoObjects can be added after initialization with bundle.append_to_uco_object.
         """
         super().__init__(*args, **kwargs)
         self.build = []  # type: ignore
@@ -39,6 +105,7 @@ class Bundle(UcoObject):
         # Assign caller-selectible prefix label and IRI, after checking
         # for conflicts with hard-coded prefixes.
         # https://www.w3.org/TR/turtle/#prefixed-name
+        assert isinstance(self["@context"], dict)
         if self.prefix_label in self["@context"]:
             raise ValueError(
                 "Requested prefix label already in use in hard-coded dictionary: '%s'.  Please revise caller to use another label."
@@ -50,14 +117,6 @@ class Bundle(UcoObject):
     @unpack_args_array
     def append_to_case_graph(self, *args):
         self._append_observable_objects("@graph", *args)
-
-    @unpack_args_array
-    def append_to_uco_object(self, *args):
-        """
-        Add a single/tuple of result(s) to the list of outputs from an action
-        :param args: A CASE object, or objects, often an observable. (e.g., one of many devices from a search operation)
-        """
-        self._append_observable_objects("uco-core:object", *args)
 
     @unpack_args_array
     def append_to_rdfs_comments(self, *args):
@@ -119,4 +178,8 @@ class Relationship(UcoObject):
         }
 
 
-directory = {"uco-core:Bundle": Bundle}
+directory = {
+    "uco-core:Bundle": Bundle,
+    "uco-core:Compilation": Compilation,
+    "uco-core:ContextualCompilation": ContextualCompilation,
+}

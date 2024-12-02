@@ -1,3 +1,5 @@
+from typing import Any
+
 from ..base import Facet, UcoObject, unpack_args_array
 
 
@@ -175,6 +177,7 @@ class BlockHasherUploadFacet(Facet):
 class SocialMediaActivityFacet(Facet):
     def __init__(
         self,
+        *args: Any,
         body=None,
         page_title=None,
         author_identifier=None,
@@ -187,7 +190,8 @@ class SocialMediaActivityFacet(Facet):
         created_time=None,
         application=None,
         url=None,
-    ):
+        **kwargs: Any,
+    ) -> None:
         """
         Used to represent activity on social platfomrs
         :param body: The text of the post/message
@@ -203,7 +207,7 @@ class SocialMediaActivityFacet(Facet):
         :param application: the application used for creating the post
         :param application: the URL of the post
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
 
         self["@type"] = ["drafting:SocialMediaActivityFacet", "uco-core:Facet"]
 

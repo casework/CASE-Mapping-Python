@@ -209,7 +209,9 @@ class X509CertificateFacet(Facet):
 
 
 class AccountFacet(Facet):
-    def __init__(self, identifier=None, is_active=True, issuer_id=None):
+    def __init__(
+        self, *args: Any, identifier=None, is_active=True, issuer_id=None, **kwargs: Any
+    ) -> None:
         """
         Used to represent user accounts
         :param is_active: Active unless specified otherwise (False)
@@ -217,7 +219,7 @@ class AccountFacet(Facet):
         :param issuer_id: The id of issuing body for application
                           (e.g., kb:organization-skypeapp-cc44c2ae-bdd3-4df8-9ca3-1f58d682d62b)
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:AccountFacet"
         self._bool_vars(**{"uco-observable:isActive": is_active})
         self._str_vars(
@@ -292,6 +294,7 @@ class MobileAccountFacet(Facet):
 class ContentDataFacet(Facet):
     def __init__(
         self,
+        *args: Any,
         byte_order=None,
         magic_number=None,
         mime_type=None,
@@ -301,7 +304,8 @@ class ContentDataFacet(Facet):
         is_encrypted=None,
         hash_method=None,
         hash_value=None,
-    ):
+        **kwargs: Any,
+    ) -> None:
         """
         The characteristics of a block of digital data.
         :param byte_order: Byte order of data. Example - "BigEndian"
@@ -314,7 +318,7 @@ class ContentDataFacet(Facet):
         :param hash_method: The algorithm used to calculate the hash value
         :param hash_value: The cryptographic hash of this content
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:ContentDataFacet"
         self._str_vars(
             **{
@@ -334,7 +338,7 @@ class ContentDataFacet(Facet):
             }
 
         if hash_method is not None or hash_value is not None or hash_value != "-":
-            data = {
+            data: dict[str, Any] = {
                 "@id": self.prefix_label + ":" + str(local_uuid()),
                 "@type": "uco-types:Hash",
             }
@@ -392,7 +396,15 @@ class DataRangeFacet(Facet):
 
 
 class DeviceFacet(Facet):
-    def __init__(self, device_type=None, manufacturer=None, model=None, serial=None):
+    def __init__(
+        self,
+        *args: Any,
+        device_type=None,
+        manufacturer=None,
+        model=None,
+        serial=None,
+        **kwargs: Any,
+    ) -> None:
         """
         Characteristics of a piece of electronic equipment.
         :param device_type: The type of device (e.g., "camera")
@@ -400,7 +412,7 @@ class DeviceFacet(Facet):
         :param model: The model of the device (e.g., "Powershot SX540")
         :param serial: The serial phone_number of the device (e.g., "1296-3219-8792-CL918")
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:DeviceFacet"
         self._node_reference_vars(**{"uco-observable:manufacturer": manufacturer})
         self._str_vars(
@@ -519,7 +531,9 @@ class ApplicationFacet(Facet):
 
 
 class UrlHistoryFacet(Facet):
-    def __init__(self, browser=None, history_entries=None):
+    def __init__(
+        self, *args: Any, browser=None, history_entries=None, **kwargs: Any
+    ) -> None:
         """
         :param browser_info: An observable object containing a URLHistoryFacet
         :param history_entries: A list of dictionaries, each dict has the
@@ -536,7 +550,7 @@ class UrlHistoryFacet(Facet):
             "uco-observable:url": url_object,
             "uco-observable:visitCount": int,
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:URLHistoryFacet"
         self._node_reference_vars(
             **{
@@ -561,7 +575,7 @@ class UrlHistoryFacet(Facet):
 
         self["uco-observable:urlHistoryEntry"] = []
         for entry in history_entries:
-            history_entry = {}
+            history_entry: dict[str, Any] = dict()
             history_entry["@id"] = self.prefix_label + ":" + local_uuid()
             history_entry["@type"] = "uco-observable:URLHistoryEntry"
             for key, var in entry.items():
@@ -619,6 +633,7 @@ class UrlHistoryFacet(Facet):
 class UrlFacet(Facet):
     def __init__(
         self,
+        *args: Any,
         url_address=None,
         url_port=None,
         url_host=None,
@@ -628,7 +643,8 @@ class UrlFacet(Facet):
         url_query=None,
         url_scheme=None,
         url_username=None,
-    ):
+        **kwargs: Any,
+    ) -> None:
         """
         :param url_address: an address of a url (i.e. google.ie)
         :param url_port: a tcp or udp port of a url for example 3000
@@ -640,7 +656,7 @@ class UrlFacet(Facet):
         :param url_scheme:  Identifies the type of URL. (e.g. ssh://)
         :param url_username: A username that may be required for authentication for a specific resource. (login)
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:URLFacet"
         self._str_vars(
             **{
@@ -701,13 +717,15 @@ class BrowserBookmarkFacet(Facet):
 class RasterPictureFacet(Facet):
     def __init__(
         self,
+        *args: Any,
         camera_id=None,
         bits_per_pixel=None,
         picture_height=None,
         picture_width=None,
         image_compression_method=None,
         picture_type=None,
-    ):
+        **kwargs: Any,
+    ) -> None:
         """
         This CASEObject represents the contents of a file or device
         :param camera_id: An observable cyberitem
@@ -717,7 +735,7 @@ class RasterPictureFacet(Facet):
         :param image_compression_method: The compression method used
         :param picture_type: The type of picture ("jpg", "png" etc.)
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:RasterPictureFacet"
         self._str_vars(
             **{
@@ -786,11 +804,11 @@ class CallFacet(Facet):
 
 
 class PhoneAccountFacet(Facet):
-    def __init__(self, phone_number=None):
+    def __init__(self, *args: Any, phone_number=None, **kwargs: Any) -> None:
         """
         :param phone_number: The number for this account (e.g., "+16503889249")
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:PhoneAccountFacet"
         self._str_vars(
             **{
@@ -800,22 +818,24 @@ class PhoneAccountFacet(Facet):
 
 
 class EmailAccountFacet(Facet):
-    def __init__(self, email_address):
+    def __init__(self, *args: Any, email_address, **kwargs: Any) -> None:
         """
         :param email_address: An ObservableObject (with EmailAdressFacet)
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:EmailAccountFacet"
         self._node_reference_vars(**{"uco-observable:emailAddress": email_address})
 
 
 class EmailAddressFacet(Facet):
-    def __init__(self, email_address_value=None, display_name=None):
+    def __init__(
+        self, *args: Any, email_address_value=None, display_name=None, **kwargs: Any
+    ) -> None:
         """
         Used to represent the value of an email address.
         :param email_address_value: a single email address (e.g., "bob@example.com")
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:EmailAddressFacet"
         self._str_vars(
             **{
@@ -828,6 +848,7 @@ class EmailAddressFacet(Facet):
 class EmailMessageFacet(Facet):
     def __init__(
         self,
+        *args: Any,
         msg_to=None,
         msg_from=None,
         cc=None,
@@ -853,7 +874,8 @@ class EmailMessageFacet(Facet):
         is_mime_encoded=None,
         allocation_status=None,
         is_multipart=None,
-    ):
+        **kwargs: Any,
+    ) -> None:
         """
         An instance of an email message, corresponding to the internet message format described in RFC 5322 and related.
         :param msg_to: A list of ObservableObjects (with EmailAccountFacet)
@@ -882,7 +904,7 @@ class EmailMessageFacet(Facet):
         :param is_multipart: A boolean True/False
         :param allocation_status:
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:EmailMessageFacet"
         self._str_vars(
             **{
@@ -928,12 +950,14 @@ class EmailMessageFacet(Facet):
 
 
 class EXIFFacet(Facet):
-    def __init__(self, **kwargs):
+    def __init__(
+        self, *args: Any, exif_key_value_pairs: dict[str, str], **kwargs: Any
+    ) -> None:
         """
         Specifies exchangeable image file format (Exif) metadata tags for image and sound files recorded by digital cameras.
         :param kwargs: The user provided key/value pairs of exif items (e.g., Make="Canon", etc.).
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:EXIFFacet"
 
         self["uco-observable:exifData"] = {
@@ -941,7 +965,7 @@ class EXIFFacet(Facet):
             "@type": "uco-types:ControlledDictionary",
             "uco-types:entry": [],
         }
-        for k, v in kwargs.items():
+        for k, v in exif_key_value_pairs.items():
             if v not in ["", " "]:
                 item = {
                     "@id": self.prefix_label + ":" + str(local_uuid()),
@@ -1147,6 +1171,7 @@ class FileFacet(Facet):
 class MessageFacet(Facet):
     def __init__(
         self,
+        *args: Any,
         msg_to=None,
         msg_from=None,
         message_text=None,
@@ -1155,7 +1180,8 @@ class MessageFacet(Facet):
         message_type=None,
         message_id=None,
         session_id=None,
-    ):
+        **kwargs: Any,
+    ) -> None:
         """
         Characteristics of an electronic message.
         :param msg_to: A list of ObservableObjects
@@ -1167,7 +1193,7 @@ class MessageFacet(Facet):
         :param message_id: A unique identifier for the message.
         :param session_id: The priority of the email.
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:MessageFacet"
         self._str_vars(
             **{
@@ -1434,13 +1460,13 @@ class ObservableRelationship(Observable, Relationship):
 
 
 class ApplicationAccountFacet(Facet):
-    def __init__(self, application=None):
+    def __init__(self, *args: Any, application=None, **kwargs: Any) -> None:
         """
         An application account facet is a grouping of characteristics unique to an account within a particular software
         program designed for end users.
         :param application: An Observable Object (containing an Application Facet)
         """
-        super().__init__()
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:ApplicationAccountFacet"
         self._node_reference_vars(**{"uco-observable:application": application})
 
@@ -1620,12 +1646,10 @@ class MessagethreadFacet(Facet):
         self._append_refs("uco-observable:participant", *args)
 
 
-class MessageThread(UcoObject):
-    def __init__(self, name=None, facets=None):
-        super().__init__()
+class MessageThread(ObservableObject):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:MessageThread"
-        self._str_vars(**{"uco-core:name": name})
-        self.append_facets(facets)
 
 
 class Message(ObservableObject):
