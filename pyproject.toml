@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "case-mapping"
-version = "0.2.0"
+version = "0.2.1"
 description = "Classes to support representation of the CASE Cyber Ontology"
 authors = [
 ]
