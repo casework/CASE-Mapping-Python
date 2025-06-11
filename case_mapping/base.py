@@ -54,7 +54,7 @@ class UcoThing(dict):
     def __str__(self):
         return json.dumps(self, indent=4)
 
-    def get_id(self):
+    def get_id(self) -> str:
         return self["@id"]
 
     def _append_stuff(self, key, *args, refs=False, objects=False):
