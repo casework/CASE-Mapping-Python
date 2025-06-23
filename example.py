@@ -45,7 +45,7 @@ bundle = uco.core.Bundle(
     modified_time=bundle_modified_time,
     name="json ld file",
     object_created_time=bundle_created_time,
-    spec_version="UCO/CASE 1.3",
+    spec_version="UCO/CASE 1.4",
     tag="Artifacts extracted from a mobile phone",
 )
 
@@ -67,17 +67,24 @@ os_env_vars = {
 }
 manufacturer_apple = uco.identity.Organization(name="Apple")
 
+# TODO AJN: Modeling suggestion - The SoftwareFacet and
+# OperatingSystemFacet pertain to an OperatingSystem object, not the
+# Device object.  There needs to be a model of the time-bounded
+# relationship between device and OS, whether a Relationship or a
+# time-bounding on the OperatingSystem object.
+software_facet = uco.observable.SoftwareFacet(
+    manufacturer=manufacturer_apple,
+    version="17.4.1",
+)
 os_facet = uco.observable.OperatingSystemFacet(
-    os_manufacturer=manufacturer_apple,
     os_advertisingID="DX4CDXKN",
     os_bitness="64-bit",
     os_install_date=os_date,
     os_isLimitAdTrackingEnabled=True,
-    os_version="17.4.1",
     os_environment_variables=os_env_vars,
 )
 
-device_camera.append_facets(device1, os_facet)
+device_camera.append_facets(device1, software_facet, os_facet)
 bundle.append_to_uco_object(device_camera)
 
 ##################################
@@ -863,16 +870,18 @@ app_install_version_3_object = uco.observable.ObservableApplicationVersion(
 )
 
 os_object = uco.observable.ObservableObject()
+software_facet = uco.observable.SoftwareFacet(
+    manufacturer=manufacturer_apple,
+    version="17.4.1",
+)
 os_facet = uco.observable.OperatingSystemFacet(
-    os_manufacturer=manufacturer_apple,
     os_advertisingID="XX908WN",
     os_bitness="64-bit",
     os_install_date=os_date,
     os_isLimitAdTrackingEnabled=True,
-    os_version="17.4.1",
     os_environment_variables=os_env_vars,
 )
-os_object.append_facets(os_facet)
+os_object.append_facets(software_facet, os_facet)
 bundle.append_to_uco_object(os_object)
 
 app_telegram_facet = uco.observable.ApplicationFacet(

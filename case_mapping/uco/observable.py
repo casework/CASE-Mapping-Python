@@ -332,10 +332,7 @@ class ContentDataFacet(Facet):
         self._bool_vars(**{"uco-observable:isEncrypted": is_encrypted})
 
         if byte_order:
-            self["uco-observable:byteOrder"] = {
-                "@type": "uco-vocabulary:EndiannessTypeVocab",
-                "@value": byte_order,
-            }
+            self["uco-observable:byteOrder"] = byte_order
 
         if hash_method is not None or hash_value is not None or hash_value != "-":
             data: dict[str, Any] = {
@@ -343,10 +340,7 @@ class ContentDataFacet(Facet):
                 "@type": "uco-types:Hash",
             }
             if hash_method is not None:
-                data["uco-types:hashMethod"] = {
-                    "@type": "uco-vocabulary:HashNameVocab",
-                    "@value": hash_method,
-                }
+                data["uco-types:hashMethod"] = hash_method
             if hash_value is not None:
                 data["uco-types:hashValue"] = {
                     "@type": "xsd:hexBinary",
@@ -1300,17 +1294,39 @@ class SimCardFacet(Facet):
         )
 
 
+class SoftwareFacet(Facet):
+    def __init__(
+        self,
+        *args: Any,
+        manufacturer: Optional[Identity] = None,
+        version: Optional[str] = None,
+        **kwargs: Any,
+    ) -> None:
+        super().__init__()
+
+        self["@type"] = "uco-observable:SoftwareFacet"
+
+        self._str_vars(
+            **{
+                "uco-observable:version": version,
+            }
+        )
+        self._node_reference_vars(
+            **{
+                "uco-observable:manufacturer": manufacturer,
+            }
+        )
+
+
 class OperatingSystemFacet(Facet):
     def __init__(
         self,
         *args: Any,
         os_advertisingID: Optional[str] = None,
         os_bitness: Optional[str] = None,
+        os_environment_variables: Union[None, Dict, Dictionary] = None,
         os_install_date: Optional[datetime] = None,
         os_isLimitAdTrackingEnabled: Optional[bool] = None,
-        os_manufacturer: Union[None, Identity] = None,
-        os_version: Optional[str] = None,
-        os_environment_variables: Union[None, Dict, Dictionary] = None,
         **kwargs: Any,
     ):
         super().__init__()
@@ -1334,18 +1350,12 @@ class OperatingSystemFacet(Facet):
             **{
                 "uco-observable:advertisingID": os_advertisingID,
                 "uco-observable:bitness": os_bitness,
-                "uco-observable:version": os_version,
             }
         )
         self._datetime_vars(**{"uco-observable:installDate": os_install_date})
 
         self._bool_vars(
             **{"uco-observable:isLimitAdTrackingEnabled": os_isLimitAdTrackingEnabled}
-        )
-        self._node_reference_vars(
-            **{
-                "uco-observable:manufacturer": os_manufacturer,
-            }
         )
 
 
