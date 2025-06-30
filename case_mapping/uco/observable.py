@@ -1,5 +1,6 @@
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Union
+from warnings import warn
 
 from cdo_local_uuid import local_uuid
 
@@ -1329,6 +1330,17 @@ class OperatingSystemFacet(Facet):
         os_isLimitAdTrackingEnabled: Optional[bool] = None,
         **kwargs: Any,
     ):
+        if "os_manufacturer" in kwargs:
+            warn(
+                "'os_manufacturer' should not be used on an OperatingSystemFacet as of UCO 1.4.0.  Instead, use 'manufacturer' on a SoftwareFacet attached to the same OperatingSystem object.",
+                DeprecationWarning,
+            )
+        if "os_version" in kwargs:
+            warn(
+                "'os_version' should not be used on an OperatingSystemFacet as of UCO 1.4.0.  Instead, use 'version' on a SoftwareFacet attached to the same OperatingSystem object.",
+                DeprecationWarning,
+            )
+
         super().__init__()
 
         self["@type"] = "uco-observable:OperatingSystemFacet"
