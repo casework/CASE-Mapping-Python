@@ -10,7 +10,6 @@ class Compilation(UcoObject):
     def __init__(
         self,
         *args: Any,
-        core_objects: Optional[Sequence[UcoObject]] = None,
         **kwargs: Any,
     ) -> None:
         """
@@ -18,8 +17,6 @@ class Compilation(UcoObject):
         """
         super().__init__(*args, **kwargs)
         self["@type"] = "uco-core:Compilation"
-        if core_objects is not None and len(core_objects) > 0:
-            self.append_core_objects(core_objects)
 
     @unpack_args_array
     def append_to_uco_object(self, *args) -> None:
@@ -34,21 +31,16 @@ class ContextualCompilation(Compilation):
     def __init__(
         self,
         *args: Any,
-        core_objects: Sequence[UcoObject],
+        core_objects: Optional[Sequence[UcoObject]] = None,
         **kwargs: Any,
     ) -> None:
         """
         A contextual compilation is a grouping of things sharing some context (e.g., a set of network connections observed on a given day, all accounts associated with a given person).
-
-        Future implementation note: At and before CASE 1.3.0, at least one core:object must be supplied at instantiation time of a contextual compilation.  At and after CASE 1.4.0, these objects will be optional.
         """
-        if len(core_objects) == 0:
-            raise ValueError(
-                "A ContextualCompilation is required to have at least one UcoObject to link at initiation time.  This will become optional in CASE 1.4.0."
-            )
         super().__init__(*args, **kwargs)
         self["@type"] = "uco-core:ContextualCompilation"
-        self.append_core_objects(core_objects)
+        if core_objects is not None and len(core_objects) > 0:
+            self.append_core_objects(core_objects)
 
 
 class EnclosingCompilation(Compilation):
