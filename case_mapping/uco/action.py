@@ -48,10 +48,7 @@ class Action(UcoObject):
             }
         )
         if action_status:
-            self["uco-action:actionStatus"] = {
-                "@type": "uco-vocabulary:ActionStatusTypeVocab",
-                "@value": action_status,
-            }
+            self["uco-action:actionStatus"] = action_status
         self._datetime_vars(
             **{"uco-action:startTime": start_time, "uco-action:endTime": end_time}
         )
