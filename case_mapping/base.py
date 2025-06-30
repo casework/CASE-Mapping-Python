@@ -61,12 +61,11 @@ class UcoThing(dict):
         if len(args) == 1 and not args[0]:  # True if no objects to append provided
             pass
         else:
-            if len(args) and self.get(key) is None:
-                self[key] = list()
-            elif len(args) and isinstance(
-                self[key], dict
-            ):  # if single ref add it to list
-                self[key] = [self[key]]
+            if len(args):
+                if self.get(key) is None:
+                    self[key] = list()
+                elif isinstance(self[key], dict):  # if single ref add it to list
+                    self[key] = [self[key]]
             for item in args:
                 if isinstance(item, UcoThing):
                     if refs:
