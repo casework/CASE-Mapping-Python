@@ -246,9 +246,9 @@ class UcoObject(UcoThing):
     @unpack_args_array
     def append_facets(self, *args):
         """
-        :param args: A single/tuple of ObservableObjects
+        :param args: A single/tuple of Facets
         """
-        self._append_observable_objects("uco-core:hasFacet", *args)
+        self._append_stuff("uco-core:hasFacet", *args, objects=True)
 
     @unpack_args_array
     def append_core_objects(self, *args):
