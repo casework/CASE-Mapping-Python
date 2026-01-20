@@ -96,11 +96,11 @@ def test_app_name() -> None:
 def test_geo_coordinates() -> None:
     geo_coordinates: list[str] = list()
     geo_objects: list[dict[str, Any]] = list()
-    (lat_1, long_1, uuid_1) = (56.47267913, -71.17069244, "kb:" + str(uuid.uuid4()))
+    lat_1, long_1, uuid_1 = (56.47267913, -71.17069244, "kb:" + str(uuid.uuid4()))
     check_geo_coordinates(lat_1, long_1, geo_coordinates, geo_objects, uuid_1)
     # print(f"\n 1) FT geo_coordinates={geo_coordinates}")
     assert geo_coordinates == [str(lat_1) + "#" + str(long_1)]
-    (lat_2, long_2, uuid_2) = (88.26801306, 13.21980922, "kb:" + str(uuid.uuid4()))
+    lat_2, long_2, uuid_2 = (88.26801306, 13.21980922, "kb:" + str(uuid.uuid4()))
     check_geo_coordinates(lat_2, long_2, geo_coordinates, geo_objects, uuid_2)
     # print(f"\n 2) FT geo_coordinates={geo_coordinates}")
     assert geo_coordinates == [
