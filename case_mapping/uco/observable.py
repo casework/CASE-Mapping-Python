@@ -321,6 +321,12 @@ class ContentDataFacet(Facet):
         """
         super().__init__(*args, **kwargs)
         self["@type"] = "uco-observable:ContentDataFacet"
+        if mime_type == "image/jpg":
+            warn(
+                "observable:mimeType 'image/jpg' is not an IANA media type; use 'image/jpeg'.",
+                UserWarning,
+                stacklevel=2,
+            )
         self._str_vars(
             **{
                 "uco-observable:magicNumber": magic_number,
@@ -1142,6 +1148,12 @@ class FileFacet(Facet):
         """
         super().__init__()
         self["@type"] = "uco-observable:FileFacet"
+        if file_mime_type == "image/jpg":
+            warn(
+                "observable:mimeType 'image/jpg' is not an IANA media type; use 'image/jpeg'.",
+                UserWarning,
+                stacklevel=2,
+            )
         self._str_vars(
             **{
                 "uco-observable:fileName": file_name,
