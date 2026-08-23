@@ -1105,6 +1105,12 @@ class BrowserCookieFacet(Facet):
         self._bool_vars(**{"uco-observable:isSecure": is_secure})
 
 
+class Device(ObservableObject):
+    def __init__(self, *args: Any, **kwargs: Any) -> None:
+        super().__init__(*args, **kwargs)
+        self["@type"] = "uco-observable:Device"
+
+
 class File(ObservableObject):
     def __init__(self, *args: Any, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
