@@ -54,7 +54,7 @@ investigation_items: list[base.UcoObject] = []
 ############################################
 # A DeviceFacet and a OperatingSystemFacet #
 ############################################
-device_camera = uco.observable.ObservableObject()
+device_camera = uco.observable.Device()
 manufacturer_nikon = uco.identity.Organization(name="Nikon")
 bundle.append_to_uco_object(manufacturer_nikon)
 device1 = uco.observable.DeviceFacet(manufacturer=manufacturer_nikon, model="D750")
